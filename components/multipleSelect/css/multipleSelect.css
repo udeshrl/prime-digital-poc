@@ -1,0 +1,121 @@
+html,body
+{
+	margin:0;
+	padding:0;
+	user-select:none;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+}
+.multipleselect_mainContainer
+{
+	position:absolute !important;
+	border:1px solid black;
+	margin : 0 auto;
+	background-color:rgba(0,0,0,0) !important;
+	z-index:10;
+	
+}
+.multipleselect_controlPanel
+{
+	position:absolute !important;
+	left:0px;
+	width:210px !important;
+	bottom: auto;
+	right: auto;
+	background-color:#DDD;
+	z-index:91;
+	cursor: move;
+	text-align: center;
+}
+
+.multipleselect_controlPanel label{
+    text-align: left;
+    width: 110px;
+}
+
+.multipleselect_controlPanel input, .multipleselect_controlPanel select, .multipleselect_controlPanel textarea{
+    width: 64px;
+}
+
+.multipleselect_contentArea
+{
+	position:relative !important;
+	height:100% !important;
+	width:100% !important;
+	border:1px solid black;
+	border-radius: 10px 10px;
+	margin : 0 auto;
+	background-color:rgba(0,0,0,0) !important;
+}
+.multipleselect_controlPanel .button_decorator
+{
+	margin:0px 10px 10px 0px !important; 
+	width:186px;
+}
+.multipleselect_controlPanel .pop-row
+{
+	margin:0px auto 10px; 
+	width:186px;
+}
+.multipleselect_submit
+{
+	float:right;
+}
+.multipleselect_contentArea>img
+{
+	width: 150px;
+	height: 150px;
+	margin: 39px 22px 0 13px;
+}
+.multipleselect_disableDiv
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	background-color:white;
+	opacity:0.7;
+}
+.multipleselect_hotSpotCan
+{
+	position:absolute !important;
+	width:10%;
+	height:10%;
+	cursor:move;
+	left:5%;
+	top:5%;
+	border:2px solid red;
+	opacity:100 !important;
+	border-radius:100% 100% !important;
+	-webkit-border-radius:100% 100%;
+	-moz-border-radius:100% 100%;
+	behavior: url("lib/PIE.htc");
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);					
+}
+.multipleselect_hotSpotCanSquare{
+	border-radius:0 !important;
+}
+
+.multipleselect_panelEle.hideTick{
+	display:none;
+}
+.tickImg{
+	bottom: 0;
+    height: 32%;
+    left: 0;
+    margin: auto;
+    max-height: 32px;
+    min-height: 24px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 32%;
+    text-align: center;
+    display: none;
+}
+.tickImg img{
+	width: auto;
+	height: 100%;
+}

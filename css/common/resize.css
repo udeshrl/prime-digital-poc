@@ -1,0 +1,64 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+.ui-resizable-handle {
+    width: 10px;
+    height: 10px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+}
+
+.ui-resizable-n {
+    top: -10px;
+    left: 45%;
+    cursor: n-resize;
+}
+
+.ui-resizable-e {
+    right: -10px;
+    top: 40%;
+    cursor: e-resize;
+}
+
+.ui-resizable-s {
+    bottom: -10px;
+    left: 45%;
+    cursor: s-resize;
+}
+
+.ui-resizable-w {
+    left: -10px;
+    top: 40%;
+    cursor: w-resize;
+}
+
+.ui-resizable-nw {
+    left: -10px;
+    top: -10px;
+    cursor: nw-resize;
+}
+
+.ui-resizable-ne {
+    top: -10px;
+    right: -10px;
+    cursor: ne-resize;
+}
+
+.ui-resizable-sw {
+    bottom: -10px;
+    left: -10px;
+    cursor: sw-resize;
+}
+
+.ui-resizable-se {
+    bottom: -10px;
+    right: -10px;
+    cursor: se-resize;
+}

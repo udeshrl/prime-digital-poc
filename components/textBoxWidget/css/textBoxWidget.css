@@ -1,0 +1,38 @@
+/*placing any div in the center*/
+
+#textbox_pop_singleton{
+    width: 360px;
+ }
+
+.wid .graph_button_decorator{
+    background-color: #EEEEEE;
+    border: medium none;
+    box-shadow: 0 1px 2px #999999;
+    color: #666666;
+    margin-left: 10px;
+    margin-top: 15px;
+    float: left;
+    cursor: pointer;
+}
+.graph_button_decorator:active{
+    box-shadow: none;
+    margin-top: 16px;
+}
+input.tbwid, textarea.tbwid{
+ background:transparent;
+     font-weight:bold;
+    text-align:center;
+    padding: 0px;
+    border:0px;
+    margin:0px;
+  }
+ textarea.tbwid{
+  	resize: none;
+ }
+ .alignText{
+ 	text-align:left !important;
+ }
+/*
+.wid option{
+    z-index:1;
+}*/

@@ -1,0 +1,21 @@
+<div class="cntrl-btns">
+    <div id="playerNavigation">
+         <ul class="pagination">
+        <li class="navli"  ng-class="!prevLink ?'deactive':''">
+            <a ng-if="prevLink" ng-href="#/quiz/question/{{previous}}"><button id="btn-previous">Previous</button></a>
+            <button ng-if="!prevLink" id="btn-previous">Previous</button>
+        </li>
+        <li ng-repeat="question in questionArr" class="navli" ng-class="($index == current) ?'active':''">
+            <a ng-href="#/quiz/question/{{$index}}" >{{$index + 1}}</a>
+        </li>
+        <li class="navli"  ng-class="!nextLink ?'deactive':''">
+            <a ng-if="nextLink" ng-href="#/quiz/question/{{next}}"><button id="btn-next">Next</button></a>
+            <button ng-if="!nextLink" id="btn-next">Next</button>
+        </li>
+         </ul>
+    </div>
+    <div id="btnSection">
+        <a ng-href="#/result"><button class="authorButton">Submit</button></a>
+    </div>
+</div>
+

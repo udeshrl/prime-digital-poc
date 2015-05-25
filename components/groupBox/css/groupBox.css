@@ -1,0 +1,12 @@
+/*placing any div in the center*/
+
+.popup_container-groupbox {
+    width: 390px !important;
+}
+div.wPar {
+    border: 1px solid black;
+    position: absolute;
+}
+.group_box_structure{
+    z-index:-1;border: 1px solid red; padding: 5px;
+}

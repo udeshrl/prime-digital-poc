@@ -1,0 +1,94 @@
+.divisionWidget{
+    border-left:1px solid #f1f1f1;
+    font-size:inherit;
+}
+
+.divisionWidget .Addgridsquare{
+    border-bottom: 1px solid #f1f1f1;
+	border-right: 1px solid #f1f1f1;
+	float: left;
+	text-align: center;
+	width: 40px;
+	height: 40px;
+        line-height: 40px;
+}
+
+.divisionWidget input{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+     font-size:inherit;
+}
+
+.divisionWidget .quotientField{
+    width:40px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: transparent;
+    color:black;
+    font-size:inherit;
+}
+
+.divisionWidget .dividendField{
+    width:40px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: transparent;
+    color:black;
+    font-size:inherit;
+}
+
+.divisionWidget  .firstSetOfStepFields{
+    width:40px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    color:black;
+    font-weight:normal;
+    background-color: transparent;
+    /* font-size:16px; */
+} 
+
+.divisionWidget  .remainderFields{
+    width:40px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    color:black;
+    background-color: transparent;
+    font-size:inherit;
+}
+
+.divisionWidget  .extraStepFields{
+    width:40px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    color:black;
+    font-weight:normal;
+    background-color: transparent;
+} 
+
+#divisionWidget_pop_singleton{
+    width: 450px;
+}
+
+#divisionWidget_pop_singleton label{
+    width: 275px;
+}
+
+/* div#arc  {
+    border: 1px solid #000;
+	display: inline-block;
+	min-width: 40px;
+	min-height: 38px;
+	border-radius: 50%;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+	border-right: transparent;
+	position: relative;
+	left: -32px;
+	top: -7px; 
+} */

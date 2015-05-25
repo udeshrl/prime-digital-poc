@@ -1,0 +1,101 @@
+/* #row1{
+    border-bottom:1px solid #f1f1f1;
+} */
+
+.additionWidget{
+    border-left:1px solid #f1f1f1;
+    font-size:inherit;
+}
+
+.additionWidget .Addgridsquare{
+    border-bottom: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
+    float: left;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+
+
+.additionWidget input{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+.additionWidget .answerField{
+    width:40px;
+    line-height: 40px;
+    height:40px;
+    text-align: center;
+    background-color: transparent;
+    color:black;
+    font-size:inherit;
+}
+
+.additionWidget  .carryField{
+    width:40px;
+    height:20px;
+    line-height: 20px;
+    text-align: center;
+    color:black;
+    background-color: transparent;
+    font-size:12px;
+}
+.additionWidget #row2 .Addgridsquare {
+	height:20px;	
+        line-height: 20px;
+}
+
+.additionWidget #row2 .AddgridsquareFull {
+	height:20px;	
+        line-height: 20px;
+}
+
+
+#additionWidget_pop_singleton{
+    width: 450px;
+}
+
+#additionWidget_pop_singleton label{
+    width: 275px;
+}
+.additionWidget #row1 .digit{
+
+}
+
+.additionWidget .additionDecorator{
+	
+}
+/*Full abbreviation Grid  */
+.additionWidget .AddgridsquareFull{
+    border-bottom: 1px solid #f1f1f1;
+	border-right: 1px solid #f1f1f1;
+	float: left;
+	text-align: center;
+	width: 90px;
+	height: 40px;
+        line-height: 40px;
+}
+
+.additionWidget .answerFieldFull{
+    width:90px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: transparent;
+    color:black;
+    font-size:inherit;
+}
+
+.additionWidget  .carryFieldFull{
+    width:90px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    color:black;
+    background-color: transparent;
+    font-size:inherit;
+}

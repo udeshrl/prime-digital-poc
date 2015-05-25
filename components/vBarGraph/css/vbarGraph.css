@@ -1,0 +1,255 @@
+.gridsquare{
+    width: 200px;
+    height: 200px;
+    border: 1px solid #cccccc;
+    float: left;
+}
+.vertical_graph_container .horizontal-line{
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    background: #dddddd;
+}
+.vertical_graph_container .vertical-line{
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    background-color: #dddddd;
+}
+.vertical_graph_container .major-horizontal-line{
+	background: none repeat scroll 0 0 #000000;
+    height: 1px;
+    left: -5px;
+    position: absolute;
+    width: 10px;
+    z-index: 1;
+}
+.vertical_graph_container .minor-horizontal-line{
+	background: none repeat scroll 0 0 #701111;
+    height: 1px;
+    left: -3px;
+    position: absolute;
+    width: 3px;
+    z-index: 1;
+}
+
+.vertical_graph_container .major-vertical-line{
+    background-color: #000000;
+    bottom: 0;
+    height: 9px;
+    position: absolute;
+    width: 1px;
+    z-index: 1;
+}
+.linesHighLight{
+    background:#333333;
+}
+.vertical_graph_container{
+    width: auto;
+    position: absolute;
+}
+.vertical_graph_container svg{
+    position:relative;
+    z-index: 50;
+}
+.vbar-round{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    /*background: #cccccc;*/
+    background: transparent;
+    display: block;
+    z-index: 100;
+   /* cursor: pointer;*/
+    position: absolute;
+
+}
+
+.vbar-select{
+     width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    font-size: 10px;
+    text-align: center;
+    display: block;
+    z-index: 100;
+    cursor: pointer;
+    position: absolute;
+    display: none;
+    padding: 2px 0;
+    background: #E0E0E0;
+}
+.round-active{
+    background-color: #333333;
+}
+.square-active{
+    border-radius: 0;
+    border: 1px solid gray;
+}
+.inputClass{
+    position: absolute;
+    left: -150px;
+}
+.inputClassV{
+    position: absolute;
+    top: -30px;
+    width: 20px;
+}
+
+.labelDecorator{
+    bottom: -120px;
+    color: #701111;
+    font: 12px tahoma;
+    left: -105px;
+    position: absolute;
+    text-align: right;
+    width: 100px;
+}
+.yAxisVerticalLabel{
+    text-align: right;
+    -moz-transform: rotate(-43deg);
+    -webkit-transform: rotate(-43deg);
+    -o-transform: rotate(-43deg);
+    -ms-transform: rotate(-43deg);
+    transform: rotate(-43deg);
+    width: auto;
+}
+.yAxisHoriZontalLabel{
+    bottom: -23px;
+    color: #701111;
+    font: 12px tahoma;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    text-align: left;
+}
+.positioned{
+    left: -154px;
+    position: absolute;
+
+}
+.graphWidget{
+    width: 100px;
+    height: 30px;
+    background: #cccccc;
+    text-align: center;
+    padding-top: 5px;
+}
+.graph_popup_container{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px #666666;
+    padding: 10px;
+    position: absolute;
+    width: 370px;
+    z-index: 500;
+    margin: auto;
+    top: 0;
+    left: 0;
+    /*height: 330px;
+    bottom: 0px;*/
+    right: 0;
+    display: none;
+}
+.popup-overlay{
+    position:absolute;
+    height:100%;
+    width:100%;
+    background: black;
+    opacity:.3;
+    z-index:400;
+    display: none;
+    top: 0;
+    left: 0;
+
+}
+.graph_popup_container label{
+    color: #666666;
+    float: left;
+    font: 14px tahoma;
+    width: 200px;
+}
+.graph_popup_container input{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    color: #666666;
+    margin-bottom:9px;
+    vertical-align: middle;
+}
+.graph_button_decorator{
+    background-color: #EEEEEE;
+    border: medium none;
+    box-shadow: 0 1px 2px #999999;
+    color: #666666;
+    margin-left: 10px;
+    margin-top: 15px;
+    float: right;
+    cursor: pointer;
+}
+.graph_button_decorator:active{
+    box-shadow: none;
+    margin-top: 16px;
+}
+.rotate-arrow{
+    -moz-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+.vertical_graph_container .labels-straight-align{
+
+    bottom: -52px;
+    width: auto;
+
+}
+.labels-straight-align-bottom{
+    bottom: -18px;
+}
+.xAxisNameDecorator{
+    bottom: -65px;
+    font: 14px tahoma;
+    position: absolute;
+    text-align: center;
+    color: #999999;
+}
+.xAxisNameNoRotate{
+    bottom: -45px;
+}
+.yAxisNameDecorator{
+    color: #999999;
+    font: 14px tahoma;
+    left: -205px;
+    position: absolute;
+    text-align: center;
+    top: 125px;
+    width: 270px;
+    -moz-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+.mainLabelDecorator{
+    top: -30px;
+    font: bold 14px tahoma;
+    position: absolute;
+    text-align: center;
+    color: #999999;
+}
+.pop-margin-Maker{
+    margin-bottom: 5px;
+}
+.example{
+    padding: 3px;
+    position: absolute;
+}
+#vbarpicker{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    color: #666666;
+    margin-bottom: 15px;
+    vertical-align: middle;
+}

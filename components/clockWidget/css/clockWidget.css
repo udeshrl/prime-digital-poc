@@ -1,0 +1,70 @@
+#clock_popup_id{
+    width: 480px;
+}
+
+#clock_popup_id label{
+    width: 240px;
+}
+
+
+.clockwrapper{
+	background-color: rgba(0, 0, 0, 0);
+    opacity:1!important;
+	filter:	Alpha(Opacity=1)!important;
+    background-repeat: no-repeat;
+	width:		300px;
+	height:		auto;
+	position:absolute;
+}
+
+#clock_timeConsole{
+	background-color:#DDD;
+	width:300px;
+	position:absolute;
+	font:normal 13px;
+	padding:10px;
+	background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 5px;
+}
+#clock_timeConsole div{
+	text-align:left;
+}
+#clock_timeConsole div select{
+	margin-bottom:5px;
+}
+#clock_timeConsole #clock_hour{
+	margin-left:109px;
+}
+#clock_timeConsole #clock_hour_lower{
+	margin-left:69px;
+}
+#clock_timeConsole #clock_minute_lower{
+	margin-left:54px;
+}
+.clock_validationMsg{
+	font:normal 11px;
+	color:red;
+}
+#clock_displayarea{
+	font:bold 20px;
+}
+.clock_disabled{
+	opacity:0.6!important;
+	filter:	Alpha(Opacity=0.6)!important;
+	pointer-events: none;
+}
+.clock-options { 
+	width: 100%;
+	margin: 5px;
+	/*height: 56px; margin: 5px; overflow-y: auto; width: 100%;	*/
+}
+.clock-options:after {
+    clear:both;
+    content:" ";
+    display:block;
+}
+/*.clock-options { height: 56px; margin: 5px; overflow-y: auto; width: 100%;}*/
+.clock-options div{ float: left; margin: 0 10px 0 0; padding: 2px; cursor: pointer; border: 1px solid #eee; text-align: center; width: 50px; height: 50px;}
+.clock-options div img{ margin: auto}
+.clock-options div.current{ border: 1px solid #000;}
+#clock_validation_section{margin-top: 10px;}

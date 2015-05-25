@@ -1,0 +1,28 @@
+/*placing any div in the center*/
+
+#dragndrop_pop_singleton {
+    width: 168px;
+    cursor: move;
+    right: auto;
+    text-align: center;
+}
+
+#dragndrop_pop_singleton #applyAnswer, #dragndrop_pop_singleton #deleteDrag, #dragndrop_pop_singleton #deleteDrop{
+    display:  none;
+}
+
+#dragndrop_pop_singleton .pop-row label{
+	width: 90px;
+}
+
+#dragndrop_pop_singleton .pop-row input{
+	width: 60px;
+}
+
+#dragndrop_pop_singleton .button_decorator{
+	float: none;
+}
+
+#dragndrop_pop_singleton #dragndrop_validation_section{
+	margin: 0 0 10px 0;
+}

@@ -1,0 +1,100 @@
+#avatar_area {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	/*width: 200px;
+	height:80px;
+	border:1px solid #ccc;*/
+}
+#avatar_area #deleteAvatar {
+	position:absolute;
+	left:46px;
+	top:0;
+	width: 12px;
+	height:12px;
+	cursor: pointer;
+	background: url("../../images/common/avatar/delete.png") no-repeat;
+}
+.avatar_item {
+	height:61px !important;
+}
+#avatar_empty_item img{
+	border:1px solid red;
+}
+#instructionText {
+	position: absolute;
+	left: 73px;
+}
+#msgText{
+	position: relative;
+	top: 5px;
+	/*padding: 5px;*/
+	/*border: 1px solid #3B3C36;*/
+	color: #333;
+	/*background: transparent;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;*/
+	float: right;
+	white-space: pre-line;
+	font-size: 12px;
+	padding: 15px;
+	background: #ccffff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	left: 20px;
+}
+/*#msgText:before {
+	top: 7px;
+	bottom: auto;
+	left: -9px;
+	border-width: 6px 8px 6px 0;
+	border-color: transparent #3B3C36;
+	content: "";
+	position: absolute;
+	border-style: solid;
+	display: block;
+	width: 0;
+}*/
+#msgText:after {
+	/*content: "";
+	position: absolute;
+	border-style: solid;
+	display: block;
+	width: 0;
+	top: 8px;
+	bottom: auto;
+	left: -5px;
+	border-width: 5px 7px 5px 0;
+	border-color: transparent #fff;*/
+	content: "";
+	position: absolute;
+	top: 15px;
+	left: -23px;
+	border-style: solid;
+	border-width: 11px 23px 11px 0;
+	border-color: transparent #ccffff;
+	display: block;
+	width: 0;
+	z-index: 1;
+}
+/*.disableAvatarArea{
+	opacity:0.6!important;
+	filter:	Alpha(Opacity=0.6)!important;
+	pointer-events: none;
+}*/
+#divPosition{
+	font-size: 71%;
+	position: absolute;
+	top: 65px;
+}
+#avatar_area .correct{
+	color :green !important;
+}
+#avatar_area .incorrect{
+	color:red !important;
+}
+#avatar_area .neutral{
+	color:#000 !important;
+}

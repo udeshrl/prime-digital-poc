@@ -1,0 +1,8 @@
+/*placing any div in the center*/
+
+#label_pop_singleton{
+    width: 480px;
+ }
+input.wid{
+	background:transparent;color:magenta;font-weight:bold;text-align:center;border:2px solid transparent;
+}

@@ -1,0 +1,119 @@
+html,body
+{
+	margin:0;
+	padding:0;
+	user-select:none;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+}
+.matchLine_mainContainer
+{
+	position:absolute !important;
+	border:1px solid black;
+	margin : 0 auto;
+	background-color:rgba(0,0,0,0) !important;
+	z-index:10;
+	
+}
+
+.matchLine_contentArea
+{
+	position:relative !important;
+	height:100% !important;
+	width:100% !important;
+	border:1px solid black;
+	border-radius: 10px 10px;
+	margin : 0 auto;
+	background-color:rgba(0,0,0,0) !important;
+}
+.matchLine_panelEle
+{
+	margin:0px 10px 15px 0px !important; 
+	width:122px;
+}
+.btn-submit{
+	margin:15px 0 0 0 !important;
+}
+.matchLine_submit
+{
+	float:right;
+}
+.matchLine_disableDiv
+{
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	background-color:white;
+	opacity:0.7;
+}
+.matchLine_hotSpotCan
+{
+	position:absolute !important;
+	width:10%;
+	height:10%;
+	cursor:move;
+	left:5%;
+	top:5%;
+	border:2px solid red;
+	background-color: transparent !important;
+	opacity:100;
+	behavior: url("lib/PIE.htc");
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);					
+}
+.matchLine_hotSpotCan.source{
+	border:2px solid red;
+}
+.matchLine_hotSpotCan.target{
+	border:2px solid green;
+}
+
+.tickbunch
+{
+	display:inline-block;
+	position:relative;
+	left:0px;
+	top:0px;
+	margin-left:2px;
+	margin-right:2px;
+	border: none !important;
+	font-size:0 px !important;
+	pointer-events:none;
+}
+.inp
+{
+	width:30px;
+}
+
+#matchLine_pop_singleton {
+	width: 168px;
+	cursor: move;
+	right: auto;
+	text-align: center;
+}
+
+#matchLine_pop_singleton .pop-row label{
+	width: 90px;
+}
+
+#matchLine_pop_singleton .pop-row input{
+	width: 60px;
+}
+
+#matchLine_pop_singleton .button_decorator{
+	float: none;
+}
+
+#matchLine_pop_singleton #applyAnswer, #matchLine_pop_singleton #deleteHs{
+	display:  none;
+}
+
+#matchLine_pop_singleton #matchLine_validation_section{
+	margin: 0 0 10px 0;
+}
+
+
+/*Overriding jquery-ui as hotspot was becoming white*/
+.ui-resizable{background:none;}

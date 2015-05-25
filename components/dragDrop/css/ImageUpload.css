@@ -1,0 +1,8 @@
+#image_pop_singleton {
+    width: 450px;
+}
+
+#image_pop_singleton #image_validation_section{
+    margin: 0 0 10px 0;
+    text-align: center;
+}

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" ng-app="primeDigitalApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Prime Digital</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/animations.css">
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/common/reset.css" type="text/css"/>
+        <link rel="stylesheet" href="css/reader/packageReader.css" type="text/css" />
+        <link rel="stylesheet" href="css/common/resize.css" type="text/css" />
+        <link rel="stylesheet" href="css/common/avatar.css" type="text/css" />
+
+        <link rel="stylesheet" href="components/textBoxWidget/css/textBoxWidget.css" type="text/css" />
+        <link rel="stylesheet" href="components/vBarGraph/css/vbarGraph.css" type="text/css" />
+        <link rel="stylesheet" href="components/hBarGraph/css/hbarGraph.css" type="text/css" />
+        <link rel="stylesheet" href="components/clockWidget/css/clockWidget.css" type="text/css" />
+        <link rel="stylesheet" href="components/additionWidget/css/additionWidget.css" type="text/css" />
+        <link rel="stylesheet" href="components/subtractionWidget/css/subtractionWidget.css" type="text/css" />
+        <link rel="stylesheet" href="components/lineGraph/css/lineGraph.css" type="text/css" />
+        <link rel="stylesheet" href="components/labelWidget/css/labelWidget.css" type="text/css" />
+        <link rel="stylesheet" href="components/freeDraw/css/freeDraw.css" type="text/css" />
+        <link rel="stylesheet" href="components/freeDraw/css/spectrum.css" type="text/css" />
+        <link rel="stylesheet" href="components/tallyMarks/css/tallyMarks.css" type="text/css" />
+        <link rel="stylesheet" href="components/multipleSelect/css/multipleSelect.css" type="text/css" />
+        <link rel="stylesheet" href="components/matchTheLine/css/matchTheLine.css" type="text/css" />
+        <link rel="stylesheet" href="components/htmlEditor/css/htmlEditor.css" type="text/css" />
+        <link rel="stylesheet" href="components/dragDrop/css/dragDrop.css" type="text/css" />
+        <link rel="stylesheet" href="components/dragDrop/css/ImageUpload.css" type="text/css" />
+        <link rel="stylesheet" href="components/dragDrop/css/labelWidget.css" type="text/css" />
+        <link rel="stylesheet" href="components/divisionWidget/css/divisionWidget.css" type="text/css" />
+        <link rel="stylesheet" href="components/multiplicationWidget/css/multiplicationWidget.css" type="text/css" />
+        <link rel="stylesheet" href="components/groupBox/css/groupBox.css" type="text/css" />
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <script>
+            Role = "student";
+        </script>
+        <script src="js/jquery.js"></script>
+        <script src="js/common/utility.js"></script>
+        <script src="js/common/jquery-ui.js"></script>
+        <script src="js/common/jquery.ui.touch-punch.min.js"></script>	
+        <script src="js/common/underscore.min.js"></script>
+        <script src="js/common/backbone.min.js"></script>
+
+        <script src="components/textBoxWidget/js/textBoxWidget.js"></script>
+        <script src="components/vBarGraph/js/vBarGraph.js"></script>
+        <script src="components/hBarGraph/js/hBarGraph.js"></script>
+
+        <script src="components/clockWidget/js/clock.js"></script>
+        <script src="components/clockWidget/js/clockWidget.js"></script>
+        <script src="components/clockWidget/js/lib/raphael-min.js"></script>
+        <script src="components/additionWidget/js/additionWidget.js"></script>
+        <script src="components/subtractionWidget/js/subtractionWidget.js"></script>
+        <script src="components/lineGraph/js/lineGraph.js"></script>
+        <script src="components/labelWidget/js/labelWidget.js"></script>
+        <script src="components/freeDraw/js/drawTool.js"></script>
+        <script src="components/freeDraw/js/freeDraw.js"></script>
+        <script src="components/freeDraw/js/spectrum.js"></script>
+        <script src="components/tallyMarks/js/tallyMarks.js"></script>
+        <script src="components/multipleSelect/js/multipleSelect.js"></script>
+        <script src="components/matchTheLine/js/matchTheLine.js"></script>
+        <script src="components/dragDrop/js/dragDrop.js"></script>
+	<script src="components/dragDrop/js/ImageUpload.js"></script>
+	<script src="components/dragDrop/js/labelWidget.js"></script>
+	<script src="components/divisionWidget/js/divisionWidget.js"></script>
+	<script src="components/multiplicationWidget/js/multiplicationWidget.js"></script>
+	<script src="components/groupBox/js/groupBox.js"></script>
+        <script src="components/htmlEditor/js/htmlEditor.js"></script>
+
+
+        <!--Reader functionality -->
+        <script src="js/common/avatar.js"></script>
+        <!--<script src="js/reader/reader.js"></script>-->
+        <script src="js/angular.js"></script>
+        <script src="js/angular-animate.js"></script>
+        <script src="js/angular-route.js"></script>
+        <script src="js/angular-resource.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/animation.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/filter.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/user-services.js"></script>
+    </head>
+    <body  ng-controller="appController">
+        <header>
+            <div id="header" class="header-bg">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a href="{{appURL}}#/" title="{{appName}}"><img class="logo" src="images/logo.png" alt="{{appName}}"></a>
+                    </div>
+                    <div class="col-sm-6 welcome-detail">
+                        Welcome {{userInfo.first_name}}
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <div id="container" class="parent_container">
+            <div id="author_content_container" class="author_content_container">Click On Next to start the Quiz</div>
+            <div class="view-container">
+                <div ng-view class="view-frame"></div>
+            </div>
+        </div>
+        <div class="clear-fix"></div>
+        <footer>
+            <div id="footer" class="footer-bg">
+                <div class="row">
+                    &COPY; Copyright 2015. Relevance Lab. All rights reserved.
+                </div>
+            </div>
+
+        </footer>
+    </body>
+</html>
