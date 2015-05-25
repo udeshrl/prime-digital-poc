@@ -37,9 +37,8 @@ primeDigitalControllers.controller('ResultCtrl', ['$rootScope', '$scope', '$loca
         }
         var result = playerServices.getResult();
         $scope.totalQuestion = result.totalQuestion;
-        var correctAns = result.totalQuestion - result.wrongAns;
-        var resultPercentage = parseInt(correctAns / result.totalQuestion * 100);
-        $scope.correctAns = correctAns;
+        var resultPercentage = parseInt(result.correctAns / result.totalQuestion * 100);
+        $scope.correctAns = result.correctAns;
         $scope.resultPercentage = resultPercentage;
     }]);
 

@@ -455,6 +455,14 @@ var freeDraw = (function (o) {
             }
             return undefined;
         };
+        
+        /*This will set the user answer*/
+        this.setUserAnswer = function () {
+            if (!_this.deleted) {
+                return undefined;
+            }
+            return undefined;
+        };
         this.getWidgetType=function(){
             return cSetting.widgetType;
         };

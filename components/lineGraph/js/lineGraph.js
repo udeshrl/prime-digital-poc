@@ -9,7 +9,7 @@
  * js-jQuery v2.03, underscore v1.6,, jQueryUI v1.8, ResizeModule.js, DraggableModule.js,spectrum.js
  * html-
  * */
-var lineGraph = (function(o) {
+var lineGraph = (function (o) {
     "use strict";
     if (o !== window) {
         throw "Please check scope of the Widget";
@@ -141,7 +141,7 @@ var lineGraph = (function(o) {
             ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
             ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130", "transparent"]
         ],
-        createColorWindow: function(el) {
+        createColorWindow: function (el) {
             $(el).find('#linegraphpicker').spectrum({
                 allowEmpty: true,
                 color: "#ECC",
@@ -156,16 +156,16 @@ var lineGraph = (function(o) {
                 palette: this.newGmail
             });
         },
-        show: function(el) {
+        show: function (el) {
             el.find('#linegraphpicker').toggle();
         },
-        hide: function(el) {
+        hide: function (el) {
             el.find('#linegraphpicker').toggle();
         },
-        getColor: function(el) {
+        getColor: function (el) {
             return $(el).find("#linegraphpicker").spectrum("get").toHexString();
         },
-        setColor: function(el, color) {
+        setColor: function (el, color) {
             $(el).find('#linegraphpicker').spectrum("set", color);
         }
     };
@@ -174,7 +174,7 @@ var lineGraph = (function(o) {
     var configuration = {
         authorParent: "author_content_container"
     },
-    applyAuthorProperty = function(element) {
+    applyAuthorProperty = function (element) {
         //resizeModule.makeResize(el, resizeSetting.callback, resizeSetting.context);
         draggableModule.makeDraggable(element);
     },
@@ -204,7 +204,7 @@ var lineGraph = (function(o) {
                     ]
                 },
                 count: 0,
-                updateStatus: function(type) {
+                updateStatus: function (type) {
                     if (type === "+") {
                         this.count++;
                     }
@@ -218,14 +218,14 @@ var lineGraph = (function(o) {
                         this.createPop();
                     }
                 },
-                removePop: function() {
+                removePop: function () {
                     $('#popup-overlay-line').remove();
                     $('#' + this.popupInitialSetting.popId).remove();
                 },
-                createPop: function() {
+                createPop: function () {
                     getConfigurationWindow(this.popupInitialSetting, $('#' + configuration.authorParent));
                 },
-                show: function(context, setting, rC, cC, el) {
+                show: function (context, setting, rC, cC, el) {
                     setting.left = el.position().left;
                     setting.top = el.position().top;
                     setting.width = el.width();
@@ -239,7 +239,7 @@ var lineGraph = (function(o) {
                     pop.find("#submit").off("click").on("click", {setting: setting, rC: rC, cC: cC}, popupManager.updateWidget);
                     pop.find("#clearAllGraph").off("click").on("click", context.reset);
                 },
-                updatePopFields: function(setting) {
+                updatePopFields: function (setting) {
                     var p = $('#' + popupManager.popupInitialSetting.popId);
                     var s = popupManager.popupInitialSetting.inputName;
                     for (var i = 0; i < s.length; i++) {
@@ -255,7 +255,7 @@ var lineGraph = (function(o) {
                     }
                     colorSetting.setColor(p, setting.stroke);
                 },
-                updateWidget: function(e) {
+                updateWidget: function (e) {
                     var m = e.data.setting;
                     var p = $('#' + popupManager.popupInitialSetting.popId);
                     var s = popupManager.popupInitialSetting.inputName;
@@ -282,12 +282,12 @@ var lineGraph = (function(o) {
                     attachEventOnRound(el, m, e.data.rC, e.data.cC);
                     popupManager.hide();
                 },
-                hide: function() {
+                hide: function () {
                     $('#popup-overlay-line').css('display', 'none');
                     $("#" + popupManager.popupInitialSetting.popId).css("display", "none");
                 }
             },
-    getConfigurationWindow = function(setting, parent) {
+    getConfigurationWindow = function (setting, parent) {
         if ($('#' + setting.popId).length) {
             return false;
         }
@@ -314,32 +314,32 @@ var lineGraph = (function(o) {
         }).html("Locked"));
         colorSetting.createColorWindow($('#' + setting.popId));
     },
-            drawDots = function(el, data) {
+            drawDots = function (el, data) {
                 var l = data.userAnswer.length, u = data.userAnswer;
                 for (var i = 0; i < l; i++) {
                     $(el).find("#" + u[i]).addClass('round-active');
                 }
-            }, drawButtons = function() {
+            }, drawButtons = function () {
         var str = '';
         str += '<div class="graphButtons"><button id="createDots" type="button" class="button_decorator">Mark the points</button><button id="createLines" type="button" class="button_decorator">Join the points</button></div>';
         return str;
-    }, btnCreateDots = function(e) {
+    }, btnCreateDots = function (e) {
         var setting = e.data.setting, el = e.data.el;
         setting.createDots = true;
         setting.createLines = false;
         el.find("#createDots").hide();
         el.find("#createLines").show();
-    }, btnCreateLines = function(e) {
+    }, btnCreateLines = function (e) {
         var setting = e.data.setting, el = e.data.el;
         setting.createDots = false;
         setting.createLines = true;
         el.find("#createDots").hide();
         el.find("#createLines").hide();
     },
-            getSvgLine = function(el, data) {
+            getSvgLine = function (el, data) {
                 $(el).find('svg').empty();
                 var svg = $(el).find('svg')[0],
-                        lineClickHandler = function() {
+                        lineClickHandler = function () {
                             if (!isRoleAuthor)
                                 return false;
                             //   var el = $('#' + data.id), locker = $('#' + configuration.authorParent).find("#lineGraphLocker").css({"visibility": "visible", left: el.position().left + el.width() + 5, top: el.position().top + 10});
@@ -363,13 +363,13 @@ var lineGraph = (function(o) {
                                 data.lockValueListLines.push([idList[1], idList[2]]);
                             }
                         },
-                        createLine = function(obj) {
+                        createLine = function (obj) {
                             var i, r = document.createElementNS("http://www.w3.org/2000/svg", "line"), key;
                             for (key in obj) {
                                 r.setAttribute(key, obj[key]);
                             }
                             return r;
-                        }, isLineAvailableInLockList = function(a, b) {
+                        }, isLineAvailableInLockList = function (a, b) {
                     return _.contains(data.lockValueList, a) && _.contains(data.lockValueList, b);
                 }, line, id;
                 if (data.userAnswer.length < 2) {
@@ -404,7 +404,7 @@ var lineGraph = (function(o) {
                     }
                     $(svg.appendChild(line)).click(lineClickHandler);
                 }
-            }, drawGraphLine = function(ua, ual, c, r) {
+            }, drawGraphLine = function (ua, ual, c, r) {
         var userAnswer, userAnswerLines, len = ua.length;
         userAnswer = $.extend([], ua);
         userAnswerLines = $.extend([], ual);
@@ -414,7 +414,7 @@ var lineGraph = (function(o) {
             r.push(getData[0]);
         }
         return {userAnswer: userAnswer, userAnswerLines: userAnswerLines};
-    }, searchY = function(search_array, search_element) {
+    }, searchY = function (search_array, search_element) {
         var l = search_array.length, result = {found: false, rowPosition: null};
         for (var i = 0; i < l; i++) {
             if (search_element === search_array[i]) {
@@ -425,7 +425,7 @@ var lineGraph = (function(o) {
         }
         return result;
     },
-            createGraphUI = function(s, e) {//s->setting and e->element
+            createGraphUI = function (s, e) {//s->setting and e->element
                 var mv_line = parseInt(s.margin_v_line);
                 var mh_line = parseInt(s.margin_h_line);
                 var vLine = parseInt(s.v_line);
@@ -457,7 +457,7 @@ var lineGraph = (function(o) {
                 e.find(".horizontal-line[data-number=0]").css({background: "#000", width: "110%"});
                 e.find(".vertical-line[data-number=0]").css({background: "#000"});
             },
-            changeXandY = function(el, o) {
+            changeXandY = function (el, o) {
                 $(el).css({"left": parseInt(o.left) + "px", top: parseInt(o.top) + "px"});
 
             };
@@ -467,7 +467,7 @@ var lineGraph = (function(o) {
     }
 
     function attachEventOnRound(a, data, rC, cC) {
-        var checkAnswerLine = function(array, subarray) {
+        var checkAnswerLine = function (array, subarray) {
             var i, tempArr, found = false;
             for (i = 0; i < array.length; i++) {
                 tempArr = array[i];
@@ -478,7 +478,7 @@ var lineGraph = (function(o) {
                 }
             }
             return found;
-        }, roundClickHandler = function(event) {
+        }, roundClickHandler = function (event) {
             var cSet = event.data.setting,
                     el = event.data.element,
                     row_container = event.data.row,
@@ -598,7 +598,7 @@ var lineGraph = (function(o) {
                     createLines: false,
                     tempDot: ""
                 },
-        clearAll = function(e) {
+        clearAll = function (e) {
             popupManager.hide();
             e.find('svg').empty();
             cSetting.userAnswer.length = 0;
@@ -638,7 +638,7 @@ var lineGraph = (function(o) {
                 drawDots(el, cSetting);
                 getSvgLine(el, cSetting);
                 popupManager.updateStatus('+');
-                el.bind('dblclick', {context: _this, setting: cSetting, rW: row_container, cC: column_container, el: el}, function(e) {
+                el.bind('dblclick', {context: _this, setting: cSetting, rW: row_container, cC: column_container, el: el}, function (e) {
                     popupManager.show(e.data.context, e.data.setting, e.data.rW, e.data.cC, e.data.el);
                 });
             }
@@ -654,7 +654,7 @@ var lineGraph = (function(o) {
         }
 
         /*this will remove the widget from the screen*/
-        _this.destroy = function() {
+        _this.destroy = function () {
             if (!_this.deleted) {
                 $('#' + cSetting.id).remove();
                 _this.deleted = true;
@@ -666,7 +666,7 @@ var lineGraph = (function(o) {
         };
 
         /*This will reset the widget to its initial settings*/
-        _this.reset = function() {
+        _this.reset = function () {
             if (!_this.deleted && _this.active) {
                 clearAll(el);
                 var temp = drawGraphLine(cSetting.lockValueList, cSetting.lockValueListLines, column_container, row_container);
@@ -682,18 +682,18 @@ var lineGraph = (function(o) {
         };
 
         /*This will set the property*/
-        _this.setProperty = function() {
+        _this.setProperty = function () {
         };
 
         /*This will get the property as per the value provided in the options*/
-        _this.getProperty = function() {
+        _this.getProperty = function () {
         };
 
-        _this.getWidgetType = function() {
+        _this.getWidgetType = function () {
             return cSetting.widgetType;
         };
         /*It will validate the widget against the user inputs*/
-        _this.validate = function(attemptType) {
+        _this.validate = function (attemptType) {
             if (!_this.deleted) {
                 var result = false, temp;
                 var readerAnswer = $.extend([], cSetting.userAnswer);
@@ -736,27 +736,37 @@ var lineGraph = (function(o) {
             return undefined;
         };
         /*It will give the all data associated with the widget*/
-        _this.getWidgetData = function() {
+        _this.getWidgetData = function () {
             if (!_this.deleted) {
                 updateSettings(cSetting, el);
                 return cSetting;
             }
             return undefined;
         };
-        _this.getUserAnswer = function() {
+        _this.getUserAnswer = function () {
             if (!_this.deleted) {
-                return cSetting.userAnswer;
+                return {'userAnswer':cSetting.userAnswer,'userAnswerLines':cSetting.userAnswerLines};
             }
             return undefined;
         };
-        _this.deactivate = function() {
+        /*This will set the user answer*/
+        _this.setUserAnswer = function (val) {
+            if (!_this.deleted) {
+                cSetting.userAnswer = val.userAnswer;
+                cSetting.userAnswerLines = val.userAnswerLines;
+                drawDots(el, cSetting);
+                getSvgLine(el, cSetting);
+            }
+            return undefined;
+        };
+        _this.deactivate = function () {
             // !this.deleted || el.css({'pointer-events': 'none', 'opacity': '0'});
             if (!this.deleted) {
                 _this.active = false;
                 $('#' + cSetting.id).css({'pointer-events': 'none'});
             }
         };
-        _this.activate = function() {
+        _this.activate = function () {
             if (!this.deleted) {
                 _this.active = true;
                 $('#' + cSetting.id).css({'pointer-events': 'auto'});

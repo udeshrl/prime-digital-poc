@@ -587,7 +587,15 @@ var labelWidget = (function (o) {
         /*This will bring all the user input as each level of feedback*/
         _this.getUserAnswer = function () {
             if (!_this.deleted) {
-                return tView.el.find("input").val();
+//                return tView.el.find("input").val();
+            }
+            return undefined;
+        };
+        
+        /*This will set the user answer*/
+        _this.setUserAnswer = function () {
+            if (!_this.deleted) {
+                return true;
             }
             return undefined;
         };

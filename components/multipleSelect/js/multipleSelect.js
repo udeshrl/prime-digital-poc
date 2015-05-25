@@ -4,7 +4,7 @@
 var multipleSelect = /**
  * @param options
  */
-        function(options)
+        function (options)
         {
             var globObj = {
                 events: [],
@@ -19,9 +19,9 @@ var multipleSelect = /**
             var showTickButtonText = 'Show tick';
 
             var hideTickButtonText = 'Show hotspot outline';
-            
+
             var correctButtonText = 'Make as correct';
-            
+
             var incorrectButtonText = 'Make as incorrect';
 
             this.container = $("#author_content_container"); // main div reference
@@ -36,7 +36,7 @@ var multipleSelect = /**
             this.hotspotBtnSquare = $('<button class="button_decorator hotSpot btn btn-primary">Add square hotspot</button>');//button to create hotspot for author
             this.singleSelect = $('<button class="button_decorator hotSpot btn btn-primary">' + singleSelectButtonText + '</button>');//button to single/multi select
             this.closePanel = $('<button class="button_decorator hotSpot btn btn-primary">Close</button>');//button to single/multi select
-            this.makeCorrect = $('<button class="button_decorator correct btn btn-warning">'+correctButtonText+'</button>').hide();//button to make hotspot as correct for author
+            this.makeCorrect = $('<button class="button_decorator correct btn btn-warning">' + correctButtonText + '</button>').hide();//button to make hotspot as correct for author
             this.deleteHotSpot = $('<button class="button_decorator deleteHotSpot btn btn-danger">Remove hotspot</button>').hide();//button to delete hotspot for author
             this.clear = $('<button class="button_decorator clear btn btn-danger">Remove group</button>');//button to clear all hotspot for author
             this.noOfCorrectAnsRow = $('<div class="pop-row"><label class="multiselect_label">No of Corr Ans</label><input type="text" id="noOfCorrectAns" class="multiselect_text"></div>');
@@ -65,7 +65,7 @@ var multipleSelect = /**
 
             this.isSingleSelect = false;
 
-            var applyAuthorPropertyMul = function(el, resizeSetting, draggableSetting) {
+            var applyAuthorPropertyMul = function (el, resizeSetting, draggableSetting) {
                 //console.log(resizeSetting)
                 resizeModule.makeResize(el, resizeSetting.callback1, resizeSetting.callback2, resizeSetting.callback3, resizeSetting.context);
                 draggableModule.makeDraggable(el, draggableSetting.callback, draggableSetting.context);
@@ -84,42 +84,42 @@ var multipleSelect = /**
             }, deviceObj = {
                 isConsoleActive: true,
                 ua: navigator.userAgent.toLocaleLowerCase(),
-                isIPad: function() {
+                isIPad: function () {
                     return this.ua.indexOf("ipad") != -1;
                 },
-                isAndroid: function() {
+                isAndroid: function () {
                     return this.ua.indexOf("android") != -1;
                 },
-                isWindowPhone: function() {
+                isWindowPhone: function () {
                     return this.ua.indexOf("iemobile") != -1;
                 },
-                isNetworkAvailable: function() {
+                isNetworkAvailable: function () {
                     if (navigator.hasOwnProperty("onLine")) {
                         return navigator.onLine;
                     }
                     return false;
                 },
-                isFirefox: function() {
+                isFirefox: function () {
                     return this.ua.indexOf("firefox") != -1;
                 },
-                isWebkit: function() {
+                isWebkit: function () {
                     return this.ua.indexOf('applewebkit') !== -1;
                 },
-                isIE: function() {
+                isIE: function () {
                     return this.ua.indexOf('msie') !== -1 || ua.indexOf('rv:11.0') !== -1;
                 },
-                isMobile: function() {
+                isMobile: function () {
                     return this.isIPad() || this.isAndroid() || this.isWindowPhone();
                 },
-                isWindowOS: function() {
+                isWindowOS: function () {
                     return this.ua.indexOf("windows") !== -1;
                 },
-                isMAC: function() {
+                isMAC: function () {
                     return this.ua.indexOf("mac") !== -1;
                 }
             };
             //
-            this.initialize = function(propObj)
+            this.initialize = function (propObj)
             {
                 console.log(propObj);
                 propObj.width = (propObj.width) ? propObj.width : "250px";
@@ -157,36 +157,36 @@ var multipleSelect = /**
                         //console.log(propObj.grpId)
                         this.grpId = propObj.grpId;
                     }
-                    addEvent(this.hotspotBtn, globObj.userevents.click, function() {
+                    addEvent(this.hotspotBtn, globObj.userevents.click, function () {
                         var tmpobj = createHotSpot(("hsId" + hsId), "0px", "0px", "120px", "120px", false, 'circle');
-                        addDraggable(tmpobj, {callback1: function(ev, ui) {   //applying resizing and draggable to widget
+                        addDraggable(tmpobj, {callback1: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.resizing(ev, ui);
-                            }, callback2: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback2: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.resizing(ev, ui);
-                            }, callback3: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback3: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.resizing(ev, ui);
-                            }, context: this}, {callback: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, context: this}, {callback: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.dragging(ev, ui);
-                            }, callback: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.dragging(ev, ui);
-                            }, callback: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.dragging(ev, ui);
                             }, context: this});
                         hsId++;
                     });
-                    addEvent(this.hotspotBtnSquare, globObj.userevents.click, function() {
+                    addEvent(this.hotspotBtnSquare, globObj.userevents.click, function () {
                         var tmpobj = createHotSpot(("hsId" + hsId), "0px", "0px", "120px", "120px", false, 'square');
-                        addDraggable(tmpobj, {callback1: function(ev, ui) {   //applying resizing and draggable to widget
+                        addDraggable(tmpobj, {callback1: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.resizing(ev, ui);
-                            }, callback2: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback2: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.resizing(ev, ui);
-                            }, callback3: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback3: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.resizing(ev, ui);
-                            }, context: this}, {callback: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, context: this}, {callback: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.dragging(ev, ui);
-                            }, callback: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.dragging(ev, ui);
-                            }, callback: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.dragging(ev, ui);
                             }, context: this});
                         hsId++;
@@ -221,30 +221,30 @@ var multipleSelect = /**
                         _this.singleSelect.html(multiSelectButtonText);
                     }
 
-                    this.controlPanel.find('#width').on('blur', function() {
+                    this.controlPanel.find('#width').on('blur', function () {
                         $(_this.parentDiv).find("#" + ele.id).css("width", $(this).val());
                     });
 
-                    this.controlPanel.find('#noOfCorrectAns').on('blur', function() {
+                    this.controlPanel.find('#noOfCorrectAns').on('blur', function () {
                         _this.noOfCorrectAns = $(this).val();
                     });
 
-                    this.controlPanel.find('#height').on('blur', function() {
+                    this.controlPanel.find('#height').on('blur', function () {
                         $(_this.parentDiv).find("#" + ele.id).css("height", $(this).val());
                     });
-                    this.controlPanel.find('#left').on('blur', function() {
+                    this.controlPanel.find('#left').on('blur', function () {
                         $(_this.parentDiv).find("#" + ele.id).css("left", $(this).val());
                     });
-                    this.controlPanel.find('#top').on('blur', function() {
+                    this.controlPanel.find('#top').on('blur', function () {
                         $(_this.parentDiv).find("#" + ele.id).css("top", $(this).val());
                     });
                     var clkCount = 0;
-                    addEvent(this.parentDiv, globObj.userevents.click, function(e) {
+                    addEvent(this.parentDiv, globObj.userevents.click, function (e) {
                         clkCount++;
 
                         if (clkCount === 1)
                         {
-                            var intId = setTimeout(function() {
+                            var intId = setTimeout(function () {
                                 clearTimeout(intId);
 
                                 if (clkCount === 2)
@@ -274,17 +274,17 @@ var multipleSelect = /**
                             }, 250);
                         }
                     });
-                    addDraggable(this.parentDiv, {callback1: function(ev, ui) {   //applying resizing and draggable to widget
-                        }, callback2: function(ev, ui) {   //applying resizing and draggable to widget
+                    addDraggable(this.parentDiv, {callback1: function (ev, ui) {   //applying resizing and draggable to widget
+                        }, callback2: function (ev, ui) {   //applying resizing and draggable to widget
                             _this.resizeStartParent(ev, ui);
                             _this.controlPanel.hide();
-                        }, callback3: function(ev, ui) {   //applying resizing and draggable to widget
+                        }, callback3: function (ev, ui) {   //applying resizing and draggable to widget
                             _this.resizeStopParent(ev, ui);
-                        }, context: this}, {callback: function(ev, ui) {   //applying resizing and draggable to widget
+                        }, context: this}, {callback: function (ev, ui) {   //applying resizing and draggable to widget
 
-                        }, callback: function(ev, ui) {   //applying resizing and draggable to widget
+                        }, callback: function (ev, ui) {   //applying resizing and draggable to widget
 
-                        }, callback: function(ev, ui) {   //applying resizing and draggable to widget
+                        }, callback: function (ev, ui) {   //applying resizing and draggable to widget
                             _this.controlPanel.hide();
                         }, context: this});
                     draggableModule.makeDraggable(this.controlPanel, undefined, undefined);
@@ -311,17 +311,17 @@ var multipleSelect = /**
                             tmpobj.css({"border": "2px solid red"});
                             tmpobj.data("prop").isCorr = false;
                         }
-                        addDraggable(tmpobj, {callback1: function(ev, ui) {   //applying resizing and draggable to widget
+                        addDraggable(tmpobj, {callback1: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.resizing(ev, ui);
-                            }, callback2: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback2: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.resizing(ev, ui);
-                            }, callback3: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback3: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.resizing(ev, ui);
-                            }, context: this}, {callback: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, context: this}, {callback: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.dragging(ev, ui);
-                            }, callback: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.dragging(ev, ui);
-                            }, callback: function(ev, ui) {   //applying resizing and draggable to widget
+                            }, callback: function (ev, ui) {   //applying resizing and draggable to widget
                                 _this.dragging(ev, ui);
                             }, context: this});
                         hsId++;
@@ -342,7 +342,7 @@ var multipleSelect = /**
                     this.parentDiv.css({"border": "1px solid transparent"});
                 }
             };
-            this.resizeStartParent = function(ev, ui)
+            this.resizeStartParent = function (ev, ui)
             {
 
                 for (var i = 0; i < _this.parentDiv.find(".multipleselect_hotSpotCan").length; i++)
@@ -439,15 +439,15 @@ var multipleSelect = /**
                     globObj.events[i][0].on(globObj.events[i][1], globObj.events[i][2]);
                 }
             }
-            this.resizeParent = function(ev, ui)
+            this.resizeParent = function (ev, ui)
             {
                 _this.controlPanel.css({"left": (ui.position.left + ui.size.width + 20) + "px", "top": (ui.position.top + 20) + "px"});
             };
-            this.resizeStopParent = function(ev, ui)
+            this.resizeStopParent = function (ev, ui)
             {
                 //_this.controlPanel.css({"left":(ui.position.left+ui.size.width + 20)+"px","top":(ui.position.top + 20)+"px"});	
             };
-            this.resizing = function(e, ui)
+            this.resizing = function (e, ui)
             {
                 //console.log("here")
                 var ele = $("#" + e.target.id);
@@ -457,7 +457,7 @@ var multipleSelect = /**
                 data.top = parseInt(ui.position.top) + "px";
                 data.left = parseInt(ui.position.left) + "px";
             };
-            this.dragging = function(e, ui)
+            this.dragging = function (e, ui)
             {
                 var ele = $("#" + e.target.id);
                 var data = ele.data("prop");
@@ -465,7 +465,7 @@ var multipleSelect = /**
                 data.left = parseInt(ui.position.left) + "px";
             };
             //function to create hotspot
-            var createHotSpot = function(id, top, left, width, height, isCor, type)
+            var createHotSpot = function (id, top, left, width, height, isCor, type)
             {
                 if (type == 'square') {
                     spotClass = ' multipleselect_hotSpotCanSquare';
@@ -490,7 +490,7 @@ var multipleSelect = /**
                 return hs;
             };
             //function to get hotspot click event
-            var hsClicked = function(e)
+            var hsClicked = function (e)
             {		//alert(_this.userType)
                 ele = e.currentTarget;
                 var el = $(_this.parentDiv).find("#" + ele.id);
@@ -560,7 +560,7 @@ var multipleSelect = /**
 
             };
             //function to make hotspot correct
-            var makeCorrect = function(e)
+            var makeCorrect = function (e)
             {
                 //console.log($(_this.parentDiv).find("#"+ele.id).data("prop"))
                 resizeModule.startElementResize("#" + ele.id);
@@ -578,7 +578,7 @@ var multipleSelect = /**
                 e.stopPropagation();
             };
             //function for submit click event
-            var submitClicked = function()
+            var submitClicked = function ()
             {
                 var validation = _this.validate();
                 if (!validation.result)
@@ -587,7 +587,7 @@ var multipleSelect = /**
                         modal: true,
                         resizable: false,
                         buttons: {
-                            "Ok": function()
+                            "Ok": function ()
                             {
                                 $(this).dialog("close");
                             },
@@ -603,13 +603,13 @@ var multipleSelect = /**
                         modal: true,
                         resizable: false,
                         buttons: {
-                            "Yes": function()
+                            "Yes": function ()
                             {
                                 isCorrQuest = true;
                                 console.log(JSON.stringify(_this.getWidgetData()));
                                 $(this).dialog("close");
                             },
-                            "No": function()
+                            "No": function ()
                             {
                                 $(this).dialog("close");
                             }
@@ -620,12 +620,12 @@ var multipleSelect = /**
             };
 
             // Close control panel
-            var closeControlPanel = function() {
+            var closeControlPanel = function () {
                 _this.controlPanel.hide();
             }
 
             //function to delete hotspot
-            var showHideTick = function(e)
+            var showHideTick = function (e)
             {
                 if (_this.isShowTick) {
                     _this.isShowTick = false;
@@ -640,7 +640,7 @@ var multipleSelect = /**
 
 
             //function to make single/multi Select
-            var isSingleSelect = function(e)
+            var isSingleSelect = function (e)
             {
                 if (_this.isSingleSelect)
                 {
@@ -653,7 +653,7 @@ var multipleSelect = /**
             };
 
             //function to delete hotspot
-            var deleteHotSpot = function(e)
+            var deleteHotSpot = function (e)
             {
                 _this.parentDiv.find("#" + ele.id).remove();
                 _this.makeCorrect.hide();
@@ -662,7 +662,7 @@ var multipleSelect = /**
             };
 
             //function to delete all hotspots
-            var deleteGroup = function(e)
+            var deleteGroup = function (e)
             {
                 _this.destroy();
                 /*_this.contentArea.find(".multipleselect_hotSpotCan").remove();
@@ -673,17 +673,17 @@ var multipleSelect = /**
                  isCorrQuest = false;*/
             };
             //function to set specific property to parent div
-            this.setProperty = function(prop, val)
+            this.setProperty = function (prop, val)
             {
                 this.parentDiv.css(prop, val);
             };
             //function to get specific property of parent div
-            this.getProperty = function(prop)
+            this.getProperty = function (prop)
             {
                 return this.parentDiv.css(prop);
             };
             //function to validate component
-            this.validate = function(attCount)
+            this.validate = function (attCount)
             {
                 var isFound = true;
                 var corrAns = 0;
@@ -771,7 +771,7 @@ var multipleSelect = /**
                             modal: true,
                             resizable: false,
                             buttons: {
-                                "Ok": function()
+                                "Ok": function ()
                                 {
                                     $(this).dialog("close");
                                 },
@@ -787,13 +787,13 @@ var multipleSelect = /**
                             modal: true,
                             resizable: false,
                             buttons: {
-                                "Yes": function()
+                                "Yes": function ()
                                 {
                                     isCorrQuest = true;
                                     console.log(JSON.stringify(_this.getWidgetData()));
                                     $(this).dialog("close");
                                 },
-                                "No": function()
+                                "No": function ()
                                 {
                                     $(this).dialog("close");
                                 }
@@ -804,7 +804,7 @@ var multipleSelect = /**
 
             };
             //function to reset component
-            this.reset = function()
+            this.reset = function ()
             {
                 if (this.userType === "author")
                 {
@@ -827,11 +827,11 @@ var multipleSelect = /**
 
                 }
             };
-            this.getWidgetType = function() {
+            this.getWidgetType = function () {
                 return "multipleSelect";
             };
             //function to get all data related to componenet
-            this.getWidgetData = function()
+            this.getWidgetData = function ()
             {
                 if (!_this.deleted) {
                     var returnObj = {
@@ -884,7 +884,7 @@ var multipleSelect = /**
                 //console.log(this);
             };
             //function to activate component
-            this.activate = function()
+            this.activate = function ()
             {
                 addAllEvent();
                 addAllDragable();
@@ -894,7 +894,7 @@ var multipleSelect = /**
                 }
             };
             //function to deactivate component
-            this.deactivate = function()
+            this.deactivate = function ()
             {
                 removeAllEvent();
                 removeAllDragable();
@@ -904,7 +904,7 @@ var multipleSelect = /**
                 }
             };
             //function to destroy component instance
-            this.destroy = function()
+            this.destroy = function ()
             {
                 //console.log(_this.parentDiv)
                 _this.parentDiv.remove();
@@ -912,9 +912,17 @@ var multipleSelect = /**
                 _this.deleted = true;
             };
 
-            this.getUserAnswer = function(attNumber)
+            this.getUserAnswer = function ()
             {
+                return undefined;
+            };
 
+            /*This will set the user answer*/
+            this.setUserAnswer = function () {
+                if (!tView.deleted) {
+                    return undefined;
+                }
+                return undefined;
             };
 
             this.initialize(options);

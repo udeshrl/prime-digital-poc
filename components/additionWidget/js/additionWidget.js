@@ -237,8 +237,6 @@ var additionWidget = (function (o) {
             o.el.find('.answerField').each(function (index) {//this is for 1st carry applicable for addition.
                 answerField.push($(this).val(answerField[index]));
             });
-            return {answerField: answerField, carryField: carryField};
-            //o.model.set("authorAttempt",{answerField:answerField,carryField:carryField});
         },
         checkAnswer: function () {
             //this.model.set("userAttempt", this.getScreenInput());

@@ -1141,7 +1141,17 @@ var matchTheLine = (function(o, $, Backbone, _) {
         /* This will bring all the user input as each level of feedback */
         this.getUserAnswer = function() {
             if (!tView.deleted) {
-                return tView.model.get("answer").ans;
+               return tView.model.get("readerLines");
+//               return tView.model.get("answer").ans;
+            }
+            return undefined;
+        };
+        
+         /*This will set the user answer*/
+        this.setUserAnswer = function (val) {
+            if (!tView.deleted) {
+                tView.model.set("readerLines", val);
+                tView.createLockedLines();
             }
             return undefined;
         };

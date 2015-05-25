@@ -1,7 +1,7 @@
 /**
  * Created by pallav.saxena on 4/4/2014.
  */
-var divisionWidget = (function(o) {
+var divisionWidget = (function (o) {
     "use strict";
     if (o !== window) {
         throw "Please check scope of the Widget";
@@ -26,20 +26,20 @@ var divisionWidget = (function(o) {
     };
     var model = Backbone.Model.extend({
         "default": {},
-        initialize: function(options) {
+        initialize: function (options) {
             this.initObject = options;
             this["default"] = options;
         },
-        reset: function() {
+        reset: function () {
             this.set(this.initObject);
         },
-        check: function() {
+        check: function () {
             var o = this, uA = o.get("userAttempt"), aA = o.get("authorAttempt");
             return uA.quotientField.toString() == aA.quotientField.toString() && uA.firstSetOfStepFields.toString() == aA.firstSetOfStepFields.toString() && uA.remainderFields.toString() == aA.remainderFields.toString() && uA.extraStepFields.toString() == aA.extraStepFields.toString();
         }
     });
     var view = Backbone.View.extend({
-        initialize: function(options) {
+        initialize: function (options) {
             var o = this;
             o.el = options.el;
             o.model = options.model;
@@ -59,7 +59,7 @@ var divisionWidget = (function(o) {
             o.addExtraColumns(undefined);
             o.fontSize(undefined);
         },
-        fontSize: function() {
+        fontSize: function () {
             var fontSize = this.model.get("fontSize");
             this.el.find("input.quotientField").css("font-size", fontSize);
             this.el.find("input.dividendField").css("font-size", fontSize);
@@ -68,7 +68,7 @@ var divisionWidget = (function(o) {
             this.el.find("input.remainderFields").css("font-size", fontSize);
             this.el.find(".digit").css("font-size", fontSize);
         },
-        toggleGrid: function(e) {
+        toggleGrid: function (e) {
             if (this.model.get("isGridToggle")) {
                 this.el.find(".Addgridsquare").css("border-bottom", "1px solid #f1f1f1").css("border-right", "1px solid #f1f1f1");
                 this.el.find("#row1").parent().css("border-left", "1px solid #f1f1f1").css("border-top", "1px solid #f1f1f1");
@@ -80,26 +80,26 @@ var divisionWidget = (function(o) {
             }
             this.el.find("#r2c" + this.model.get("divisor").length).css("border-right", "1px solid #000");
         },
-        toggleSteps: function() {
+        toggleSteps: function () {
             if (this.model.get("isStepsToggle")) {
                 this.el.find(".extraStepFields").parent().parent().css("display", "block");
             } else {
                 this.el.find(".extraStepFields").parent().parent().css("display", "none");
             }
         },
-        addExtraColumns: function() {
+        addExtraColumns: function () {
             if (this.model.get("isAddExtraColumns")) {
                 uiSetting.createGrid(this.el, this.model.toJSON());
             } else {
                 uiSetting.createGrid(this.el, this.model.toJSON());
             }
         },
-        render: function() {
+        render: function () {
             console.log("render called");
             uiSetting.createGrid(this.el, this.model.toJSON());
             this.fontSize(undefined);
         },
-        options: function() {
+        options: function () {
             var temp, options = this.model.get("options"), str = '';
             if (this.model.get("category") == "Options") {
                 if (options instanceof Array) {
@@ -113,20 +113,20 @@ var divisionWidget = (function(o) {
                 this.el.find('select').html(str);
             }
         },
-        left: function() {
+        left: function () {
             this.el.css("left", parseInt(this.model.get("left")));
         },
-        top: function() {
+        top: function () {
             this.el.css("top", parseInt(this.model.get("top")));
         },
-        destroy: function() {
+        destroy: function () {
             delete this.model;
             this.el.remove();
             this.deleted = true;
         },
-        updateModel: function() {
+        updateModel: function () {
             var a = this.el, b, val = [];
-            a.find(".dividendField").each(function() {
+            a.find(".dividendField").each(function () {
                 b = $(this);
                 val.push(b.val());
 
@@ -139,55 +139,83 @@ var divisionWidget = (function(o) {
             this.model.set("authorAttempt", this.getScreenInput());
             this.model.set({left: parseInt(a.css('left')), top: parseInt(a.css('top'))}, {silent: true});
         },
-        getScreenInput: function() {
+        getScreenInput: function () {
             var o = this;
             var quotientField = [], firstSetOfStepFields = [], remainderFields = [], extraStepFields = [];
 
-            o.el.find('.quotientField').each(function() {
+            o.el.find('.quotientField').each(function () {
                 quotientField.push($(this).val());
             });
 
-            o.el.find('.firstSetOfStepFields').each(function() {
+            o.el.find('.firstSetOfStepFields').each(function () {
                 firstSetOfStepFields.push($(this).val());
             });
 
-            o.el.find('.remainderFields').each(function() {
+            o.el.find('.remainderFields').each(function () {
                 remainderFields.push($(this).val());
             });
 
-            if (this.model.get("isStepsToggle")) {
-                o.el.find('.extraStepFields').each(function() {
+            if (o.model.get("isStepsToggle")) {
+                o.el.find('.extraStepFields').each(function () {
                     extraStepFields.push($(this).val());
                 });
             }
 
             return {quotientField: quotientField, firstSetOfStepFields: firstSetOfStepFields, remainderFields: remainderFields, extraStepFields: extraStepFields};
         },
-        checkAnswer: function() {
+        setScreenInput: function () {
+            var o = this, userAttempt = o.model.get('userAttempt');
+            var firstSetOfStepFields = userAttempt.firstSetOfStepFields, quotientField = userAttempt.quotientField, remainderFields = userAttempt.remainderFields, extraStepFields = userAttempt.extraStepFields;
+            o.el.find('.firstSetOfStepFields').each(function (index) {//this is for 1st carry applicable for addition.
+                firstSetOfStepFields.push($(this).val(firstSetOfStepFields[index]));
+            });
+
+            o.el.find('.remainderFields').each(function (index) {//this is for 1st carry applicable for addition.
+                remainderFields.push($(this).val(remainderFields[index]));
+            });
+
+            o.el.find('.quotientField').each(function (index) {//this is for 1st carry applicable for addition.
+                quotientField.push($(this).val(quotientField[index]));
+            });
+            if (o.model.get("isStepsToggle")) {
+                o.el.find('.extraStepFields').each(function (index) {
+                    extraStepFields.push($(this).val(extraStepFields[index]));
+                });
+            }
+        },
+        checkAnswer: function () {
             this.model.set("userAttempt", this.getScreenInput());
             return this.model.check();
         },
-        typeCheck: function(k) {
+        updateUserAnswer: function () {
+            var userAttempt = this.getScreenInput();
+            this.model.set("userAttempt", userAttempt);
+            return userAttempt;
+        },
+        updateUserAnswerWithVal: function (val) {
+            this.model.set("userAttempt", val);
+        },
+        typeCheck: function (k) {
             return app.isDecimal(k);
         },
-        reset: function() {
+        reset: function () {
             this.el.find('input').val('');
         },
-        correctVisual: function() {
+        correctVisual: function () {
             return !0;
         },
-        wrongVisual: function() {
+        wrongVisual: function () {
             return !1;
         },
-        activate: function() {
+        activate: function () {
             this.active = true;
             this.el.find("input").removeAttr("disabled");
         },
-        deactivate: function() {
+        deactivate: function () {
             this.active = false;
             this.el.find("input").attr("disabled", "disabled");
         },
-        revealAnswer: function() {
+        revealAnswer: function () {
             var answers = this.model.get("authorAttempt");
             if (answers.quotientField) {
                 var ansList = this.el.find(".quotientField");
@@ -227,10 +255,10 @@ var divisionWidget = (function(o) {
         authorParent: "author_content_container",
         widthDifference: Role == "author" ? 10 : 0,
         heightDifference: 6,
-        resizeAndDrag: function(el, resizeSetting, draggableSetting) {
+        resizeAndDrag: function (el, resizeSetting, draggableSetting) {
             typeof draggableModule != "undefined" && draggableModule.makeDraggable(el);
         },
-        createGrid: function(el, data) {
+        createGrid: function (el, data) {
             $(el).empty();
             var str = '';
             var dividend = data.dividend;
@@ -351,7 +379,7 @@ var divisionWidget = (function(o) {
             insertData(el, dividend, divisor, noOfRow, noOfColumn, divisionArc, data.isStepsToggle, data.isAddExtraColumns);
 
             if (app ? app.detect.isAndroid() : navigator.userAgent.match(/Android/i)) {
-                el.find('input.extraStepFields, input.firstSetOfStepFields, input.remainderFields').attr("maxlength", "1").keyup(function(event) {
+                el.find('input.extraStepFields, input.firstSetOfStepFields, input.remainderFields').attr("maxlength", "1").keyup(function (event) {
                     var ob = this;
                     var invalidChars = /[^0-9]/gi;
                     if (invalidChars.test(ob.value)) {
@@ -359,7 +387,7 @@ var divisionWidget = (function(o) {
                     }
                 });
             } else {
-                el.find('input.extraStepFields, input.firstSetOfStepFields, input.remainderFields').attr("maxlength", "1").on("keypress", function(e) {
+                el.find('input.extraStepFields, input.firstSetOfStepFields, input.remainderFields').attr("maxlength", "1").on("keypress", function (e) {
                     var AllowableCharacters = '1234567890';
                     var k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
                     if (k != 13 && k != 8 && k != 0) {
@@ -374,7 +402,7 @@ var divisionWidget = (function(o) {
                 });
             }
             if (app ? app.detect.isAndroid() : navigator.userAgent.match(/Android/i)) {
-                el.find('input.dividendField, input.quotientField').attr("maxlength", "1").keyup(function(event) {
+                el.find('input.dividendField, input.quotientField').attr("maxlength", "1").keyup(function (event) {
                     var ob = this;
                     var invalidChars = /[^0-9]/gi;
                     if (invalidChars.test(ob.value)) {
@@ -382,7 +410,7 @@ var divisionWidget = (function(o) {
                     }
                 });
             } else {
-                el.find('input.dividendField, input.quotientField').attr("maxlength", "1").on("keypress", function(e) {
+                el.find('input.dividendField, input.quotientField').attr("maxlength", "1").on("keypress", function (e) {
                     var AllowableCharacters = '1234567890.';
                     var k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
                     if (k != 13 && k != 8 && k != 0) {
@@ -399,12 +427,12 @@ var divisionWidget = (function(o) {
 
 
         },
-        getWidgetTemplate: function(data, mode) {
+        getWidgetTemplate: function (data, mode) {
             var str = '<div id=' + data.id + ' class="divisionWidget" style="position:absolute;left:' + data.left + 'px;top:' + data.top + 'px;"></div>';
             return str + '';
         },
-        applyAuthorRelatedProperty: function(el, _this) {
-            uiSetting.resizeAndDrag(el, {callback: function() {   //applying resizing and draggable to widget
+        applyAuthorRelatedProperty: function (el, _this) {
+            uiSetting.resizeAndDrag(el, {callback: function () {   //applying resizing and draggable to widget
                 }, context: _this});
         }
     },
@@ -431,7 +459,7 @@ var divisionWidget = (function(o) {
             ]
         },
         count: 0,
-        updateStatus: function(type) {
+        updateStatus: function (type) {
             if (type === "+") {
                 this.count++;
             } else {
@@ -444,14 +472,14 @@ var divisionWidget = (function(o) {
                 this.createPop();
             }
         },
-        removePop: function() {
+        removePop: function () {
             $('#' + this.popupInitialSetting.popId).remove();
             $('#popup-overlay-add').remove();
         },
-        createPop: function() {
+        createPop: function () {
             getConfigurationWindow(this.popupInitialSetting, $('#' + uiSetting.authorParent));
         },
-        show: function(view, context) {
+        show: function (view, context) {
             this.updatePopFields(view);
 
             $('#popup-overlay-add').css('display', 'block');
@@ -468,7 +496,7 @@ var divisionWidget = (function(o) {
             p.find("#clearAllGraph").off('click').on('click', {view: view}, popupManager.clearAll);
 
             //validation
-            p.find('#dividend').keyup(function() {
+            p.find('#dividend').keyup(function () {
                 var tempCheck = [], tempCheck2 = [];
                 //alert(p.find('#questionOption').val());
                 if (typeof p.find('#dividend').val() === "string") {
@@ -491,7 +519,7 @@ var divisionWidget = (function(o) {
                 }
             });
 
-            p.find('#divisor').keyup(function() {
+            p.find('#divisor').keyup(function () {
                 var tempCheck = [], tempCheck2 = [];
                 //alert(p.find('#questionOption').val());
                 if (typeof p.find('#divisor').val() === "string") {
@@ -515,7 +543,7 @@ var divisionWidget = (function(o) {
             });
 
             if (app ? app.detect.isAndroid() : navigator.userAgent.match(/Android/i)) {
-                p.find('input#divisor').keyup(function(event) {
+                p.find('input#divisor').keyup(function (event) {
                     var ob = this;
                     var invalidChars = /[^0-9]/gi;
                     if (invalidChars.test(ob.value)) {
@@ -523,7 +551,7 @@ var divisionWidget = (function(o) {
                     }
                 });
             } else {
-                p.find('input#divisor').on("keypress", function(e) {
+                p.find('input#divisor').on("keypress", function (e) {
                     var AllowableCharacters = '1234567890.';
                     var k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
                     if (k != 13 && k != 8 && k != 0) {
@@ -539,7 +567,7 @@ var divisionWidget = (function(o) {
             }
 
             if (app ? app.detect.isAndroid() : navigator.userAgent.match(/Android/i)) {
-                p.find('input#dividend').keyup(function(event) {
+                p.find('input#dividend').keyup(function (event) {
                     var ob = this;
                     var invalidChars = /[^0-9]/gi;
                     if (invalidChars.test(ob.value)) {
@@ -547,7 +575,7 @@ var divisionWidget = (function(o) {
                     }
                 });
             } else {
-                p.find('input#dividend').on("keypress", function(e) {
+                p.find('input#dividend').on("keypress", function (e) {
                     var AllowableCharacters = '1234567890.';
                     var k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
                     if (k != 13 && k != 8 && k != 0) {
@@ -563,7 +591,7 @@ var divisionWidget = (function(o) {
             }
 
         },
-        updateWidget: function(e) {
+        updateWidget: function (e) {
             var m = e.data.view.model;
             var p = $('#' + popupManager.popupInitialSetting.popId);
             var s = popupManager.popupInitialSetting.inputName;
@@ -577,11 +605,11 @@ var divisionWidget = (function(o) {
             }
             popupManager.hide();
         },
-        clearAll: function(e) {
+        clearAll: function (e) {
             e.data.view.reset();
             popupManager.hide();
         },
-        updatePopFields: function(view) {
+        updatePopFields: function (view) {
             var setting = view.model;
             var p = $('#' + popupManager.popupInitialSetting.popId);
             var s = popupManager.popupInitialSetting.inputName;
@@ -595,14 +623,14 @@ var divisionWidget = (function(o) {
                 }
             }
         },
-        updateInstantAnswer: function(e) {
+        updateInstantAnswer: function (e) {
             var opt = typeof e.target.value == "string" ? e.target.value.split(',') : e.target.value, a = '';
             for (var l = 0; l < opt.length; l++) {
                 a = a + '<option value="' + opt[l] + '">' + opt[l] + '</option>';
             }
             $('#' + popupManager.popupInitialSetting.popId).find('select[attr="option"]').html(a);
         },
-        hide: function() {
+        hide: function () {
             $('#popup-overlay-add').css('display', 'none');
             $("#" + popupManager.popupInitialSetting.popId).css("display", "none");
         }
@@ -690,7 +718,7 @@ var divisionWidget = (function(o) {
             if (Role === "author") {
                 uiSetting.applyAuthorRelatedProperty(tView.el, _this);
                 popupManager.updateStatus('+');
-                tView.el.bind('dblclick', {view: tView, context: _this}, function(e) {
+                tView.el.bind('dblclick', {view: tView, context: _this}, function (e) {
                     e.data.view.updateModel();
                     popupManager.show(e.data.view, e.data.context);
                 });
@@ -703,7 +731,7 @@ var divisionWidget = (function(o) {
          *
          */
         /*this will remove the widget from the screen*/
-        this.destroy = function() {
+        this.destroy = function () {
             if (!tView.deleted) {
                 //tView.deleted = true;
                 tView.destroy();
@@ -711,28 +739,28 @@ var divisionWidget = (function(o) {
             }
         };
         /*This will reset the widget to its initial settings*/
-        this.reset = function() {
+        this.reset = function () {
             if (!tView.deleted) {
                 tView.active && tView.reset();
                 console.log("reset is called");
             }
         };
         /*This will set the property*/
-        this.setProperty = function(x) {
+        this.setProperty = function (x) {
             if (!tView.deleted) {
                 tView.model.set(x);
             }
             return undefined;
         };
         /*This will get the property as per the value provided in the options*/
-        this.getProperty = function(x) {
+        this.getProperty = function (x) {
             if (!tView.deleted) {
                 return tView.model.get(x);
             }
             return undefined;
         };
         /*It will validate the widget against the user inputs*/
-        this.validate = function(type) {
+        this.validate = function (type) {
             var result;
             if (!tView.deleted) {
                 result = tView.checkAnswer();
@@ -745,7 +773,7 @@ var divisionWidget = (function(o) {
             return undefined
         };
         /*It will give the all data associated with the widget*/
-        this.getWidgetData = function() {
+        this.getWidgetData = function () {
             if (!tView.deleted) {
                 tView.updateModel();
                 return tView.model.toJSON();
@@ -753,23 +781,33 @@ var divisionWidget = (function(o) {
             return undefined
         };
         /*This will bring all the user input as each level of feedback*/
-        this.getUserAnswer = function() {
+        this.getUserAnswer = function () {
             if (!tView.deleted) {
-                // return tView.el.find("wid").val();
+                return tView.updateUserAnswer();
             }
             return undefined;
         };
-        this.getWidgetType = function() {
+        /*This will set the user answer*/
+        this.setUserAnswer = function (val) {
+            if (!tView.deleted) {
+                tView.updateUserAnswerWithVal(val);
+                tView.setScreenInput();
+                return true;
+            }
+            return undefined;
+        };
+
+        this.getWidgetType = function () {
             return cSetting.widgetType;
         };
 
-        this.deactivate = function() {
+        this.deactivate = function () {
             if (!tView.deleted) {
                 //   tView.active = false;
                 tView.deactivate();
             }
         };
-        this.activate = function() {
+        this.activate = function () {
             if (!tView.deleted) {
                 //tView.active = true;
                 tView.activate();
@@ -778,14 +816,14 @@ var divisionWidget = (function(o) {
 
     }
 
-    divisionWidget.prototype.deactivate = function() {
+    divisionWidget.prototype.deactivate = function () {
         this.active = false;
     };
-    divisionWidget.prototype.activate = function() {
+    divisionWidget.prototype.activate = function () {
         this.active = true;
     };
 
-    divisionWidget.prototype.toString = function() {
+    divisionWidget.prototype.toString = function () {
         return "This is Division Widget";
     };
     return divisionWidget;

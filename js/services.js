@@ -10,12 +10,12 @@ function playerServices($http, $q) {
     var testJSON = '';
 
     var quizData = {
-        questionArr: [],
-        ansArr: [],
-        resultArr: []
+        questionArr: {},
+        ansArr: {},
+        resultArr: {}
 
     }
-    var getQuizDataService = function (quizId,userId) {
+    var getQuizDataService = function (quizId, userId) {
         var def = $q.defer();
 
         $http.get("data/quiz.json")
@@ -38,21 +38,21 @@ function playerServices($http, $q) {
     var submitQuestions = function () {
         var allQData = quizData.questionArr, qData;
         var resultData = [];
-        for (var i = 0; i < allQData.length; i++) {
-            qData = allQData[i]
+        _.each(allQData, function (qData, qIndex) {
+
             resultData = [];
             _.each(qData.widgetList, function (elem, index) {
                 resultData.push(elem.validate('generic'));
             });
-            quizData.resultArr[i] = resultData;
-        }
+            quizData.resultArr[qIndex] = resultData;
+        });
 
     };
-    
-     var checkQuizIniate = function ($location, view) {
-        if(testJSON == ''){
+
+    var checkQuizIniate = function ($location, view) {
+        if (testJSON == '') {
             return false;
-        }else{
+        } else {
             return true;
         }
 
@@ -61,20 +61,22 @@ function playerServices($http, $q) {
     var getResult = function () {
         var allQData = quizData.resultArr, qData;
         var resultData = [], qResult;
-        var totalQuestion = allQData.length, wrongAns = 0;
-        for (var i = 0; i < allQData.length; i++) {
-            qData = allQData[i];
+        var totalQuestion = testJSON.questionArr.length, correctAns = 0;
+        _.each(allQData, function (qData, qIndex) {
             qResult = true;
             for (var j = 0; j < qData.length; j++) {
                 if (!qData[j]) {
                     qResult = false;
-                    wrongAns++;
                     break
                 }
+
+            }
+            if (qResult) {
+                correctAns++;
             }
             resultData.push(qResult);
-        }
-        return {resultData: resultData, totalQuestion: totalQuestion, wrongAns: wrongAns};
+        });
+        return {resultData: resultData, totalQuestion: totalQuestion, correctAns: correctAns};
     };
 
     var storeUserAnswerData = function (idx) {

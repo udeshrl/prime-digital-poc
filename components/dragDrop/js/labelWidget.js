@@ -591,6 +591,14 @@ var labelWidget = (function (o) {
             }
             return undefined;
         };
+        
+        /*This will bring all the user input as each level of feedback*/
+        _this.setUserAnswer = function () {
+            if (!_this.deleted) {
+//                return tView.el.find("input").val();
+            }
+            return undefined;
+        };
 
         _this.getWidgetType = function () {
             return cSetting.widgetType;

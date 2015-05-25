@@ -696,10 +696,20 @@ var groupBox = (function (o) {
         /*This will bring all the user input as each level of feedback*/
         _this.getUserAnswer = function () {
             if (!collectionView.deleted) {
+                return undefined;
                 //    return tView.el.find("wid").val();
             }
             return undefined;
         };
+        
+        /*This will set the user answer*/
+        _this.setUserAnswer = function () {
+            if (!collectionView.deleted) {
+                return undefined;
+            }
+            return undefined;
+        };
+        
         _this.deactivate = function () {
             if (!collectionView.deleted) {
                 collectionView.deactivate();

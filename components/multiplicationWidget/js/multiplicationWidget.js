@@ -1,7 +1,7 @@
 /**
  * Created by pallav.saxena on 4/4/2014.
  */
-var multiplicationWidget = (function(o) {
+var multiplicationWidget = (function (o) {
     "use strict";
     if (o !== window) {
         throw "Please check scope of the Widget";
@@ -27,14 +27,14 @@ var multiplicationWidget = (function(o) {
     };
     var model = Backbone.Model.extend({
         "default": {},
-        initialize: function(options) {
+        initialize: function (options) {
             this.initObject = options;
             this["default"] = options;
         },
-        reset: function() {
+        reset: function () {
             this.set(this.initObject);
         },
-        check: function() {
+        check: function () {
             var o = this, uA = o.get("userAttempt"), aA = o.get("authorAttempt");
 
             var count = 0;
@@ -53,7 +53,7 @@ var multiplicationWidget = (function(o) {
         }
     });
     var view = Backbone.View.extend({
-        initialize: function(options) {
+        initialize: function (options) {
             var o = this;
             o.el = options.el;
             o.model = options.model;
@@ -76,7 +76,7 @@ var multiplicationWidget = (function(o) {
             o.toggleFullAbbreviationAllowed(undefined);
             o.fontSize(undefined);
         },
-        fontSize: function() {
+        fontSize: function () {
             var fontSize = this.model.get("fontSize");
             var carryFontSize = parseInt(fontSize, 10) - 2;
             this.el.find("input.carryField").css("font-size", carryFontSize + 'pt');
@@ -85,7 +85,7 @@ var multiplicationWidget = (function(o) {
             this.el.find(".digit").css("font-size", fontSize);
             this.el.find("#row1 .digit").css("font-size", "inherit");
         },
-        toggleUnitLabel: function() {
+        toggleUnitLabel: function () {
             if (this.model.get("isUnitLabelAllow")) {
                 this.el.find("#row1").css("display", "block");
                 this.el.find("#row2").css("border-top", "none");
@@ -94,7 +94,7 @@ var multiplicationWidget = (function(o) {
             }
 
         },
-        toggleCarryAllow: function() {
+        toggleCarryAllow: function () {
             if (this.model.get("isCarryAllow")) {
                 this.el.find("#row2").css("display", "block");
                 this.el.find("#row3").css("border-top", "none");
@@ -102,7 +102,7 @@ var multiplicationWidget = (function(o) {
                 this.el.find("#row2").css("display", "none");
             }
         },
-        toggleMidAnswer: function(e) {
+        toggleMidAnswer: function (e) {
             if (this.model.get("isMidAnswerToggle")) {
                 this.el.find(".midAnswerField").parent().parent().css("display", "block");
 
@@ -110,7 +110,7 @@ var multiplicationWidget = (function(o) {
                 this.el.find(".midAnswerField").parent().parent().css("display", "none");
             }
         },
-        toggleFullAbbreviationAllowed: function() {
+        toggleFullAbbreviationAllowed: function () {
             var columns = this.el.find("input.answerField").parent().parent().attr("class").slice(8);
             var column, orgColumn;
             column = columns.split('#')[0];
@@ -250,7 +250,7 @@ var multiplicationWidget = (function(o) {
 
             }
         },
-        toggleGrid: function(e) {
+        toggleGrid: function (e) {
             if (this.model.get("isGridToggle")) {
                 this.el.find(".Addgridsquare").css("border-bottom", "1px solid #f1f1f1").css("border-right", "1px solid #f1f1f1");
                 this.el.find("#row1").parent().css("border-left", "1px solid #f1f1f1").css("border-top", "1px solid #f1f1f1");
@@ -261,13 +261,13 @@ var multiplicationWidget = (function(o) {
                 this.el.find(".AddgridsquareFull").css("border-bottom", "none").css("border-right", "none");
             }
         },
-        render: function() {
+        render: function () {
             console.log("render called");
             uiSetting.createGrid(this.el, this.model.toJSON());
             this.toggleMidAnswer(undefined);
             this.fontSize(undefined);
         },
-        options: function() {
+        options: function () {
             var temp, options = this.model.get("options"), str = '';
             if (this.model.get("category") == "Options") {
                 if (options instanceof Array) {
@@ -281,72 +281,99 @@ var multiplicationWidget = (function(o) {
                 this.el.find('select').html(str);
             }
         },
-        left: function() {
+        left: function () {
             this.el.css("left", parseInt(this.model.get("left")));
         },
-        top: function() {
+        top: function () {
             this.el.css("top", parseInt(this.model.get("top")));
         },
-        destroy: function() {
+        destroy: function () {
             delete this.model;
             this.el.remove();
             this.deleted = true;
         },
-        updateModel: function() {
+        updateModel: function () {
             var a = this.el;
             this.model.set("authorAttempt", this.getScreenInput());
             this.model.set({left: parseInt(a.css('left')), top: parseInt(a.css('top'))}, {silent: true});
         },
-        getScreenInput: function() {
+        getScreenInput: function () {
             var o = this;
             var carryField = [], midAnswerField = [], answerField = [];
 
             if (this.model.get("isCarryAllow")) {
-                o.el.find('.carryField').each(function() {//this is for 1st carry applicable for addition.
+                o.el.find('.carryField').each(function () {//this is for 1st carry applicable for addition.
                     carryField.push($(this).val());
                 });
             }
 
             if (this.model.get("isMidAnswerToggle")) {
-                o.el.find('.midAnswerField').each(function() {
+                o.el.find('.midAnswerField').each(function () {
                     midAnswerField.push($(this).val());
                 });
             }
 
 
-            o.el.find('.answerField').each(function() {
+            o.el.find('.answerField').each(function () {
                 answerField.push($(this).val());
             });
             return {answerField: answerField, carryField: carryField, midAnswerField: midAnswerField};
         },
-        checkAnswer: function() {
+        setScreenInput: function () {
+            var o = this, userAttempt = o.model.get('userAttempt');
+            var carryField = userAttempt.carryField, answerField = userAttempt.answerField, midAnswerField = userAttempt.midAnswerField;
+            if (this.model.get("isCarryAllow")) {
+                o.el.find('.carryField').each(function (index) {//this is for 1st carry applicable for addition.
+                    carryField.push($(this).val(carryField[index]));
+                });
+            }
+
+            if (this.model.get("isMidAnswerToggle")) {
+                o.el.find('.midAnswerField').each(function (index) {//this is for 1st carry applicable for addition.
+                    midAnswerField.push($(this).val(midAnswerField[index]));
+                });
+            }
+
+            o.el.find('.answerField').each(function (index) {//this is for 1st carry applicable for addition.
+                answerField.push($(this).val(answerField[index]));
+            });
+        },
+        checkAnswer: function () {
             this.model.set("userAttempt", this.getScreenInput());
             return this.model.check();
         },
-        typeCheck: function(k) {
+        updateUserAnswer: function () {
+            var userAttempt = this.getScreenInput();
+            this.model.set("userAttempt", userAttempt);
+            return userAttempt;
+        },
+        updateUserAnswerWithVal: function (val) {
+            this.model.set("userAttempt", val);
+        },
+        typeCheck: function (k) {
             return app.isDecimal(k);
         },
-        reset: function() {
+        reset: function () {
             //  this.model.reset();
             this.el.find('input').val('');
         },
-        correctVisual: function() {
+        correctVisual: function () {
             //this.el.css("border", "2px solid green");
             return !0;
         },
-        wrongVisual: function() {
+        wrongVisual: function () {
             //this.el.css("border", "2px solid red");
             return !1;
         },
-        activate: function() {
+        activate: function () {
             this.active = true;
             this.el.find("input").removeAttr("disabled");
         },
-        deactivate: function() {
+        deactivate: function () {
             this.active = false;
             this.el.find("input").attr("disabled", "disabled");
         },
-        revealAnswer: function() {
+        revealAnswer: function () {
             // var result = this.checkAnswer();
             var answers = this.model.get("authorAttempt");
 
@@ -381,10 +408,10 @@ var multiplicationWidget = (function(o) {
         authorParent: "author_content_container",
         widthDifference: Role == "author" ? 10 : 0,
         heightDifference: 6,
-        resizeAndDrag: function(el, resizeSetting, draggableSetting) {
+        resizeAndDrag: function (el, resizeSetting, draggableSetting) {
             typeof draggableModule != "undefined" && draggableModule.makeDraggable(el);
         },
-        createGrid: function(el, data) {
+        createGrid: function (el, data) {
             $(el).empty();
             var str = '', str2 = '';
             var qLIst = data.questionOption;
@@ -497,7 +524,7 @@ var multiplicationWidget = (function(o) {
             insertData(el, qLIst, noOfRow, noOfColumn, data.symbol, data.isUnitLabelAllow, data.isCarryAllow, numberOfRowsForMidAnswerFields, carryRow, data.isFullAbbreviationAllowed, tempNumberOfColumn);
 
             if (app ? app.detect.isAndroid() : navigator.userAgent.match(/Android/i)) {
-                el.find('input').attr("maxlength", "1").keyup(function(event) {
+                el.find('input').attr("maxlength", "1").keyup(function (event) {
                     var ob = this;
                     var invalidChars = /[^0-9]/gi;
                     if (invalidChars.test(ob.value)) {
@@ -505,7 +532,7 @@ var multiplicationWidget = (function(o) {
                     }
                 });
             } else {
-                el.find('input').attr("maxlength", "1").on("keypress", function(e) {
+                el.find('input').attr("maxlength", "1").on("keypress", function (e) {
                     var AllowableCharacters = '1234567890.';
                     var k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
                     if (k != 13 && k != 8 && k != 0) {
@@ -521,12 +548,12 @@ var multiplicationWidget = (function(o) {
             }
 
         },
-        getWidgetTemplate: function(data, mode) {
+        getWidgetTemplate: function (data, mode) {
             var str = '<div id=' + data.id + ' class="multiplicationWidget" style="position:absolute;left:' + data.left + 'px;top:' + data.top + 'px;"></div>';
             return str + '';
         },
-        applyAuthorRelatedProperty: function(el, _this) {
-            uiSetting.resizeAndDrag(el, {callback: function() {   //applying resizing and draggable to widget
+        applyAuthorRelatedProperty: function (el, _this) {
+            uiSetting.resizeAndDrag(el, {callback: function () {   //applying resizing and draggable to widget
                 }, context: _this});
         }
     },
@@ -553,7 +580,7 @@ var multiplicationWidget = (function(o) {
             ]
         },
         count: 0,
-        updateStatus: function(type) {
+        updateStatus: function (type) {
             if (type === "+") {
                 this.count++;
             } else {
@@ -566,14 +593,14 @@ var multiplicationWidget = (function(o) {
                 this.createPop();
             }
         },
-        removePop: function() {
+        removePop: function () {
             $('#' + this.popupInitialSetting.popId).remove();
             $('#popup-overlay-multi').remove();
         },
-        createPop: function() {
+        createPop: function () {
             getConfigurationWindow(this.popupInitialSetting, $('#' + uiSetting.authorParent));
         },
-        show: function(view, context) {
+        show: function (view, context) {
             this.updatePopFields(view);
             $('#popup-overlay-multi').css('display', 'block');
             var p = $("#" + popupManager.popupInitialSetting.popId);
@@ -588,7 +615,7 @@ var multiplicationWidget = (function(o) {
             p.find("#clearAllGraph").off('click').on('click', {view: view}, popupManager.clearAll);
 
             //validation
-            p.find('#questionOption').keyup(function() {
+            p.find('#questionOption').keyup(function () {
                 var tempCheck = [], tempCheck2 = [];
                 //alert(p.find('#questionOption').val());
                 if (typeof p.find('#questionOption').val() === "string") {
@@ -612,7 +639,7 @@ var multiplicationWidget = (function(o) {
             });
 
             if (app ? app.detect.isAndroid() : navigator.userAgent.match(/Android/i)) {
-                p.find('input#questionOption').keyup(function(event) {
+                p.find('input#questionOption').keyup(function (event) {
                     var ob = this;
                     var invalidChars = /[^0-9]/gi;
                     if (invalidChars.test(ob.value)) {
@@ -620,7 +647,7 @@ var multiplicationWidget = (function(o) {
                     }
                 });
             } else {
-                p.find('input#questionOption').on("keypress", function(e) {
+                p.find('input#questionOption').on("keypress", function (e) {
                     var AllowableCharacters = '1234567890.,';
                     var k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
                     if (k != 13 && k != 8 && k != 0) {
@@ -636,7 +663,7 @@ var multiplicationWidget = (function(o) {
             }
 
             if (app ? app.detect.isAndroid() : navigator.userAgent.match(/Android/i)) {
-                p.find('input#numberOfCarryRows').keyup(function(event) {
+                p.find('input#numberOfCarryRows').keyup(function (event) {
                     var ob = this;
                     var invalidChars = /[^0-9]/gi;
                     if (invalidChars.test(ob.value)) {
@@ -644,7 +671,7 @@ var multiplicationWidget = (function(o) {
                     }
                 });
             } else {
-                p.find('input#numberOfCarryRows').on("keypress", function(e) {
+                p.find('input#numberOfCarryRows').on("keypress", function (e) {
                     var AllowableCharacters = '1234567890';
                     var k = document.all ? parseInt(e.keyCode) : parseInt(e.which);
                     if (k != 13 && k != 8 && k != 0) {
@@ -662,7 +689,7 @@ var multiplicationWidget = (function(o) {
 
 
         },
-        updateWidget: function(e) {
+        updateWidget: function (e) {
             var m = e.data.view.model;
             var p = $('#' + popupManager.popupInitialSetting.popId);
             var s = popupManager.popupInitialSetting.inputName;
@@ -676,11 +703,11 @@ var multiplicationWidget = (function(o) {
             }
             popupManager.hide();
         },
-        clearAll: function(e) {
+        clearAll: function (e) {
             e.data.view.reset();
             popupManager.hide();
         },
-        updatePopFields: function(view) {
+        updatePopFields: function (view) {
             var setting = view.model;
             var p = $('#' + popupManager.popupInitialSetting.popId);
             var s = popupManager.popupInitialSetting.inputName;
@@ -694,14 +721,14 @@ var multiplicationWidget = (function(o) {
                 }
             }
         },
-        updateInstantAnswer: function(e) {
+        updateInstantAnswer: function (e) {
             var opt = typeof e.target.value == "string" ? e.target.value.split(',') : e.target.value, a = '';
             for (var l = 0; l < opt.length; l++) {
                 a = a + '<option value="' + opt[l] + '">' + opt[l] + '</option>';
             }
             $('#' + popupManager.popupInitialSetting.popId).find('select[attr="option"]').html(a);
         },
-        hide: function() {
+        hide: function () {
             $('#popup-overlay-multi').css('display', 'none');
             $("#" + popupManager.popupInitialSetting.popId).css("display", "none");
         }
@@ -956,7 +983,7 @@ var multiplicationWidget = (function(o) {
             if (Role === "author") {
                 uiSetting.applyAuthorRelatedProperty(tView.el, _this);
                 popupManager.updateStatus('+');
-                tView.el.bind('dblclick', {view: tView, context: _this}, function(e) {
+                tView.el.bind('dblclick', {view: tView, context: _this}, function (e) {
                     e.data.view.updateModel();
                     popupManager.show(e.data.view, e.data.context);
                 });
@@ -969,7 +996,7 @@ var multiplicationWidget = (function(o) {
          *
          */
         /*this will remove the widget from the screen*/
-        this.destroy = function() {
+        this.destroy = function () {
             if (!tView.deleted) {
                 //tView.deleted = true;
                 tView.destroy();
@@ -977,28 +1004,28 @@ var multiplicationWidget = (function(o) {
             }
         };
         /*This will reset the widget to its initial settings*/
-        this.reset = function() {
+        this.reset = function () {
             if (!tView.deleted) {
                 tView.active && tView.reset();
                 console.log("reset is called");
             }
         };
         /*This will set the property*/
-        this.setProperty = function(x) {
+        this.setProperty = function (x) {
             if (!tView.deleted) {
                 tView.model.set(x);
             }
             return undefined;
         };
         /*This will get the property as per the value provided in the options*/
-        this.getProperty = function(x) {
+        this.getProperty = function (x) {
             if (!tView.deleted) {
                 return tView.model.get(x);
             }
             return undefined;
         };
         /*It will validate the widget against the user inputs*/
-        this.validate = function(type) {
+        this.validate = function (type) {
             var result;
             if (!tView.deleted) {
                 result = tView.checkAnswer();
@@ -1011,7 +1038,7 @@ var multiplicationWidget = (function(o) {
             return undefined
         };
         /*It will give the all data associated with the widget*/
-        this.getWidgetData = function() {
+        this.getWidgetData = function () {
             if (!tView.deleted) {
                 tView.updateModel();
                 return tView.model.toJSON();
@@ -1019,23 +1046,32 @@ var multiplicationWidget = (function(o) {
             return undefined
         };
         /*This will bring all the user input as each level of feedback*/
-        this.getUserAnswer = function() {
+        this.getUserAnswer = function () {
             if (!tView.deleted) {
-                // return tView.el.find("wid").val();
+                return tView.updateUserAnswer();
             }
             return undefined;
         };
-        this.getWidgetType = function() {
+        /*This will set the user answer*/
+        this.setUserAnswer = function (val) {
+            if (!tView.deleted) {
+                tView.updateUserAnswerWithVal(val);
+                tView.setScreenInput();
+                return true;
+            }
+            return undefined;
+        };
+        this.getWidgetType = function () {
             return cSetting.widgetType;
         };
 
-        this.deactivate = function() {
+        this.deactivate = function () {
             if (!tView.deleted) {
                 //   tView.active = false;
                 tView.deactivate();
             }
         };
-        this.activate = function() {
+        this.activate = function () {
             if (!tView.deleted) {
                 //tView.active = true;
                 tView.activate();
@@ -1044,14 +1080,14 @@ var multiplicationWidget = (function(o) {
 
     }
 
-    multiplicationWidget.prototype.deactivate = function() {
+    multiplicationWidget.prototype.deactivate = function () {
         this.active = false;
     };
-    multiplicationWidget.prototype.activate = function() {
+    multiplicationWidget.prototype.activate = function () {
         this.active = true;
     };
 
-    multiplicationWidget.prototype.toString = function() {
+    multiplicationWidget.prototype.toString = function () {
         return "This is Multiplication Widget";
     };
     return multiplicationWidget;

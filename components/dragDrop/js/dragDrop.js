@@ -1394,6 +1394,15 @@ var dragDrop = (function(o) {
 
             return undefined;
         };
+        
+        /*This will set the user answer*/
+        _this.setUserAnswer = function () {
+            if (!collectionView.deleted) {
+                return undefined;
+            }
+            return undefined;
+        };
+        
         _this.deactivate = function() {
             if (!collectionView.deleted) {
                 collectionView.deactivate();

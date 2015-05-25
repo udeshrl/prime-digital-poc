@@ -24,9 +24,7 @@ body {
     position:relative;
     margin:0 auto;
     height:480px;
-    border:5px solid #fff;
     box-shadow: 0 0 6px #aaa;
-    padding: 20px;
     background: #fff;
     z-index: 0;
 }
