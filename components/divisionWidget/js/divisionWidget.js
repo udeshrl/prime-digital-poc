@@ -58,6 +58,9 @@ var divisionWidget = (function (o) {
             o.toggleSteps(undefined);
             o.addExtraColumns(undefined);
             o.fontSize(undefined);
+            o.el.find('input').blur(function () {
+                o.updateUserAnswer();
+            });
         },
         fontSize: function () {
             var fontSize = this.model.get("fontSize");
@@ -184,7 +187,7 @@ var divisionWidget = (function (o) {
             }
         },
         checkAnswer: function () {
-            this.model.set("userAttempt", this.getScreenInput());
+            //this.model.set("userAttempt", this.getScreenInput());
             return this.model.check();
         },
         updateUserAnswer: function () {

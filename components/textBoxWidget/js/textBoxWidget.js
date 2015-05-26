@@ -11,7 +11,7 @@
  * */
 
 /*textBoxWidget its a constructor*/
-var textBoxWidget = (function(o, $, Backbone, _) {
+var textBoxWidget = (function (o, $, Backbone, _) {
     "use strict";
     if (o !== window) {
         throw "Please check scope of the Widget";
@@ -41,14 +41,14 @@ var textBoxWidget = (function(o, $, Backbone, _) {
     },
     model = Backbone.Model.extend({
         "default": {},
-        initialize: function(options) {
+        initialize: function (options) {
             this.initObject = options;
             this["default"] = options;
         },
-        reset: function() {
+        reset: function () {
             this.set(this.initObject);
         },
-        check: function(val) {
+        check: function (val) {
             var ans = this.get("answer"), v = [];
             if (this.get("ignoreSpace")) {
                 ans = $.trim(ans).replace(/\s/g, "");
@@ -66,243 +66,246 @@ var textBoxWidget = (function(o, $, Backbone, _) {
             return _.contains(v, val + "");
         }
     }),
-    view = Backbone.View.extend({
-        initialize: function(options) {
-            var o = this;
-            o.el = options.el;
-            o.active = true;
-            o.deleted = false;
-            o.model = options.model;
-            o.model.on("change:width", o.width.bind(o));
-            o.model.on("change:height", o.height.bind(o));
-            o.model.on("change:left", o.left.bind(o));
-            o.model.on("change:top", o.top.bind(o));
-            o.model.on("change:length", o.length.bind(o));
-            o.model.on("change:type", o.type.bind(o));
-            o.model.on("change:fontSize", o.fontSize.bind(o));
-            o.model.on("change:userAnswer", o.userAnswer.bind(o));
-            /*update UI factors*/
-            o.fontSize();
-            o.length();
-            o.width();
-            o.height();
-            o.left();
-            o.top();
-            o.fontColor();
-            o.userAnswer();
-            if (o.model.get("category") === "Simple_Text_Box") {
-                if (app ? app.detect.isAndroid() : navigator.userAgent.match(/Android/i)) {
-                    o.el.find('.tbwid').keyup(function() {
-                        var ob = this;
-                        var invalidChars = /[^0-9]/gi;
-                        if (invalidChars.test(ob.value)) {
-                            ob.value = ob.value.replace(invalidChars, "");
-                        }
-                    });
-                } else {
-                    o.el.find('.tbwid').on("keypress", function(e) {
-                        if (o.model.get("type") === "Free Text") {
-                            return true;
-                        } else if (o.model.get("type") === "Numeric") {
-                            var AllowableCharacters = '1234567890.';
-                            var k = document.all ? parseInt(e.keyCode, 10) : parseInt(e.which, 10);
-                            if (k !== 13 && k !== 8 && k !== 0) {
-                                if ((e.ctrlKey == false) && (e.altKey == false)) {
-                                    return (AllowableCharacters.indexOf(String.fromCharCode(k)) !== -1);
-                                } else {
-                                    return true;
+            view = Backbone.View.extend({
+                initialize: function (options) {
+                    var o = this;
+                    o.el = options.el;
+                    o.active = true;
+                    o.deleted = false;
+                    o.model = options.model;
+                    o.model.on("change:width", o.width.bind(o));
+                    o.model.on("change:height", o.height.bind(o));
+                    o.model.on("change:left", o.left.bind(o));
+                    o.model.on("change:top", o.top.bind(o));
+                    o.model.on("change:length", o.length.bind(o));
+                    o.model.on("change:type", o.type.bind(o));
+                    o.model.on("change:fontSize", o.fontSize.bind(o));
+                    o.model.on("change:userAnswer", o.userAnswer.bind(o));
+                    /*update UI factors*/
+                    o.fontSize();
+                    o.length();
+                    o.width();
+                    o.height();
+                    o.left();
+                    o.top();
+                    o.fontColor();
+                    o.userAnswer();
+                    if (o.model.get("category") === "Simple_Text_Box") {
+                        if (app ? app.detect.isAndroid() : navigator.userAgent.match(/Android/i)) {
+                            o.el.find('.tbwid').keyup(function () {
+                                var ob = this;
+                                var invalidChars = /[^0-9]/gi;
+                                if (invalidChars.test(ob.value)) {
+                                    ob.value = ob.value.replace(invalidChars, "");
                                 }
-                            } else {
-                                return true;
-                            }
+                            });
+                        } else {
+                            o.el.find('.tbwid').on("keypress", function (e) {
+                                if (o.model.get("type") === "Free Text") {
+                                    return true;
+                                } else if (o.model.get("type") === "Numeric") {
+                                    var AllowableCharacters = '1234567890.';
+                                    var k = document.all ? parseInt(e.keyCode, 10) : parseInt(e.which, 10);
+                                    if (k !== 13 && k !== 8 && k !== 0) {
+                                        if ((e.ctrlKey == false) && (e.altKey == false)) {
+                                            return (AllowableCharacters.indexOf(String.fromCharCode(k)) !== -1);
+                                        } else {
+                                            return true;
+                                        }
+                                    } else {
+                                        return true;
+                                    }
+                                }
+                            });
                         }
+                    } else if (o.model.get("category") === "Options") {
+                        o.model.on("change:options", o.options.bind(o));
+                        var opt = o.model.get("options");
+                        if (opt.length > 0) {
+                            opt = opt instanceof Array ? opt : opt.split(uiSetting.seperator);
+                            this.el.find('.tbwid')[0].selectedIndex = 0;
+
+                        }
+                    }
+                    o.el.find('.tbwid').blur(function (event) {
+                        o.updateModel();
                     });
-                }
-            } else if (o.model.get("category") === "Options") {
-                o.model.on("change:options", o.options.bind(o));
-                var opt = o.model.get("options");
-                if (opt.length > 0) {
-                    opt = opt instanceof Array ? opt : opt.split(uiSetting.seperator);
-                    this.el.find('.tbwid')[0].selectedIndex = 0;
 
-                }
-            }
+                },
+                fontSize: function () {
+                    this.el.find('.tbwid').css("font-size", this.model.get("fontSize"));
+                },
+                userAnswer: function () {
+                    this.el.find(".tbwid").val(this.model.get("userAnswer"));
+                },
+                fontColor: function () {
+                    this.el.find(".tbwid").css("color", this.model.get("fontColor"));
+                },
+                length: function () {
+                    this.el.find(".tbwid").attr("maxlength", this.model.get("length")).val('');
+                },
+                type: function () {
+                    /*CR- Journal entry text implementation*/
+                    var styler = 'margin-left:' + uiSetting.widthDifference + 'px;padding:0px; border:0px;font-weight:normal !important;width:' + this.model.get("width") + 'px;height:' + this.model.get("height") + 'px;font-size:' + this.model.get("fontSize") + ';font-color:' + this.model.get("fontColor");
+                    if (this.model.get("type") == "Journal entry") {
+                        this.el.find('.tbwid').replaceWith("<textarea class='tbwid alignText' style='" + styler + "' maxlength='" + this.model.get("length") + ";' ></textarea>");
+                    } else {
+                        this.el.find('.tbwid').replaceWith('<input class="tbwid" type="text" style="' + styler + '" maxlength="' + this.model.get("length") + '" >');
+                    }
+                },
+                options: function () {
+                    var temp, options = this.model.get("options"), str = '', i;
+                    if (this.model.get("category") === "Options") {
+                        if (options instanceof Array) {
+                            temp = options;
+                        } else {
+                            temp = options.split(uiSetting.seperator);
+                        }
+                        for (i = 0; i < temp.length; i++) {
+                            str = str + '<option value="' + temp[i] + '">' + temp[i] + '</option>';
+                        }
+                        this.el.find('select').html(str);
+                    }
+                },
+                width: function () {
+                    this.el.width(parseInt(this.model.get("width"), 10));
+                    uiSetting.changeHeightAndWidth(this.el);
+                },
+                height: function () {
+                    this.el.height(parseInt(this.model.get("height"), 10));
+                    uiSetting.changeHeightAndWidth(this.el);
+                },
+                left: function () {
+                    this.el.css("left", parseInt(this.model.get("left"), 10) + "px");
+                },
+                top: function () {
+                    this.el.css("top", parseInt(this.model.get("top"), 10) + "px");
+                },
+                destroy: function () {
+                    delete this.model;
+                    this.el.remove();
+                },
+                updateModel: function () {
+                    var a = this.el;
+                    this.model.set({left: parseInt(a.css('left'), 10), top: parseInt(a.css('top'), 10), height: a.height(), width: a.width(), userAnswer: this.el.find('.tbwid').val()}, {silent: true});
 
-        },
-        fontSize: function() {
-            this.el.find('.tbwid').css("font-size", this.model.get("fontSize"));
-        },
-        userAnswer: function() {
-            this.el.find(".tbwid").val(this.model.get("userAnswer"));
-        },
-        fontColor: function() {
-            this.el.find(".tbwid").css("color", this.model.get("fontColor"));
-        },
-        length: function() {
-            this.el.find(".tbwid").attr("maxlength", this.model.get("length")).val('');
-        },
-        type: function() {
-            /*CR- Journal entry text implementation*/
-            var styler = 'margin-left:' + uiSetting.widthDifference + 'px;padding:0px; border:0px;font-weight:normal !important;width:' + this.model.get("width") + 'px;height:' + this.model.get("height") + 'px;font-size:' + this.model.get("fontSize") + ';font-color:' + this.model.get("fontColor");
-            if (this.model.get("type") == "Journal entry") {
-                this.el.find('.tbwid').replaceWith("<textarea class='tbwid alignText' style='" + styler + "' maxlength='" + this.model.get("length") + ";' ></textarea>");
-            } else {
-                this.el.find('.tbwid').replaceWith('<input class="tbwid" type="text" style="' + styler + '" maxlength="' + this.model.get("length") + '" >');
-            }
-        },
-        options: function() {
-            var temp, options = this.model.get("options"), str = '', i;
-            if (this.model.get("category") === "Options") {
-                if (options instanceof Array) {
-                    temp = options;
-                } else {
-                    temp = options.split(uiSetting.seperator);
-                }
-                for (i = 0; i < temp.length; i++) {
-                    str = str + '<option value="' + temp[i] + '">' + temp[i] + '</option>';
-                }
-                this.el.find('select').html(str);
-            }
-        },
-        width: function() {
-            this.el.width(parseInt(this.model.get("width"), 10));
-            uiSetting.changeHeightAndWidth(this.el);
-        },
-        height: function() {
-            this.el.height(parseInt(this.model.get("height"), 10));
-            uiSetting.changeHeightAndWidth(this.el);
-        },
-        left: function() {
-            this.el.css("left", parseInt(this.model.get("left"), 10) + "px");
-        },
-        top: function() {
-            this.el.css("top", parseInt(this.model.get("top"), 10) + "px");
-        },
-        destroy: function() {
-            delete this.model;
-            this.el.remove();
-        },
-        updateModel: function() {
-            var a = this.el;
-            this.model.set({left: parseInt(a.css('left'), 10), top: parseInt(a.css('top'), 10), height: a.height(), width: a.width(), userAnswer: this.el.find('.tbwid').val()}, {silent: true});
-            
-        },
-        checkAnswer: function() {
-            return this.model.check(this.model.get("userAnswer"));
-        },
-        reset: function() {
-            this.model.reset();
-            if (this.model.get("type") == "Journal entry") {
-                this.el.css("border", "2px solid black");
-            } else {
-                this.el.css("border", "2px solid transparent");
-            }
-            if (this.el.find('.tbwid')[0].nodeName.toLocaleLowerCase() == "select") {
-                this.el.find('.tbwid')[0].selectedIndex = 0;
-            } else {
-                this.el.find('.tbwid')[0].value = "";
-            }
-        },
-        correctVisual: function() {
-            this.el.css("border", "2px solid green");
-            return true;
-        },
-        wrongVisual: function() {
-            this.el.css("border", "2px solid red");
-            return false;
-        },
-        revealAnswer: function() {
-            var result = this.checkAnswer(),
-                    ans = this.model.get("answer");
-            if (ans instanceof Array) {
-                // ans = ans;
-            } else {
-                ans = ans.split(uiSetting.seperator);
-            }
-            result ? this.correctVisual() : this.el.css("border", "2px solid orange").find(".tbwid").val(ans[0]);
-            return result;
-        },
-        deactivate: function() {
-            this.el.find(".tbwid").attr("disabled", "disabled");
-            this.active = false;
-        },
-        activate: function() {
-            this.el.find(".tbwid").removeAttr("disabled");
-            this.active = true;
-        }
-    }),
-    uiSetting = {
-        seperator: "|",
-        authorParent: "author_content_container",
-        widthDifference: (Role === "author") ? 10 : 0,
-        heightDifference: (Role === "author") ? 0 : 0,
-        resizeAndDrag: function(el, resizeSetting, draggableSetting) {
-            typeof resizeModule !== "undefined" && resizeModule.makeResize(el, resizeSetting.callback, resizeSetting.context);
-            typeof draggableModule !== "undefined" && draggableModule.makeDraggable(el);
-        },
-        changeHeightAndWidth: function(a) {
-            var w = $(a).width(),
-                    h = $(a).height();
-            if ($(a).find('.tbwid')[0].nodeName.toLowerCase() === "select") {
-                $(a).find('.tbwid').css({width: (w - (uiSetting.widthDifference * 2)) + 'px', height: (h - uiSetting.heightDifference) + 'px'});
-            } else {
-                $(a).find('.tbwid').css({width: (w - (uiSetting.widthDifference * 2)) + 'px', height: (h - uiSetting.heightDifference) + 'px'});
-            }
-        },
-        getWidgetTemplate: function(obj, mode) {
-            var str = '', styler = '', temp, i;
-            if (obj.category === "Simple_Text_Box") {
-                var borderColor = 'black';
-                styler = 'margin-left:' + uiSetting.widthDifference + 'px;padding:0px;border:0px;font-weight:normal !important;';
-                if (mode !== "author") {//This is for reader part.
-                    if (obj.type != 'Journal entry') {
-                        borderColor = 'transparent';
-                    }
-                    str = '<div id="' + obj.id + '" style="position:absolute;border:2px solid ' + borderColor + ';padding:0px;">'
-                    //+ '<input class="tbwid" type="text" style="' + styler + '"></div>';
-                    if (obj.type != 'Journal entry') {
-                        str += '<input class="tbwid" type="text" style="' + styler + '">';
+                },
+                checkAnswer: function () {
+                    return this.model.check(this.model.get("userAnswer"));
+                },
+                reset: function () {
+                    this.model.reset();
+                    if (this.model.get("type") == "Journal entry") {
+                        this.el.css("border", "2px solid black");
                     } else {
-                        str += "<textarea class='tbwid alignText' style='" + styler + "'></textarea>";
+                        this.el.css("border", "2px solid transparent");
                     }
-                    str += '</div>';
-                } else {//this is for author part.
-                    str = '<div class="wPar" id="' + obj.id + '" style="position:absolute;border:2px solid ' + borderColor + ';padding:0px;">' /* 'px" title="TextBox having ID is ' + obj.id + '">'*/
-                    //  + '<input class="tbwid" type="text" style="' + styler + '"></div>';
-                    if (obj.type != 'Journal entry') {
-                        str += '<input class="tbwid" type="text" style="' + styler + '">';
+                    if (this.el.find('.tbwid')[0].nodeName.toLocaleLowerCase() == "select") {
+                        this.el.find('.tbwid')[0].selectedIndex = 0;
                     } else {
-                        str += "<textarea class='tbwid' style='" + styler + "'></textarea>";
+                        this.el.find('.tbwid')[0].value = "";
                     }
-                    str += "</div>";
-                }
-            } else if (obj.category === "Options") {
-                str = '<div id="' + obj.id + '" style="border:2px solid ' + (Role === "author" ? "black" : "transparent") + ';padding:0px;width:' + obj.width + 'px;position:absolute;height:' + obj.height + 'px; left:' + obj.left + 'px;top:' + obj.top + 'px">'
-                        + '<select class="tbwid" style="border:0px;font-weight:normal;text-align:center;text-align:-webkit-center;margin-left:' + uiSetting.widthDifference + 'px;width:' + (obj.width - (uiSetting.widthDifference * 2)) + 'px;height:' + (obj.height - uiSetting.heightDifference) + 'px;">';
-                /* 'px" title="TextBox having ID is ' + obj.id + '">'*/
-                if (obj.options instanceof Array) {
-                    temp = obj.options;
-                } else {
-                    temp = obj.options.split(uiSetting.seperator);
-                }
-                for (i = 0; i < temp.length; i++) {
-                    if (i === 0) {
-                        str = str + '<option value="' + temp[i] + '">' + temp[i] + '</option>';
+                },
+                correctVisual: function () {
+                    this.el.css("border", "2px solid green");
+                    return true;
+                },
+                wrongVisual: function () {
+                    this.el.css("border", "2px solid red");
+                    return false;
+                },
+                revealAnswer: function () {
+                    var result = this.checkAnswer(),
+                            ans = this.model.get("answer");
+                    if (ans instanceof Array) {
+                        // ans = ans;
                     } else {
-                        str = str + '<option value="' + temp[i] + '">' + temp[i] + '</option>';
+                        ans = ans.split(uiSetting.seperator);
                     }
+                    result ? this.correctVisual() : this.el.css("border", "2px solid orange").find(".tbwid").val(ans[0]);
+                    return result;
+                },
+                deactivate: function () {
+                    this.el.find(".tbwid").attr("disabled", "disabled");
+                    this.active = false;
+                },
+                activate: function () {
+                    this.el.find(".tbwid").removeAttr("disabled");
+                    this.active = true;
+                }
+            }),
+            uiSetting = {
+                seperator: "|",
+                authorParent: "author_content_container",
+                widthDifference: (Role === "author") ? 10 : 0,
+                heightDifference: (Role === "author") ? 0 : 0,
+                resizeAndDrag: function (el, resizeSetting, draggableSetting) {
+                    typeof resizeModule !== "undefined" && resizeModule.makeResize(el, resizeSetting.callback, resizeSetting.context);
+                    typeof draggableModule !== "undefined" && draggableModule.makeDraggable(el);
+                },
+                changeHeightAndWidth: function (a) {
+                    var w = $(a).width(),
+                            h = $(a).height();
+                    if ($(a).find('.tbwid')[0].nodeName.toLowerCase() === "select") {
+                        $(a).find('.tbwid').css({width: (w - (uiSetting.widthDifference * 2)) + 'px', height: (h - uiSetting.heightDifference) + 'px'});
+                    } else {
+                        $(a).find('.tbwid').css({width: (w - (uiSetting.widthDifference * 2)) + 'px', height: (h - uiSetting.heightDifference) + 'px'});
+                    }
+                },
+                getWidgetTemplate: function (obj, mode) {
+                    var str = '', styler = '', temp, i;
+                    if (obj.category === "Simple_Text_Box") {
+                        var borderColor = 'black';
+                        styler = 'margin-left:' + uiSetting.widthDifference + 'px;padding:0px;border:0px;font-weight:normal !important;';
+                        if (mode !== "author") {//This is for reader part.
+                            if (obj.type != 'Journal entry') {
+                                borderColor = 'transparent';
+                            }
+                            str = '<div id="' + obj.id + '" style="position:absolute;border:2px solid ' + borderColor + ';padding:0px;">'
+                            //+ '<input class="tbwid" type="text" style="' + styler + '"></div>';
+                            if (obj.type != 'Journal entry') {
+                                str += '<input class="tbwid" type="text" style="' + styler + '">';
+                            } else {
+                                str += "<textarea class='tbwid alignText' style='" + styler + "'></textarea>";
+                            }
+                            str += '</div>';
+                        } else {//this is for author part.
+                            str = '<div class="wPar" id="' + obj.id + '" style="position:absolute;border:2px solid ' + borderColor + ';padding:0px;">' /* 'px" title="TextBox having ID is ' + obj.id + '">'*/
+                            //  + '<input class="tbwid" type="text" style="' + styler + '"></div>';
+                            if (obj.type != 'Journal entry') {
+                                str += '<input class="tbwid" type="text" style="' + styler + '">';
+                            } else {
+                                str += "<textarea class='tbwid' style='" + styler + "'></textarea>";
+                            }
+                            str += "</div>";
+                        }
+                    } else if (obj.category === "Options") {
+                        str = '<div id="' + obj.id + '" style="border:2px solid ' + (Role === "author" ? "black" : "transparent") + ';padding:0px;width:' + obj.width + 'px;position:absolute;height:' + obj.height + 'px; left:' + obj.left + 'px;top:' + obj.top + 'px">'
+                                + '<select class="tbwid" style="border:0px;font-weight:normal;text-align:center;text-align:-webkit-center;margin-left:' + uiSetting.widthDifference + 'px;width:' + (obj.width - (uiSetting.widthDifference * 2)) + 'px;height:' + (obj.height - uiSetting.heightDifference) + 'px;">';
+                        /* 'px" title="TextBox having ID is ' + obj.id + '">'*/
+                        if (obj.options instanceof Array) {
+                            temp = obj.options;
+                        } else {
+                            temp = obj.options.split(uiSetting.seperator);
+                        }
+                        for (i = 0; i < temp.length; i++) {
+                            if (i === 0) {
+                                str = str + '<option value="' + temp[i] + '">' + temp[i] + '</option>';
+                            } else {
+                                str = str + '<option value="' + temp[i] + '">' + temp[i] + '</option>';
+                            }
 
+                        }
+                        str = str + '</select>';
+                    }
+                    return str;
+                },
+                applyAuthorRelatedProperty: function (el, _this) {
+                    uiSetting.resizeAndDrag(el, {callback: function () {   //applying resizing and draggable to widget
+                            uiSetting.changeHeightAndWidth(arguments[0].target);
+                        }, context: _this});
                 }
-                str = str + '</select>';
-            }
-            return str;
-        },
-        applyAuthorRelatedProperty: function(el, _this) {
-            uiSetting.resizeAndDrag(el, {callback: function() {   //applying resizing and draggable to widget
-                    uiSetting.changeHeightAndWidth(arguments[0].target);
-                }, context: _this});
-        }
-    },
+            },
     popupManager = {
         popupInitialSetting: {
             popId: 'textbox_pop_singleton',
@@ -331,7 +334,7 @@ var textBoxWidget = (function(o, $, Backbone, _) {
             ]
         },
         count: 0,
-        updateStatus: function(type) {
+        updateStatus: function (type) {
             if (type === "+") {
                 this.count++;
             } else {
@@ -344,14 +347,14 @@ var textBoxWidget = (function(o, $, Backbone, _) {
                 this.createPop();
             }
         },
-        removePop: function() {
+        removePop: function () {
             $('#' + this.popupInitialSetting.popId).remove();
             $('#popup-overlay-text').remove();
         },
-        createPop: function() {
+        createPop: function () {
             getConfigurationWindow(this.popupInitialSetting, $('#' + uiSetting.authorParent));
         },
-        show: function(view, context) {
+        show: function (view, context) {
             this.updatePopFields(view);
             $('#popup-overlay-text').css('display', 'block');
             var p = $("#" + popupManager.popupInitialSetting.popId).css("display", "block");
@@ -367,7 +370,7 @@ var textBoxWidget = (function(o, $, Backbone, _) {
                 p.find(".Options").css("display", "none");
             }
         },
-        updateWidget: function(e) {
+        updateWidget: function (e) {
             var hash = '#',
                     val,
                     m = e.data.view.model,
@@ -380,11 +383,11 @@ var textBoxWidget = (function(o, $, Backbone, _) {
                     s = pis.common,
                     i; //applying status to common properties.
             if (m.get("category") === "Simple_Text_Box") {
-                newList.not('label').each(function() {
+                newList.not('label').each(function () {
                     m.set(this.id, this.value.toString());
                 });
             } else {
-                newList.not('label').each(function() {
+                newList.not('label').each(function () {
                     m.set(this.id, this.value);
                 });
             }
@@ -406,7 +409,7 @@ var textBoxWidget = (function(o, $, Backbone, _) {
             }
             popupManager.hide();
         },
-        updatePopFields: function(view) {
+        updatePopFields: function (view) {
             var hash = '#',
                     m = view.model, pis = popupManager.popupInitialSetting,
                     p = $(hash + pis.popId),
@@ -414,7 +417,7 @@ var textBoxWidget = (function(o, $, Backbone, _) {
                     updateCase = m.get("category"),
                     newList = p.find("." + updateCase);
             if (updateCase === "Options") {
-                newList.not('label').each(function() {
+                newList.not('label').each(function () {
                     if (this.nodeName.toLocaleLowerCase() == "select") {
                         var opt = typeof m.get("options") == "string" ? m.get("options").split(uiSetting.seperator) : m.get("options"), a = '';
                         for (var l = 0; l < opt.length; l++) {
@@ -427,7 +430,7 @@ var textBoxWidget = (function(o, $, Backbone, _) {
                 });
                 // newList.find(hash + pis.optionType[x].id).val(m.get(pis.optionType[i].id));
             } else if (updateCase == "Simple_Text_Box") {
-                newList.not('label').each(function() {
+                newList.not('label').each(function () {
                     this.value = m.get(this.id).toString();
                 });
             }
@@ -442,19 +445,19 @@ var textBoxWidget = (function(o, $, Backbone, _) {
             p.find("#ignoreSpace")[0].checked = m.get('ignoreSpace');
 
         },
-        updateInstantAnswer: function(e) {
+        updateInstantAnswer: function (e) {
             var opt = typeof e.target.value == "string" ? e.target.value.split(uiSetting.seperator) : e.target.value, a = '';
             for (var l = 0; l < opt.length; l++) {
                 a = a + '<option value="' + opt[l] + '">' + opt[l] + '</option>';
             }
             $('#' + popupManager.popupInitialSetting.popId).find('select[attr="option"]').html(a);
         },
-        hide: function() {
+        hide: function () {
             $('#popup-overlay-text').css('display', 'none');
             $("#" + popupManager.popupInitialSetting.popId).css("display", "none");
         }
     },
-    getConfigurationWindow = function(setting, parent) {
+    getConfigurationWindow = function (setting, parent) {
         if (typeof $('#' + setting.popId)[0] !== "undefined") {
             return false;
         }
@@ -508,7 +511,7 @@ var textBoxWidget = (function(o, $, Backbone, _) {
             if (Role === "author") {
                 uiSetting.applyAuthorRelatedProperty(tView.el, _this);
                 popupManager.updateStatus('+');
-                tView.el.bind('dblclick', {view: tView, context: _this}, function(e) {
+                tView.el.bind('dblclick', {view: tView, context: _this}, function (e) {
                     if ($(this).find("select")[0]) { //this piece of code is to hide the html drop down by removing the focus.
                         $(this).find("select").blur();
                     }
@@ -524,7 +527,7 @@ var textBoxWidget = (function(o, $, Backbone, _) {
          */
 
         /*this will remove the widget from the screen*/
-        this.destroy = function() {
+        this.destroy = function () {
             if (!tView.deleted) {
                 tView.deleted = true;
                 tView.destroy();
@@ -532,28 +535,28 @@ var textBoxWidget = (function(o, $, Backbone, _) {
             }
         };
         /*This will reset the widget to its initial settings*/
-        this.reset = function() {
+        this.reset = function () {
             if (!tView.deleted && tView.active) {
                 tView.reset();
                 console.log("reset is called");
             }
         };
         /*This will set the property*/
-        this.setProperty = function(x) {
+        this.setProperty = function (x) {
             if (!tView.deleted) {
                 tView.model.set(x);
             }
             return undefined;
         };
         /*This will get the property as per the value provided in the options*/
-        this.getProperty = function(x) {
+        this.getProperty = function (x) {
             if (!tView.deleted) {
                 return tView.model.get(x);
             }
             return undefined;
         };
         /*It will validate the widget against the user inputs*/
-        this.validate = function(type) {
+        this.validate = function (type) {
             if (!tView.deleted && tView.model.get("type") != 'Journal entry') {
                 var result = tView.checkAnswer();
                 if (type === "specific") {
@@ -568,7 +571,7 @@ var textBoxWidget = (function(o, $, Backbone, _) {
             return undefined;
         };
         /*It will give the all data associated with the widget*/
-        this.getWidgetData = function() {
+        this.getWidgetData = function () {
             if (!tView.deleted) {
                 tView.updateModel();
                 return tView.model.toJSON();
@@ -576,39 +579,38 @@ var textBoxWidget = (function(o, $, Backbone, _) {
             return undefined;
         };
         /*This will bring all the user input as each level of feedback*/
-        this.getUserAnswer = function() {
+        this.getUserAnswer = function () {
             if (!tView.deleted) {
-                tView.updateModel();
-                return tView.el.find(".tbwid").val();
+                
+                return tView.model.get("userAnswer");
             }
             return undefined;
         };
-        
-         /*This will set the user answer*/
-        this.setUserAnswer = function(val) {
+
+        /*This will set the user answer*/
+        this.setUserAnswer = function (val) {
             if (!tView.deleted) {
-                tView.el.find(".tbwid").val(val);
-                tView.updateModel();
+                tView.model.set("userAnswer", val);
             }
             return undefined;
         };
-        
-        this.getWidgetType = function() {
+
+        this.getWidgetType = function () {
             return cSetting.widgetType;
         };
-        this.deactivate = function() {
+        this.deactivate = function () {
             if (!tView.deleted) {
                 tView.deactivate();
             }
         };
-        this.activate = function() {
+        this.activate = function () {
             if (!tView.deleted) {
                 tView.activate();
             }
         };
     }
 
-    textBoxWidget.prototype.toString = function() {
+    textBoxWidget.prototype.toString = function () {
         return "This is text box widget type";
     };
     return textBoxWidget;

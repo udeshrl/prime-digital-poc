@@ -4,12 +4,17 @@
 
 var primeDigitalControllers = angular.module('primeDigitalControllers', []);
 
-primeDigitalControllers.controller('appController', ['$rootScope', '$scope', '$http', 'userServices',
-    function ($rootScope, $scope, $http, userServices) {
+primeDigitalControllers.controller('appController', ['$rootScope', '$scope', '$http', 'userServices', 'playerServices',
+    function ($rootScope, $scope, $http, userServices, playerServices) {
         userServices.getUserInfo().then(function (data) {
             $rootScope.userInfo = data;
         }, function (data) {
             console.log('User retrieval failed.')
+        });
+        playerServices.getQuizDataService().then(function (data) {
+            $scope.quizData = playerServices.getAllQuizData();
+        }, function (data) {
+            console.log('Quiz retrieval failed.')
         });
     }]);
 
@@ -18,13 +23,13 @@ primeDigitalControllers.controller('DashboardCtrl', ['$rootScope', '$scope', '$h
         $rootScope.loader = false;
     }]);
 
-primeDigitalControllers.controller('QuizCtrl', ['$rootScope', '$scope', '$routeParams', 'playerServices',
-    function ($rootScope, $scope, $routeParams, playerServices) {
-        playerServices.getQuizDataService($routeParams.quizId, $rootScope.userInfo.id).then(function (data) {
-            $scope.questionArr = playerServices.getAllQuestion();
-        }, function (data) {
-            console.log('Quiz retrieval failed.')
-        });
+primeDigitalControllers.controller('QuizCtrl', ['$rootScope', '$scope', '$routeParams', '$location', 'playerServices',
+    function ($rootScope, $scope, $routeParams, $location, playerServices) {
+        if (!playerServices.setQuiz($routeParams.quizId)) {
+            $location.path('/');
+            return;
+        }
+        $scope.questionArr = playerServices.getAllQuestion();
     }]);
 
 primeDigitalControllers.controller('ResultCtrl', ['$rootScope', '$scope', '$location', 'playerServices',
@@ -44,11 +49,12 @@ primeDigitalControllers.controller('ResultCtrl', ['$rootScope', '$scope', '$loca
 
 primeDigitalControllers.controller('QuestionCtrl', ['$rootScope', '$scope', '$routeParams', '$location', 'playerServices',
     function ($rootScope, $scope, $routeParams, $location, playerServices) {
-        if (!playerServices.checkQuizIniate()) {
+        var qId = parseInt($routeParams.qId);
+        if (!playerServices.checkQuizIniate() || !playerServices.showQuestion(qId)) {
             $location.path('/');
             return;
         }
-        var qId = parseInt($routeParams.qId);
+        
         $scope.questionArr = playerServices.getAllQuestion();
         var current = $routeParams.qId;
         $scope.current = current;
@@ -70,7 +76,7 @@ primeDigitalControllers.controller('QuestionCtrl', ['$rootScope', '$scope', '$ro
          * On View Content Loaded
          */
         $scope.$on('$viewContentLoaded', function () {
-            playerServices.showQuestion(qId);
+            
         });
 
         /**

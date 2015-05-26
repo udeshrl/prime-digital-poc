@@ -1,14 +1,16 @@
-    <div class="alert alert-success">
-        <strong><i class="fa fa-check"></i> Hello {{userInfo.first_name}},</strong> you are logged in! Select the test from the list below and start the Quiz. All the best.
-    </div>
+<div class="alert alert-success">
+    <strong><i class="fa fa-check"></i> Hello {{userInfo.first_name}},</strong> you are logged in! Select the test from the list below and start the Quiz. All the best.
+</div>
 
-    <div class="list-group">
-        <!--<a href="#" class="list-group-item active">Scholastic Test1</a>-->
-        <a href="#/quiz/1" class="list-group-item"><i class="fa fa-hand-o-right"></i> AuthMagix Test</a>
-       
-        <!--<a href="#" class="list-group-item list-group-item-success"> <i class="fa fa-check"></i> Scholastic Test7 <span class="badge badge-important pull-right">78%</span></a>-->
-       
-    </div>
+<div class="list-group">
+    <!--<a href="#" class="list-group-item active">Scholastic Test1</a>-->
+    <ul class="quiz-list">
+        <li ng-repeat="quiz in quizData">
+            <a ng-href="#/quiz/{{quiz.testID}}" class="list-group-item" ><i class="fa fa-hand-o-right"></i> {{quiz.title}}</a>
+        </li>
+    </ul>
+    
+</div>
 <style>
     #author_content_container{display:none;}
 </style>

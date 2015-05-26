@@ -7,7 +7,7 @@ var primeDigitalPlayer = angular.module('primeDigitalPlayer', ['ngResource']);
 primeDigitalPlayer.factory('playerServices', ['$http', '$q', playerServices]);
 
 function playerServices($http, $q) {
-    var testJSON = '';
+    var allTestsJSON = '', testJSON = '';
 
     var quizData = {
         questionArr: {},
@@ -20,7 +20,7 @@ function playerServices($http, $q) {
 
         $http.get("data/quiz.json")
                 .success(function (data) {
-                    testJSON = data;
+                    allTestsJSON = data;
                     def.resolve(data);
                 })
                 .error(function () {
@@ -28,6 +28,22 @@ function playerServices($http, $q) {
                 });
         return def.promise;
     }
+    var getAllQuizData = function () {
+        return allTestsJSON;
+    };
+    var setQuiz = function (qid) {
+        if (allTestsJSON[qid]) {
+            testJSON = allTestsJSON[qid];
+            quizData = {
+                questionArr: {},
+                ansArr: {},
+                resultArr: {}
+            }
+            return true;
+        } else {
+            return false;
+        }
+    };
     var getAllQuestion = function () {
         return testJSON.questionArr;
     };
@@ -109,6 +125,9 @@ function playerServices($http, $q) {
             questionObj = quizData.questionArr[idx];
             data = questionObj.data;
         } else {
+            if (!testJSON.questionArr[idx]) {
+                return false;
+            }
             var strFullJson = testJSON.questionArr[idx];
             var strComponentJson = strFullJson.json;
             var data = JSON.parse(strComponentJson);
@@ -201,8 +220,11 @@ function playerServices($http, $q) {
         });
         quizData.questionArr[idx] = questionObj;
         this.setUserAnswerData(idx);
+        return true;
     };
     return {
+        setQuiz: setQuiz,
+        getAllQuizData: getAllQuizData,
         getQuizDataService: getQuizDataService,
         checkQuizIniate: checkQuizIniate,
         getAllQuestion: getAllQuestion,

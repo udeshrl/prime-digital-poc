@@ -184,7 +184,7 @@ var htmlEditor = (function(o) {
         /*It will give the all data associated with the widget*/
         this.getWidgetData = function() {
             if (!_this.deleted) {
-               // tView.updateModel();
+                tView.updateModel();
                 return tView.model.toJSON();
             }
             return undefined;

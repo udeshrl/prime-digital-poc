@@ -5,7 +5,7 @@
  * html-
  * */
 /*global $,Backbone,_,window,document,console,navigator,draggableModule,resizeModule,labelWidget,ImageUpload*/
-var dragDrop = (function(o) {
+var dragDrop = (function (o) {
     "use strict";
     if (o !== window) {
         throw "Please check scope of the Widget";
@@ -61,7 +61,7 @@ var dragDrop = (function(o) {
             },
     // function to delete line on click
 
-    lineClicked = function(e) {
+    lineClicked = function (e) {
         var ele = e.currentTarget,
                 view, el, m, answer, lineIDref, lineID;
         view = e.data.view; // view
@@ -76,7 +76,7 @@ var dragDrop = (function(o) {
         return false;
     },
             // Create line between source and target
-            createMatchedLine = function(source, target, lineColor, lineWidth, lineId,
+            createMatchedLine = function (source, target, lineColor, lineWidth, lineId,
                     parentEle) {
 
                 function createLine(obj) {
@@ -118,7 +118,7 @@ var dragDrop = (function(o) {
                 parentEle.append(l2); // Append transparent line on same path for
                 // better selection
             },
-            dragClicked = function(e) {
+            dragClicked = function (e) {
 
                 var ele = e.currentTarget,
                         view, el, m, markLine, popup, dragClass, dropClass, matchedLines, dragAreas, activeSource, sourceEle, targetEle, sourceData = {},
@@ -151,7 +151,7 @@ var dragDrop = (function(o) {
                     popup.find("#volume").val(parseFloat($(ele).data('vol'), 10));
                 }
             },
-            dropClicked = function(e) {
+            dropClicked = function (e) {
                 var ele = e.currentTarget,
                         view, el, m, markLine, popup, dropClass, dragClass, answer, dragAreas, activeDrag, sourceEle, targetEle, sourceData = {},
                         targetData = {},
@@ -222,7 +222,7 @@ var dragDrop = (function(o) {
                 }
             },
             // function to check validation for popup
-            checkValidation = function(data) {
+            checkValidation = function (data) {
                 var isValid = true,
                         msg = '';
                 return {
@@ -232,232 +232,232 @@ var dragDrop = (function(o) {
             },
             DragModel = Backbone.Model.extend({
                 "default": {},
-                initialize: function(options) {
+                initialize: function (options) {
                     this.initObject = options;
                     this["default"] = options;
                 },
-                reset: function() {
+                reset: function () {
                     this.set(this.initObject);
                 }
             }),
-    DropModel = Backbone.Model.extend({
-        "default": {},
-        initialize: function(options) {
-            this.initObject = options;
-            this["default"] = options;
-        },
-        reset: function() {
-            this.set(this.initObject);
-        }
-    }),
-    DragView = Backbone.View.extend({
-        initialize: function(options) {
-            var o = this;
-            o.imageRepresenter = undefined;
-            o.textRepresenter = undefined;
-            o.model = options.model;
-            o.dragClass = options.dragClass;
-            o.commonClass = options.commonClass;
-            o.mainView = options.mainView;
-            o.el = $('<div></div>').attr('id', o.model.get('id')).css({
-                height: o.model.get("height"),
-                width: o.model.get("width"),
-                top: o.model.get("top"),
-                left: o.model.get("left"),
-                position: 'absolute',
-                border: '1px solid blue'
-            }).data('vol', o.model.get("volume")).addClass(o.dragClass + " " + o.commonClass);
-            options.parent.append(o.el);
-            o.model.on({
-                "change:width": o.width.bind(o),
-                "change:height": o.height.bind(o),
-                "change:left": o.left.bind(o),
-                "change:top": o.top.bind(o),
-                "change:textInfo": o.textInfo.bind(o),
-                "change:imageInfo": o.imageInfo.bind(o)
-            });
-            if (isRoleAuthor) {
-                uiSetting.applyAuthorRelatedProperty(o.el, o, o.mainView);
-            }
-            if (o.model.get("imageInfo")) {
-                if (!$.isEmptyObject(o.model.get("imageInfo"))) {
-                    o.imageRepresenter = new ImageUpload(o.model.get("imageInfo"), o.el, $('body'));
+            DropModel = Backbone.Model.extend({
+                "default": {},
+                initialize: function (options) {
+                    this.initObject = options;
+                    this["default"] = options;
+                },
+                reset: function () {
+                    this.set(this.initObject);
                 }
-            }
-            if (o.model.get("textInfo")) {
-                if (!$.isEmptyObject(o.model.get("textInfo"))) {
-                    o.textRepresenter = new labelWidget(o.model.get("textInfo"), o.el, $('body'));
-                }
-            }
-        },
-        textInfo: function() {
-        },
-        imageInfo: function() {
-        },
-        width: function() {
-            this.el.width(parseInt(this.model.get("width"), 10));
-        },
-        height: function() {
-            this.el.height(parseInt(this.model.get("height"), 10));
-        },
-        left: function() {
-            this.el.css("left", parseInt(this.model.get("left")));
-        },
-        top: function() {
-            this.el.css("top", parseInt(this.model.get("top")));
-        },
-        destroy: function() {
-            delete this.model;
-            this.el.remove();
-        },
-        updateModel: function() {
-            var a = this.el, imageInfo = {}, textInfo = {};
-            if (this.imageRepresenter) {
-                imageInfo = this.imageRepresenter.getWidgetData();
-            }
-            if (this.textRepresenter) {
-                textInfo = this.textRepresenter.getWidgetData();
-            }
-            this.model.set({
-                left: parseInt(a.css('left'), 10),
-                top: parseInt(a.css('top'), 10),
-                height: a.height(),
-                width: a.width(),
-                volume: parseFloat(a.data('vol'), 10),
-                imageInfo: imageInfo,
-                textInfo: textInfo
-            }, {
-                silent: true
-            });
-        },
-        reset: function() {
-            this.model.set(this.model["default"]);
-        },
-        correctVisual: function() {
-            this.el.css("border", "2px solid green");
-            return true;
-        },
-        wrongVisual: function() {
-            this.el.css("border", "2px solid red");
-            return false;
-        },
-        revealAnswer: function(val) {
-            this.el.css("border", "2px solid orange").find(".gbView").val(val);
-        },
-        activate: function() {
-            this.active = true;
-        },
-        deactivate: function() {
-            this.active = false;
-        }
-    }),
-    DropView = Backbone.View.extend({
-        initialize: function(options) {
-            var o = this;
-            o.model = options.model;
-            o.model.on("change", o.render.bind(o));
-            o.dropClass = options.dropClass;
-            o.commonClass = options.commonClass;
-            o.el = $('<div></div>').attr('id', o.model.get('id')).addClass(
-                    o.dropClass + " " + o.commonClass).css({
-                'background': 'none',
-                border: '1px solid blue',
-                position: 'absolute'
-            }).data('vol', o.model.get("volume"));
-            $(options.parent).append(o.el);
-            o.render();
-        },
-        width: function() {
-            this.el.width(parseInt(this.model.get("width"), 10));
-        },
-        render: function() {
-            this.height();
-            this.width();
-            this.left();
-            this.top();
-        },
-        height: function() {
-            this.el.height(parseInt(this.model.get("height"), 10));
-        },
-        left: function() {
-            this.el.css("left", parseInt(this.model.get("left")));
-        },
-        top: function() {
-            this.el.css("top", parseInt(this.model.get("top")));
-        },
-        destroy: function() {
-            delete this.model;
-            this.el.remove();
-        },
-        updateModel: function() {
-            var a = this.el;
-            this.model.set({
-                left: parseInt(a.css('left'), 10),
-                top: parseInt(a.css('top'), 10),
-                height: a.height(),
-                volume: parseFloat(a.data('vol'), 10),
-                width: a.width()
-            }, {
-                silent: true
-            });
-        },
-        reset: function() {
-        },
-        correctVisual: function() {
-
-        },
-        wrongVisual: function() {
-
-        },
-        revealAnswer: function(val) {
-
-        },
-        activate: function() {
-
-        },
-        deactivate: function() {
-
-        }
-
-    }),
-    DragDropModel = Backbone.Model.extend({
-        "default": null,
-        initialize: function(option) {
-            this["default"] = option;
-        },
-        reset: function() {
-            this.set("readerAnswer", {}); // empty readerLine object, which contain reference of lines created in reader
-            this.set("readerAnswerVol", {}); // empty readerLine object, which contain reference of lines created in reader
-        },
-        check: function(val) {
-            var corrAns = this.get("answer"), userAns = this.get("readerAnswer"), userAnsVol = this.get("readerAnswerVol"), dropList = this.get("dropList"), corr = true;
-            _.each(userAns, function(ans, key) {
-                if (!corrAns[key]) {
-                    corr = false;
-                }
-            });
-            if (corr) {
-                _.each(dropList, function(dropItem, key) {
-                    if (dropItem.volume != 0) {
-                        if (dropItem.volume != userAnsVol[key]) {
-                            corr = false;
+            }),
+            DragView = Backbone.View.extend({
+                initialize: function (options) {
+                    var o = this;
+                    o.imageRepresenter = undefined;
+                    o.textRepresenter = undefined;
+                    o.model = options.model;
+                    o.dragClass = options.dragClass;
+                    o.commonClass = options.commonClass;
+                    o.mainView = options.mainView;
+                    o.el = $('<div></div>').attr('id', o.model.get('id')).css({
+                        height: o.model.get("height"),
+                        width: o.model.get("width"),
+                        top: o.model.get("top"),
+                        left: o.model.get("left"),
+                        position: 'absolute',
+                        border: '1px solid blue'
+                    }).data('vol', o.model.get("volume")).addClass(o.dragClass + " " + o.commonClass);
+                    options.parent.append(o.el);
+                    o.model.on({
+                        "change:width": o.width.bind(o),
+                        "change:height": o.height.bind(o),
+                        "change:left": o.left.bind(o),
+                        "change:top": o.top.bind(o),
+                        "change:textInfo": o.textInfo.bind(o),
+                        "change:imageInfo": o.imageInfo.bind(o)
+                    });
+                    if (isRoleAuthor) {
+                        uiSetting.applyAuthorRelatedProperty(o.el, o, o.mainView);
+                    }
+                    if (o.model.get("imageInfo")) {
+                        if (!$.isEmptyObject(o.model.get("imageInfo"))) {
+                            o.imageRepresenter = new ImageUpload(o.model.get("imageInfo"), o.el, $('body'));
                         }
                     }
+                    if (o.model.get("textInfo")) {
+                        if (!$.isEmptyObject(o.model.get("textInfo"))) {
+                            o.textRepresenter = new labelWidget(o.model.get("textInfo"), o.el, $('body'));
+                        }
+                    }
+                },
+                textInfo: function () {
+                },
+                imageInfo: function () {
+                },
+                width: function () {
+                    this.el.width(parseInt(this.model.get("width"), 10));
+                },
+                height: function () {
+                    this.el.height(parseInt(this.model.get("height"), 10));
+                },
+                left: function () {
+                    this.el.css("left", parseInt(this.model.get("left")));
+                },
+                top: function () {
+                    this.el.css("top", parseInt(this.model.get("top")));
+                },
+                destroy: function () {
+                    delete this.model;
+                    this.el.remove();
+                },
+                updateModel: function () {
+                    var a = this.el, imageInfo = {}, textInfo = {};
+                    if (this.imageRepresenter) {
+                        imageInfo = this.imageRepresenter.getWidgetData();
+                    }
+                    if (this.textRepresenter) {
+                        textInfo = this.textRepresenter.getWidgetData();
+                    }
+                    this.model.set({
+                        left: parseInt(a.css('left'), 10),
+                        top: parseInt(a.css('top'), 10),
+                        height: a.height(),
+                        width: a.width(),
+                        volume: parseFloat(a.data('vol'), 10),
+                        imageInfo: imageInfo,
+                        textInfo: textInfo
+                    }, {
+                        silent: true
+                    });
+                },
+                reset: function () {
+                    this.model.set(this.model["default"]);
+                },
+                correctVisual: function () {
+                    this.el.css("border", "2px solid green");
+                    return true;
+                },
+                wrongVisual: function () {
+                    this.el.css("border", "2px solid red");
+                    return false;
+                },
+                revealAnswer: function (val) {
+                    this.el.css("border", "2px solid orange").find(".gbView").val(val);
+                },
+                activate: function () {
+                    this.active = true;
+                },
+                deactivate: function () {
+                    this.active = false;
+                }
+            }),
+            DropView = Backbone.View.extend({
+                initialize: function (options) {
+                    var o = this;
+                    o.model = options.model;
+                    o.model.on("change", o.render.bind(o));
+                    o.dropClass = options.dropClass;
+                    o.commonClass = options.commonClass;
+                    o.el = $('<div></div>').attr('id', o.model.get('id')).addClass(
+                            o.dropClass + " " + o.commonClass).css({
+                        'background': 'none',
+                        border: '1px solid blue',
+                        position: 'absolute'
+                    }).data('vol', o.model.get("volume"));
+                    $(options.parent).append(o.el);
+                    o.render();
+                },
+                width: function () {
+                    this.el.width(parseInt(this.model.get("width"), 10));
+                },
+                render: function () {
+                    this.height();
+                    this.width();
+                    this.left();
+                    this.top();
+                },
+                height: function () {
+                    this.el.height(parseInt(this.model.get("height"), 10));
+                },
+                left: function () {
+                    this.el.css("left", parseInt(this.model.get("left")));
+                },
+                top: function () {
+                    this.el.css("top", parseInt(this.model.get("top")));
+                },
+                destroy: function () {
+                    delete this.model;
+                    this.el.remove();
+                },
+                updateModel: function () {
+                    var a = this.el;
+                    this.model.set({
+                        left: parseInt(a.css('left'), 10),
+                        top: parseInt(a.css('top'), 10),
+                        height: a.height(),
+                        volume: parseFloat(a.data('vol'), 10),
+                        width: a.width()
+                    }, {
+                        silent: true
+                    });
+                },
+                reset: function () {
+                },
+                correctVisual: function () {
 
-                });
-            }
-            return corr;
-        }
+                },
+                wrongVisual: function () {
 
-    }),
-    DragDropController = Backbone.View
+                },
+                revealAnswer: function (val) {
+
+                },
+                activate: function () {
+
+                },
+                deactivate: function () {
+
+                }
+
+            }),
+            DragDropModel = Backbone.Model.extend({
+                "default": null,
+                initialize: function (option) {
+                    this["default"] = option;
+                },
+                reset: function () {
+                    this.set("readerAnswer", {}); // empty readerLine object, which contain reference of lines created in reader
+                    this.set("readerAnswerVol", {}); // empty readerLine object, which contain reference of lines created in reader
+                },
+                check: function (val) {
+                    var corrAns = this.get("answer"), userAns = this.get("readerAnswer"), userAnsVol = this.get("readerAnswerVol"), dropList = this.get("dropList"), corr = true;
+                    _.each(userAns, function (ans, key) {
+                        if (!corrAns[key]) {
+                            corr = false;
+                        }
+                    });
+                    if (corr) {
+                        _.each(dropList, function (dropItem, key) {
+                            if (dropItem.volume != 0) {
+                                if (dropItem.volume != userAnsVol[key]) {
+                                    corr = false;
+                                }
+                            }
+
+                        });
+                    }
+                    return corr;
+                }
+
+            }),
+            DragDropController = Backbone.View
             .extend({
                 active: true,
                 dragClass: null,
                 dropClass: null,
                 commonClass: null,
                 deleted: false,
-                initialize: function(option) {
+                initialize: function (option) {
                     var o = this;
                     o.model = option.model;
                     o.commonClass = "commonClass";
@@ -487,11 +487,11 @@ var dragDrop = (function(o) {
                     }
                     o.render();
                 },
-                render: function() {
+                render: function () {
                     var o = this,
                             m = o.model,
-                            id, readerAnswer, readerAnswerVol, dropId, dragId, key, dragVol;
-                    _.each(m.get('dropList'), function(dropSetting) {
+                            id, readerAnswer, readerAnswerVol, dropId, dragId, key, dragVol, dropInstances = [], dropInstanceObj = {};
+                    _.each(m.get('dropList'), function (dropSetting) {
                         id = dropSetting.id;
                         o.dropViewList[id] = new DropView({
                             model: new DropModel(dropSetting),
@@ -506,7 +506,7 @@ var dragDrop = (function(o) {
                         } else {
                             $(o.dropViewList[id].el).droppable({
                                 accept: "." + o.dragClass,
-                                drop: function(event, ui) {
+                                drop: function (event, ui) {
                                     var cloneDragItem, left, top;
                                     if (o.model.get("isCopyApplicable")) {
                                         left = ui.offset.left - ($(event.target).offset())['left'];
@@ -520,9 +520,19 @@ var dragDrop = (function(o) {
                                     dragId = $(ui.draggable).attr('id');
                                     dragVol = $(ui.draggable).data('vol');
                                     key = dragId + "_" + dropId;
+                                    dropInstanceObj = {};
+                                    dropInstanceObj.left = left;
+                                    dropInstanceObj.top = top;
+
 
                                     if (!readerAnswer[key]) {
-                                        readerAnswer[key] = {'source': dragId, 'target': dropId};
+                                        dropInstances = [];
+                                        dropInstances.push(dropInstanceObj);
+                                        readerAnswer[key] = {'source': dragId, 'target': dropId, 'dropInstances': dropInstances};
+                                    } else {
+                                        dropInstances = readerAnswer[key].dropInstances;
+                                        dropInstances.push(dropInstanceObj);
+                                        readerAnswer[key] = {'source': dragId, 'target': dropId, 'dropInstances': dropInstances};
                                     }
                                     if (readerAnswerVol[dropId]) {
                                         readerAnswerVol[dropId] = Math.round((readerAnswerVol[dropId] + dragVol) * 1e12) / 1e12;
@@ -534,7 +544,7 @@ var dragDrop = (function(o) {
                             });
                         }
                     });
-                    _.each(m.get('dragList'), function(dragSetting) {
+                    _.each(m.get('dragList'), function (dragSetting) {
                         id = dragSetting.id;
                         o.dragViewList[id] = new DragView({
                             model: new DragModel(dragSetting),
@@ -559,10 +569,10 @@ var dragDrop = (function(o) {
 
                     });
                 },
-                checkAnswer: function() {
+                checkAnswer: function () {
                     return this.model.check(this.model.get("readerAnswer"));
                 },
-                updateCollection: function() {
+                updateCollection: function () {
                     var dragModelList = {};
                     var dropModelList = {};
                     var val = {};
@@ -574,12 +584,12 @@ var dragDrop = (function(o) {
                     }, {
                         silent: true
                     });
-                    _.each(this.dragViewList, function(dragView) {
+                    _.each(this.dragViewList, function (dragView) {
                         dragView.updateModel();
                         val = dragView.model.toJSON();
                         dragModelList[val.id] = val;
                     });
-                    _.each(this.dropViewList, function(dropView) {
+                    _.each(this.dropViewList, function (dropView) {
                         dropView.updateModel();
                         val = dropView.model.toJSON();
                         dropModelList[val.id] = val;
@@ -591,7 +601,7 @@ var dragDrop = (function(o) {
                         silent: true
                     });
                 },
-                updatePositionValues: function() {
+                updatePositionValues: function () {
                     var o = this;
                     o.el.css({
                         left: o.model.get("left"),
@@ -600,38 +610,60 @@ var dragDrop = (function(o) {
                         width: o.model.get("width")
                     });
                 },
-                validate: function() {
+                validate: function () {
 
                 },
-                changeCount: function() {
+                setUserAnswer: function (ansObj) {
+                    var o = this;
+                    o.model.set({
+                        readerAnswer: ansObj.readerAnswer,
+                        readerAnswerVol: ansObj.readerAnswerVol,
+                    }, {
+                        silent: true
+                    });
+                    _.each(ansObj.readerAnswer, function (draggedObj) {
+                        _.each(draggedObj.dropInstances, function (dropInstanceObj) {
+                            var cloneDragItem = o.el.find('#' + draggedObj.source).clone().removeAttr('id').removeAttr('class').css({left: dropInstanceObj.left, top: dropInstanceObj.top}).draggable({containment: "parent"});
+                            o.el.find('#' + draggedObj.target).append(cloneDragItem);
+                        });
+
+                    });
 
                 },
-                deactivate: function() {
+                getUserAnswer: function (ansObj) {
+                    var o = this;
+                    var readerAnswer = o.model.get('readerAnswer'), readerAnswerVol = o.model.get('readerAnswerVol');
+                    return {readerAnswer: readerAnswer, readerAnswerVol: readerAnswerVol};
+                },
+                changeCount: function () {
 
                 },
-                activate: function() {
+                deactivate: function () {
 
                 },
-                revealAnswer: function() {
+                activate: function () {
 
                 },
-                destroy: function() {
+                revealAnswer: function () {
+
+                },
+                destroy: function () {
                     delete this.model;
                     this.el.remove();
                 },
-                correctVisual: function() {
+                correctVisual: function () {
 
                 },
-                wrongVisual: function() {
+                wrongVisual: function () {
 
                 },
-                reset: function() {
+                reset: function () {
                     var a = this.el;
                     this.model.reset(); // reset model
-                    _.each(this.model.get('dropList'), function(val, key) {
+                    _.each(this.model.get('dropList'), function (val, key) {
                         a.find('#' + key).empty();
                     });
-                    _.each(this.model.get('dragList'), function(val, key) {
+                    _.each(this.model.get('dragList'), function (val, key) {
                         a.find("#" + key).css({
                             left: val.left,
                             top: val.top,
@@ -644,7 +676,7 @@ var dragDrop = (function(o) {
     var uiSetting = {
         authorParent: "author_content_container",
         seperator: "|",
-        resizeAndDrag: function(el, resizeSetting, draggableSetting) {
+        resizeAndDrag: function (el, resizeSetting, draggableSetting) {
             typeof resizeModule !== "undefined" && resizeModule.makeResize(el, resizeSetting.callback,
                     resizeSetting.callback, resizeSetting.callback,
                     resizeSetting.context);
@@ -654,7 +686,7 @@ var dragDrop = (function(o) {
                             draggableSetting.callback,
                             draggableSetting.context);
         },
-        changeHeightAndWidth: function(a, view) { // callback function on
+        changeHeightAndWidth: function (a, view) { // callback function on
             // resize and drag to change
             // line and svg properties
             var hsData = {},
@@ -692,7 +724,7 @@ var dragDrop = (function(o) {
                     svgCont.setAttribute('height', hsData.height);
                 } else {
 
-                    $.each(answer, function(key, val) {
+                    $.each(answer, function (key, val) {
                         if (val[hsType] === hsData.id) {
                             x = hsData.left + (hsData.width / 2);
                             y = hsData.top + (hsData.height / 2);
@@ -722,18 +754,18 @@ var dragDrop = (function(o) {
             changeLineEnd($(a));
 
         },
-        getWidgetTemplate: function(obj, mode) { // create widget template
+        getWidgetTemplate: function (obj, mode) { // create widget template
             var str = '',
                     styler = '',
                     temp;
 
             str = '<div id="' + obj.id + '" class="matchLine_mainContainer" style="position:absolute;left: ' + obj.left + 'px; top: ' + obj.top + 'px; width: ' + obj.width + 'px; height: ' + obj.height + 'px;">';
-            $.each(obj.dragList, function(key, val) {
+            $.each(obj.dragList, function (key, val) {
                 str += createHotSpot(key, val);
 
             });
 
-            $.each(obj.dropList, function(key, val) {
+            $.each(obj.dropList, function (key, val) {
                 str += createHotSpot(key, val);
             });
             str += '<div class="lineContainer"><svg class="svgLineContainer"  width="' + obj.width + 'px" height="' + obj.height + 'px"></svg></div>';
@@ -741,15 +773,15 @@ var dragDrop = (function(o) {
 
             return str;
         },
-        applyAuthorRelatedProperty: function(el, _this, view) {
+        applyAuthorRelatedProperty: function (el, _this, view) {
             uiSetting.resizeAndDrag(el, {
-                callback: function() { // applying resizing and draggable to
+                callback: function () { // applying resizing and draggable to
                     // widget
                     uiSetting.changeHeightAndWidth(arguments[0].target, view);
                 },
                 context: _this
             }, {
-                callback: function() { // applying resizing and draggable to
+                callback: function () { // applying resizing and draggable to
                     // widget
                     uiSetting.changeHeightAndWidth(arguments[0].target, view);
                 },
@@ -816,7 +848,7 @@ var dragDrop = (function(o) {
                 }]
         },
         count: 0,
-        updateStatus: function(type) {
+        updateStatus: function (type) {
             if (type === "+") {
                 this.count++;
             } else {
@@ -829,14 +861,14 @@ var dragDrop = (function(o) {
                 this.createPop();
             }
         },
-        removePop: function() {
+        removePop: function () {
             $('#' + this.popupInitialSetting.popId).remove();
             $('#popup-overlay-dragDrop').remove();
         },
-        createPop: function() {
+        createPop: function () {
             getConfigurationWindow(this.popupInitialSetting, $('#' + uiSetting.authorParent));
         },
-        show: function(e) {
+        show: function (e) {
             if ($('#popup-overlay-label').css('display') != 'block') {
                 var view = e.data.view,
                         context = e.data.context;
@@ -905,7 +937,7 @@ var dragDrop = (function(o) {
                 }, popupManager.changeVolume);
             }
         },
-        configAnswer: function(e) { // set flag to draw lines
+        configAnswer: function (e) { // set flag to draw lines
             var hash = '#',
                     pis = popupManager.popupInitialSetting,
                     p = $(hash + pis.popId),
@@ -917,7 +949,7 @@ var dragDrop = (function(o) {
             p.find("#deleteDrag").hide();
             p.find("#deleteDrop").hide();
         },
-        applyAnswer: function(e) { // apply matched lines between source and
+        applyAnswer: function (e) { // apply matched lines between source and
             // target and remove option to
             var el = e.data.view.el,
                     hash = '#',
@@ -931,7 +963,7 @@ var dragDrop = (function(o) {
             p.find(hash + "configAnswer").show();
             p.find(hash + "applyAnswer").hide();
         },
-        deleteDrag: function(e) { // delete hot spot
+        deleteDrag: function (e) { // delete hot spot
             var hash = '#',
                     dragList, dragViewList, hsData = {},
                     view, el, pis, p, dragClass, activeDrag, m, answer, hsType = "";
@@ -949,7 +981,7 @@ var dragDrop = (function(o) {
 
             hsType = "source";
             hsData.id = activeDrag.attr("id");
-            $.each(answer, function(key, val) { // delete respected lines
+            $.each(answer, function (key, val) { // delete respected lines
                 if (val[hsType] === hsData.id) {
                     el.find("#" + key).remove();
                     delete answer[key]; // delete reference of matched lines
@@ -967,7 +999,7 @@ var dragDrop = (function(o) {
             activeDrag.remove(); // remove hot spot
             p.find("#deleteDrag").hide(); // hide delete area button
         },
-        deleteDrop: function(e) { // delete hot spot
+        deleteDrop: function (e) { // delete hot spot
             var hash = '#',
                     dropList, dropViewList, hsData = {},
                     view, el, pis, p, dropClass, activeDrop, m, answer, hsType = "";
@@ -985,7 +1017,7 @@ var dragDrop = (function(o) {
 
             hsType = "target";
             hsData.id = activeDrop.attr("id");
-            $.each(answer, function(key, val) { // delete respected lines
+            $.each(answer, function (key, val) { // delete respected lines
                 if (val[hsType] === hsData.id) {
                     el.find("#" + key).remove();
                     delete answer[key]; // delete reference of matched lines
@@ -1003,7 +1035,7 @@ var dragDrop = (function(o) {
             activeDrop.remove(); // remove hot spot
             p.find("#deleteDrop").hide(); // hide delete area button
         },
-        createDragArea: function(e) { // update values in popup input fields
+        createDragArea: function (e) { // update values in popup input fields
             var view = e.data.view,
                     el = view.el,
                     val, m, dragId, draOgbjId, dragList;
@@ -1030,7 +1062,7 @@ var dragDrop = (function(o) {
             dragId++;
             m.set('dragId', dragId);
         },
-        createDropArea: function(e) { // update values in popup input fields
+        createDropArea: function (e) { // update values in popup input fields
             var view = e.data.view,
                     el = view.el,
                     val, m, dropId, dropObjId, dropList;
@@ -1055,7 +1087,7 @@ var dragDrop = (function(o) {
             dropId++;
             m.set('dropId', dropId);
         },
-        widthArea: function(e) { // update width of selected area
+        widthArea: function (e) { // update width of selected area
             var hash = '#',
                     view, el, pis, p, commonClass, activeArea, val, parent, adjustedVal;
             view = e.data.view;
@@ -1073,7 +1105,7 @@ var dragDrop = (function(o) {
             p.find("#widthArea").val(adjustedVal);
             activeArea.css('width', adjustedVal + "px");
         },
-        heightArea: function(e) { // update height of selected area
+        heightArea: function (e) { // update height of selected area
             var hash = '#',
                     view, el, pis, p, commonClass, activeArea, val, parent, adjustedVal;
             view = e.data.view;
@@ -1091,7 +1123,7 @@ var dragDrop = (function(o) {
             p.find("#heightArea").val(adjustedVal);
             activeArea.css('height', adjustedVal + "px");
         },
-        leftArea: function(e) { // update left of selected area
+        leftArea: function (e) { // update left of selected area
             var hash = '#',
                     view, el, pis, p, commonClass, activeArea, val, parent, adjustedVal;
             view = e.data.view;
@@ -1108,7 +1140,7 @@ var dragDrop = (function(o) {
             p.find("#leftArea").val(adjustedVal);
             activeArea.css('left', adjustedVal + "px");
         },
-        topArea: function(e) { // update top of selected area
+        topArea: function (e) { // update top of selected area
             var hash = '#',
                     view, el, pis, p, commonClass, activeArea, val, parent, adjustedVal;
             view = e.data.view;
@@ -1125,7 +1157,7 @@ var dragDrop = (function(o) {
             p.find("#topArea").val(adjustedVal);
             activeArea.css('top', adjustedVal + "px");
         },
-        changeVolume: function(e) { // update top of selected area
+        changeVolume: function (e) { // update top of selected area
             var hash = '#',
                     view, el, pis, p, commonClass, activeArea, val;
             view = e.data.view;
@@ -1137,7 +1169,7 @@ var dragDrop = (function(o) {
             val = p.find("#volume").val();
             activeArea.data('vol', val);
         },
-        updateWidget: function(e) {
+        updateWidget: function (e) {
             var hash = '#';
             var val, answer = {};
             var m = e.data.view.model,
@@ -1169,7 +1201,7 @@ var dragDrop = (function(o) {
                         .html(checkResult.msg);
             }
         },
-        updatePopFields: function(view, id) {
+        updatePopFields: function (view, id) {
             var hash = '#',
                     m = view.model,
                     pis = popupManager.popupInitialSetting,
@@ -1182,7 +1214,7 @@ var dragDrop = (function(o) {
                 }
             }
         },
-        hide: function() {
+        hide: function () {
             $('#popup-overlay-dragDrop').css('display', 'none');
             $("#" + popupManager.popupInitialSetting.popId).css("display",
                     "none");
@@ -1307,7 +1339,7 @@ var dragDrop = (function(o) {
             el = authParent.find(hash + cSetting.Id);
             if (isRoleAuthor) {
                 collectionView.model.set("markLine", false);
-                $.each(cSetting.answer, function(key, val) {
+                $.each(cSetting.answer, function (key, val) {
                     createMatchedLine(cSetting.dragList[val.source],
                             cSetting.dropList[val.target], cSetting.lineColor,
                             cSetting.lineWidth, key, el.find('svg'));
@@ -1341,35 +1373,35 @@ var dragDrop = (function(o) {
 
         /* this will remove the widget from the screen */
 
-        _this.destroy = function() {
+        _this.destroy = function () {
             if (!collectionView.deleted) {
                 collectionView.deleted = true;
                 collectionView.destroy();
                 popupManager.updateStatus('-');
             }
         };
-        _this.getWidgetType = function() {
+        _this.getWidgetType = function () {
             return cSetting.widgetType;
         };
         /* This will reset the widget to its initial settings */
-        _this.reset = function() {
+        _this.reset = function () {
             if (!collectionView.deleted && collectionView.active) {
                 collectionView.reset();
                 // console.log("reset is called");
             }
         };
         /* This will set the property */
-        _this.setProperty = function(x) {
+        _this.setProperty = function (x) {
 
             return undefined;
         };
         /* This will get the property as per the value provided in the options */
-        _this.getProperty = function(x) {
+        _this.getProperty = function (x) {
 
             return undefined;
         };
         /* It will validate the widget against the user inputs */
-        _this.validate = function(type) {
+        _this.validate = function (type) {
             if (!collectionView.deleted) {
                 var result = collectionView.checkAnswer();
                 if (type === "specific") {
@@ -1382,7 +1414,7 @@ var dragDrop = (function(o) {
             return undefined;
         };
         /* It will give the all data associated with the widget */
-        _this.getWidgetData = function() {
+        _this.getWidgetData = function () {
             if (!collectionView.deleted) {
                 collectionView.updateCollection();
                 return collectionView.model.toJSON();
@@ -1390,32 +1422,33 @@ var dragDrop = (function(o) {
             return undefined;
         };
         /* This will bring all the user input as each level of feedback */
-        _this.getUserAnswer = function() {
-
-            return undefined;
-        };
-        
-        /*This will set the user answer*/
-        _this.setUserAnswer = function () {
+        _this.getUserAnswer = function () {
             if (!collectionView.deleted) {
-                return undefined;
+                return collectionView.getUserAnswer();
             }
             return undefined;
         };
-        
-        _this.deactivate = function() {
+
+        /*This will set the user answer*/
+        _this.setUserAnswer = function (ans) {
+            if (!collectionView.deleted) {
+                collectionView.setUserAnswer(ans);
+            }
+        };
+
+        _this.deactivate = function () {
             if (!collectionView.deleted) {
                 collectionView.deactivate();
             }
         };
-        _this.activate = function() {
+        _this.activate = function () {
             if (!collectionView.deleted) {
                 collectionView.activate();
             }
         };
     }
 
-    dragDrop.prototype.toString = function() {
+    dragDrop.prototype.toString = function () {
         return "This is dragDrop widget";
     };
     return dragDrop;

@@ -71,7 +71,7 @@ var additionWidget = (function (o) {
             o.toggleUnitLabel(undefined);
             o.toggleFullAbbreviationAllowed(undefined);
             o.fontSize(undefined);
-            o.el.find('input').keyup(function () {
+            o.el.find('input').blur(function () {
                 o.updateUserAnswer();
             });
             //o.el.delegate("input","keypress",o.applyLength.bind(o));

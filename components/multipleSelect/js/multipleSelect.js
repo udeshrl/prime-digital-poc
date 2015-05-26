@@ -919,9 +919,6 @@ var multipleSelect = /**
 
             /*This will set the user answer*/
             this.setUserAnswer = function () {
-                if (!tView.deleted) {
-                    return undefined;
-                }
                 return undefined;
             };
 

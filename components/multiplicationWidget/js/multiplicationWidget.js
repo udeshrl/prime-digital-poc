@@ -75,6 +75,9 @@ var multiplicationWidget = (function (o) {
             o.toggleUnitLabel(undefined);
             o.toggleFullAbbreviationAllowed(undefined);
             o.fontSize(undefined);
+            o.el.find('input').blur(function () {
+                o.updateUserAnswer();
+            });
         },
         fontSize: function () {
             var fontSize = this.model.get("fontSize");
@@ -339,7 +342,7 @@ var multiplicationWidget = (function (o) {
             });
         },
         checkAnswer: function () {
-            this.model.set("userAttempt", this.getScreenInput());
+            //this.model.set("userAttempt", this.getScreenInput());
             return this.model.check();
         },
         updateUserAnswer: function () {
