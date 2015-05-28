@@ -1,0 +1,6 @@
+http://localhost/prime-digital-poc/#/?token=STUDENT2001
+http://localhost/prime-digital-poc/#/?token=STUDENT2002
+http://localhost/prime-digital-poc/#/?token=STUDENT2003
+http://localhost/prime-digital-poc/#/?token=STUDENT2004
+http://localhost/prime-digital-poc/#/?token=STUDENT2005
+http://localhost/prime-digital-poc/#/?token=TEACHER1001

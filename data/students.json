@@ -1,0 +1,34 @@
+{
+    "students": {
+        "1": {
+            "id": "1",
+            "first_name": "Nicholas",
+            "last_name": "Barker",
+            "role": "student"
+        },
+        "2": {
+            "id": "2",
+            "first_name": "Randa",
+            "last_name": "Seibel",
+            "role": "student"
+        },
+        "3": {
+            "id": "3",
+            "first_name": "Daphine",
+            "last_name": "Soper",
+            "role": "student"
+        },
+        "4": {
+            "id": "4",
+            "first_name": "Vern",
+            "last_name": "Roeser",
+            "role": "student"
+        },
+        "5": {
+            "id": "5",
+            "first_name": "Ryan",
+            "last_name": "Rottman",
+            "role": "student"
+        }
+    }
+}

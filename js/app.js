@@ -11,13 +11,13 @@ var primeDigitalApp = angular.module('primeDigitalApp', [
     'primeDigitalPlayer'
 ]);
 
-primeDigitalApp.constant('appName', 'AuthMagix');
-primeDigitalApp.constant('appURL', 'http://localhost/PDPOC/');
+primeDigitalApp.constant('appName', 'Scholastic PR1ME Mathematics - POC');
+primeDigitalApp.constant('appURL', 'http://localhost/prime-digital-poc/');
 
 primeDigitalApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
-                when('/quiz/:quizId', {
+                when('/quiz/:quizId/:sId', {
                     templateUrl: 'partials/quiz.html',
                     controller: 'QuizCtrl'
                 }).
@@ -25,15 +25,21 @@ primeDigitalApp.config(['$routeProvider',
                     templateUrl: 'partials/result.html',
                     controller: 'ResultCtrl'
                 }).
-                when('/quiz/question/:qId', {
+                when('/question/:qId', {
                     templateUrl: 'partials/question.html',
                     controller: 'QuestionCtrl',
                     reloadOnSearch: false,
                     abstract: true,
                 }).
-                when('/mydashboard', {
-                    templateUrl: 'partials/student_dashboard.html',
-                    controller: 'DashboardCtrl'
+                when('/dashboard', {
+                    templateUrl: 'partials/teacher_dashboard.html',
+                    controller: 'TeacherDashboardCtrl'
+                }).
+                when('/student/:sId', {
+                    templateUrl: 'partials/student_quiz.html',
+                    controller: 'StudentQuizCtrl',
+                    reloadOnSearch: false,
+                    abstract: true,
                 }).
                 otherwise({
                     templateUrl: 'partials/student_dashboard.html',

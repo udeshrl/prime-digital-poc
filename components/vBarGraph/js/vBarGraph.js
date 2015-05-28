@@ -9,8 +9,6 @@ var vBarGraph = (function (o) {
         throw "Please check scope of the Widget";
     }
     var isRoleAuthor = Role === "author";
-
-
     function create_X_axis(NumberOfLine, margin, numberOfIntervals) {
         margin = parseInt(margin, 10);
         var i, str = '', j, minorMargin, majorMargin, minorLineMargin, k = 0;
@@ -57,11 +55,10 @@ var vBarGraph = (function (o) {
     }
 
 
-    //creates the number of line on y-axis
+//creates the number of line on y-axis
     function create_Y_axis(NumberOfLine, margin) {
         margin = parseInt(margin, 10);
         var i, str = '';
-
         for (i = 0; i < NumberOfLine; i++) {
 
             str = str + '<span data-number="' + i + '" class="vertical-line c_f_both" style="left:' + (i * margin) + 'px; "></span>';
@@ -81,7 +78,7 @@ var vBarGraph = (function (o) {
 //        return str;
 //    }
 
-    //creates hotspot on intersection of vertical and horizontal grid
+//creates hotspot on intersection of vertical and horizontal grid
     function createDots(xLoop, yLoop, rW, mX, mY, numberOfIntervals) {
         var i, j = 0, DynamicSpanID = '', str = '';
         if (numberOfIntervals > 1) {
@@ -103,7 +100,7 @@ var vBarGraph = (function (o) {
         return str;
     }
 
-    // creates labels on x-axis (horizontal)
+// creates labels on x-axis (horizontal)
     function create_X_label(NumberOfLine, margin, labels_h_line, labelAllow) {
         margin = parseInt(margin, 10);
         var i, str = '', visibility = labelAllow ? 'visibility:visible' : 'visibility:hidden';
@@ -116,7 +113,7 @@ var vBarGraph = (function (o) {
         return str + '<span  id="origin" class="labelDecorator xAxisHoriZontalLabel" style="bottom:-10px;' + visibility + '">0</span>';
     }
 
-    //creates labels on y-axis(vertical)
+//creates labels on y-axis(vertical)
     function create_Y_label(NumberOfLine, margin, labels_v_line, rotateXLabels) {
         margin = parseInt(margin, 10);
         var i, str = '', /*rotateXLabels= true,*/ wordWidth = 100, roundWidth = 5, Class = 'labelDecorator labels-straight-align';
@@ -152,7 +149,7 @@ var vBarGraph = (function (o) {
     }
 
     function yAxisDescription(v) {
-        //var str = '';
+//var str = '';
         return '<span class="yAxisNameDecorator" style="">' + v + '</span>';
     }
 
@@ -208,7 +205,6 @@ var vBarGraph = (function (o) {
             //.css("display","block");
             //   var pick=container.find('#vbarpicker');
             var a = att.split('_')[0];
-
             container.show().attr('current', id);
             checker.html((a in data.lockValueList) ? "Locked" : "Unlocked");
             checker.off("click").on("click", function () {
@@ -252,7 +248,6 @@ var vBarGraph = (function (o) {
     applyAuthorProperty = function (element) {
         //resizeModule.makeResize(el, resizeSetting.callback, resizeSetting.context);
         draggableModule.makeDraggable(element, draggableModuleCallback);
-
     }, draggableModuleCallback = function () {
         colorSetting.HidePallete();
     },
@@ -291,7 +286,6 @@ var vBarGraph = (function (o) {
                     }
                     if (o.count <= 0) {
                         o.removePop();
-
                     } else {
                         o.createPop();
                     }
@@ -443,7 +437,6 @@ var vBarGraph = (function (o) {
                         numberOfIntervals = parseInt(data.numberOfIntervals, 10),
                         color, r, a,
                         i, temp, id, removeElement = -1, toBeDeletedValue;
-
                 if (numberOfIntervals > 1) {
                     mh_line = mh_line / numberOfIntervals;
                     h_line = ((h_line - 1) * numberOfIntervals) + 1;
@@ -452,7 +445,6 @@ var vBarGraph = (function (o) {
                 for (i = 0; i < (data.userAnswer.length); i++) {
                     a = s[i].split('_');
                     id = "vrect_" + i + "_" + Date.now();
-
                     r = createRect({
                         height: a[1] * mh_line,
                         x: (a[0] * (mv_line)) + ((1 - bWidth) / 2) * mv_line + 1, //+1 is to account for the one pixel of Y axis 
@@ -462,7 +454,6 @@ var vBarGraph = (function (o) {
                         barID: s[i],
                         index: i
                     });
-
                     if (isRoleAuthor) {
                         color = data.colorList[i].color;
                         var selId = $(el).find('#' + a[0] + '_sel');
@@ -470,11 +461,10 @@ var vBarGraph = (function (o) {
                         selId.data('recid', id);
                         selId.on("click", barEventHandler);
                     } else {
-                        color = findColor(s[i].split('_')[0], data.colorList);//data.colorList[i].color;
+                        color = findColor(s[i].split('_')[0], data.colorList); //data.colorList[i].color;
                     }
                     r.style.fill = color || defaultColor;
                     r.style.stroke = defaultStrokeColor;
-
                     $(svg.appendChild(r));
                     if (a[1] === "0") {
                         /*  temp = createRect({
@@ -567,17 +557,16 @@ var vBarGraph = (function (o) {
             changeXandY = function (el, o) {
                 $(el).css({"left": parseInt(o.left, 10) + "px", top: parseInt(o.top, 10) + "px"});
             };
-
     function getWidgetTemplate(obj) {
         return '<div id="' + obj.id + '" class="vertical_graph_container"></div>';
     }
 
-    function attachEventOnRound(a, data, rC, cC) {
+    function attachEventOnRound(a, data) {
         var roundClickHandler = function (event) {
             var cSet = event.data.setting,
                     el = event.data.element,
-                    row_container = event.data.row,
-                    column_container = event.data.col,
+                    row_container = cSet.row_container,
+                    column_container = cSet.column_container,
                     defaultColor = "blue",
                     dataCol = $(this).attr('data-column'),
                     dataRow = $(this).attr('data-row'), r, parent = $(el), temp;
@@ -603,23 +592,19 @@ var vBarGraph = (function (o) {
                     cSet.userAnswer[temp] = this.id;
                     column_container[r.rowPosition] = dataCol;
                 }
-                //  $(this).addClass('square-active');
-                drawGraphVertical(el, cSet, cC, rC);
+//  $(this).addClass('square-active');
+                drawGraphVertical(el, cSet, data.column_container, data.row_container);
             }
         },
                 elList = a.find(".vbar-round"),
                 i,
                 lockList = data.lockValueList;
-
         if (!isRoleAuthor && !data.isLockEditable) {
             $.each(lockList, function (key, val) {
                 elList = elList.not('[data-row="' + key + '"]');
             });
         }
-        elList.css("cursor", "pointer").on("click", {setting: data, element: a, row: rC, col: cC}, roundClickHandler);
-
-
-
+        elList.css("cursor", "pointer").on("click", {setting: data, element: a}, roundClickHandler);
     }
 
     function updateSettings(cSetting, el) {
@@ -637,8 +622,6 @@ var vBarGraph = (function (o) {
     function vbarGraphWidget(options) {
         var _this = this,
                 cSetting = {},
-                column_container = [],
-                row_container = [],
                 el,
                 authParent,
                 defaultSetting = {
@@ -673,25 +656,25 @@ var vBarGraph = (function (o) {
                     lockValueList: {},
                     showMinorLines: false,
                     numberOfIntervals: 0,
-                    isLockEditable: true
+                    isLockEditable: true,
+                    column_container: [],
+                    row_container: []
                 },
         clearAll = function (e) {
             popupManager.hide();
             e.find('svg').empty();
             e.find('.vbar-select').hide();
             cSetting.userAnswer.length = 0;
-            row_container.length = 0;
-            column_container.length = 0;
-
+            cSetting.row_container.length = 0;
+            cSetting.column_container.length = 0;
             if (isRoleAuthor) {
                 cSetting.colorList.length = 0;
                 cSetting.lockValueList = {};
             }
             e.find('.square-active').removeClass('square-active');
         };
-
         function preInitWidget() {
-            cSetting = $.extend({}, defaultSetting, options);//current setting based on options provided in instance making.
+            cSetting = $.extend({}, defaultSetting, options); //current setting based on options provided in instance making.
             cSetting.id = cSetting.id || 'Graph_' + Date.now();
             authParent = $('#' + configuration.authorParent);
             if (!authParent.length) {
@@ -702,13 +685,12 @@ var vBarGraph = (function (o) {
             _this.active = true;
             _this.deleted = false;
             createGraphUI(cSetting, el);
-            attachEventOnRound(el, cSetting, row_container, column_container);
+            attachEventOnRound(el, cSetting);
             if (isRoleAuthor) {
                 applyAuthorProperty(el);
-                cSetting.userAnswer = drawVerticalLine(cSetting.userAnswer, cSetting.graphAnswer, column_container, row_container);
-
+                cSetting.userAnswer = drawVerticalLine(cSetting.userAnswer, cSetting.graphAnswer, cSetting.column_container, cSetting.row_container);
                 popupManager.updateStatus('+');
-                el.bind('dblclick', {context: _this, setting: cSetting, rW: row_container, cC: column_container, el: el}, function (e) {
+                el.bind('dblclick', {context: _this, setting: cSetting, rW: cSetting.row_container, cC: cSetting.column_container, el: el}, function (e) {
                     colorSetting.HidePallete();
                     popupManager.show(e.data.context, e.data.setting, e.data.rW, e.data.cC, e.data.el);
                 });
@@ -717,12 +699,12 @@ var vBarGraph = (function (o) {
             else {
                 // cSetting.userAnswer = [];
                 //   cSetting.userAnswerLines = [];
-                cSetting.userAnswer = drawVerticalLine(cSetting.userAnswer, cSetting.lockValueList, column_container, row_container);
+                cSetting.userAnswer = drawVerticalLine(cSetting.userAnswer, cSetting.lockValueList, cSetting.column_container, cSetting.row_container);
                 drawGraphVertical(el, cSetting);
             }
         }
 
-        // generates configuration window with dynamic graph popup id
+// generates configuration window with dynamic graph popup id
 
         /*this will remove the widget from the screen*/
         _this.destroy = function () {
@@ -732,30 +714,24 @@ var vBarGraph = (function (o) {
                 _this.deleted = true;
                 popupManager.updateStatus('-');
                 popupManager.hide();
-
                 _this.deleted = true;
             }
             return undefined;
         };
-
         /*This will reset the widget to its initial settings*/
         _this.reset = function () {
             if (!_this.deleted && _this.active) {
                 clearAll(el);
-                cSetting.userAnswer = drawVerticalLine(cSetting.userAnswer, cSetting.lockValueList, column_container, row_container);
+                cSetting.userAnswer = drawVerticalLine(cSetting.userAnswer, cSetting.lockValueList, cSetting.column_container, cSetting.row_container);
                 drawGraphVertical(el, cSetting);
-
             }
         };
-
         /*This will set the property*/
         _this.setProperty = function () {
         };
-
         /*This will get the property as per the value provided in the options*/
         _this.getProperty = function () {
         };
-
         _this.getWidgetType = function () {
             return cSetting.widgetType;
         };
@@ -769,7 +745,7 @@ var vBarGraph = (function (o) {
                 if (attemptType === "specific") {
                     if (!result) {
                         clearAll(el);
-                        cSetting.userAnswer = drawVerticalLine(cSetting.userAnswer, cSetting.graphAnswer, column_container, row_container);
+                        cSetting.userAnswer = drawVerticalLine(cSetting.userAnswer, cSetting.graphAnswer, cSetting.column_container, cSetting.row_container);
                         drawGraphVertical(el, cSetting);
                     }
                     _this.deactivate();
@@ -790,14 +766,16 @@ var vBarGraph = (function (o) {
 
         _this.getUserAnswer = function () {
             if (!_this.deleted) {
-                return cSetting.userAnswer;
+                return {userAnswer: cSetting.userAnswer, column_container: cSetting.column_container, row_container: cSetting.row_container};
             }
             return undefined;
         };
         /*This will set the user answer*/
         _this.setUserAnswer = function (val) {
             if (!_this.deleted) {
-                cSetting.userAnswer = val;
+                cSetting.userAnswer = val.userAnswer;
+                cSetting.column_container = val.column_container;
+                cSetting.row_container = val.row_container;
                 drawGraphVertical(el, cSetting);
             }
             return undefined;

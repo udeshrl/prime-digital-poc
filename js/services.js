@@ -1,14 +1,10 @@
 'use strict';
-
 /* Services */
 
 var primeDigitalPlayer = angular.module('primeDigitalPlayer', ['ngResource']);
-
 primeDigitalPlayer.factory('playerServices', ['$http', '$q', playerServices]);
-
 function playerServices($http, $q) {
-    var allTestsJSON = '', testJSON = '';
-
+    var allTestsJSON = '', testJSON = '', allStudentQuizData = {};
     var quizData = {
         questionArr: {},
         ansArr: {},
@@ -17,7 +13,6 @@ function playerServices($http, $q) {
     }
     var getQuizDataService = function (quizId, userId) {
         var def = $q.defer();
-
         $http.get("data/quiz.json")
                 .success(function (data) {
                     allTestsJSON = data;
@@ -28,10 +23,25 @@ function playerServices($http, $q) {
                 });
         return def.promise;
     }
+    var getStudentQuizDataService = function () {
+        var def = $q.defer();
+        $http.get("data/student_quiz.json")
+                .success(function (data) {
+                    allStudentQuizData = data;
+                    def.resolve(data);
+                })
+                .error(function () {
+                    def.reject("Failed to get Quiz");
+                });
+        return def.promise;
+    }
     var getAllQuizData = function () {
         return allTestsJSON;
     };
-    var setQuiz = function (qid) {
+    var getAllStudentQuizData = function () {
+        return allStudentQuizData;
+    };
+    var setQuiz = function (qid, studentid) {
         if (allTestsJSON[qid]) {
             testJSON = allTestsJSON[qid];
             quizData = {
@@ -39,6 +49,12 @@ function playerServices($http, $q) {
                 ansArr: {},
                 resultArr: {}
             }
+            var studentQuizData = getStudentQuizData(studentid, qid);
+            if (studentQuizData) {
+                quizData.ansArr = studentQuizData.ansArr;
+                quizData.resultArr = studentQuizData.resultArr;
+            }
+
             return true;
         } else {
             return false;
@@ -50,7 +66,16 @@ function playerServices($http, $q) {
     var getQuestionData = function (idx) {
         return testJSON.questionArr[idx];
     };
-
+    var getResultArr = function () {
+        return quizData.resultArr;
+    };
+    var getStudentQuizData = function (studentID, testID) {
+        var key = studentID + '_' + testID;
+        if (allStudentQuizData[key]) {
+            return allStudentQuizData[key];
+        }
+        return false;
+    };
     var submitQuestions = function () {
         var allQData = quizData.questionArr, qData;
         var resultData = [];
@@ -62,9 +87,7 @@ function playerServices($http, $q) {
             });
             quizData.resultArr[qIndex] = resultData;
         });
-
     };
-
     var checkQuizIniate = function ($location, view) {
         if (testJSON == '') {
             return false;
@@ -73,11 +96,10 @@ function playerServices($http, $q) {
         }
 
     };
-
-    var getResult = function () {
+    var getResult = function (sid) {
         var allQData = quizData.resultArr, qData;
         var resultData = [], qResult;
-        var totalQuestion = testJSON.questionArr.length, correctAns = 0;
+        var totalQuestion = testJSON.questionArr.length, correctAns = 0, resultPercentage = '';
         _.each(allQData, function (qData, qIndex) {
             qResult = true;
             for (var j = 0; j < qData.length; j++) {
@@ -85,16 +107,29 @@ function playerServices($http, $q) {
                     qResult = false;
                     break
                 }
-
             }
             if (qResult) {
                 correctAns++;
             }
             resultData.push(qResult);
         });
-        return {resultData: resultData, totalQuestion: totalQuestion, correctAns: correctAns};
-    };
+        resultPercentage = parseInt(correctAns / totalQuestion * 100);
+        var key = sid + '_' + testJSON.testID;
+        var resultObj = {};
+        resultObj.ID = key;
+        resultObj.testID = testJSON.testID;
+        resultObj.studentID = sid;
+        resultObj.ansArr = quizData.ansArr;
+        resultObj.resultArr = quizData.resultArr;
+        resultObj.totalQuestion = totalQuestion;
+        resultObj.correctAns = correctAns;
+        resultObj.resultPercentage = resultPercentage;
 
+        allStudentQuizData[key] = resultObj
+
+        console.log(JSON.stringify(resultObj));
+        return {resultData: resultData, totalQuestion: totalQuestion, correctAns: correctAns, resultPercentage: resultPercentage};
+    };
     var storeUserAnswerData = function (idx) {
         var qData = quizData.questionArr[idx];
         var ansData = [];
@@ -103,7 +138,6 @@ function playerServices($http, $q) {
         });
         quizData.ansArr[idx] = ansData;
     };
-
     var setUserAnswerData = function (idx) {
         if (quizData.ansArr && quizData.ansArr[idx]) {
             var widgetData = quizData.questionArr[idx];
@@ -113,9 +147,12 @@ function playerServices($http, $q) {
             });
         }
     };
-
-
-
+    var deactivateQuestion = function (idx) {
+        var widgetData = quizData.questionArr[idx];
+        _.each(widgetData.widgetList, function (elem, index) {
+            elem.deactivate();
+        });
+    };
     var showQuestion = function (idx) {
 
         var questionObj = {
@@ -131,7 +168,7 @@ function playerServices($http, $q) {
             var strFullJson = testJSON.questionArr[idx];
             var strComponentJson = strFullJson.json;
             var data = JSON.parse(strComponentJson);
-            data.filePath = strFullJson.filePath;//Note this is from separate variable
+            data.filePath = strFullJson.filePath; //Note this is from separate variable
             questionObj.data = data;
         }
         $("#author_content_container").html('<iframe scrolling="no" style="pointer-events: none;" src="' + data.filePath + '" ></iframe>');
@@ -143,7 +180,6 @@ function playerServices($http, $q) {
             $(elem).attr('src', newSrc);
         });
         questionObj.widgetList = [];
-
         _.each(data.widgetsData, function (elem, index) {
             var initSetting = elem[0];
             //console.log(elem)
@@ -220,6 +256,10 @@ function playerServices($http, $q) {
         });
         quizData.questionArr[idx] = questionObj;
         this.setUserAnswerData(idx);
+        if (!$.isEmptyObject(quizData.resultArr)) {
+            this.deactivateQuestion(idx);
+        }
+
         return true;
     };
     return {
@@ -233,6 +273,11 @@ function playerServices($http, $q) {
         storeUserAnswerData: storeUserAnswerData,
         setUserAnswerData: setUserAnswerData,
         submitQuestions: submitQuestions,
+        deactivateQuestion: deactivateQuestion,
+        getStudentQuizDataService: getStudentQuizDataService,
+        getStudentQuizData: getStudentQuizData,
+        getResultArr: getResultArr,
+        getAllStudentQuizData: getAllStudentQuizData,
         getResult: getResult
     };
 }

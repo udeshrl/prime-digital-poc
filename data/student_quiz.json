@@ -1,0 +1,903 @@
+{
+    "1_1": {
+        "ID": 1,
+        "testID": 1,
+        "studentID": 1,
+        "ansArr": {
+            "0": [
+                null,
+                "10",
+                "6"
+            ],
+            "1": [
+                null,
+                {
+                    "userAnswer": [
+                        "1_4",
+                        "2_1"
+                    ],
+                    "column_container": [
+                        "4",
+                        "1"
+                    ],
+                    "row_container": [
+                        "1",
+                        "2"
+                    ]
+                }
+            ],
+            "2": [
+                null,
+                {
+                    "userAnswer": [
+                        "3_2",
+                        "4_1"
+                    ],
+                    "column_container": [
+                        "2",
+                        "1"
+                    ],
+                    "row_container": [
+                        "3",
+                        "4"
+                    ]
+                }
+            ],
+            "3": [
+                null,
+                "10 : 10"
+            ],
+            "4": [
+                null,
+                {
+                    "answerField": [
+                        "",
+                        "",
+                        "5",
+                        "0",
+                        ".",
+                        "4"
+                    ],
+                    "carryField": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                }
+            ],
+            "5": [
+                null,
+                {
+                    "ans": 10,
+                    "initNum": 3,
+                    "maxNum": 15,
+                    "minNum": 3,
+                    "tickCount": 9
+                },
+                {
+                    "canvasFD_1432535662920": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAB4CAYAAABIFc8gAAATx0lEQ…REWFuuABq+EKgJARFWTbMlWYXAliMgwtpyBdDwhUBNCPwHxWftpt7JB4gAAAAASUVORK5CYII="
+                },
+                null,
+                {
+                    "userAnswer": [
+                        "1_1",
+                        "2_2",
+                        "3_1",
+                        "4_3"
+                    ],
+                    "userAnswerLines": [
+                        [
+                            "1_1",
+                            "2_2"
+                        ],
+                        [
+                            "2_2",
+                            "3_1"
+                        ],
+                        [
+                            "3_1",
+                            "4_3"
+                        ]
+                    ]
+                },
+                {
+                    "answerField": [
+                        "",
+                        "",
+                        "1",
+                        "6",
+                        "4",
+                        ".",
+                        "1",
+                        "5"
+                    ],
+                    "carryField": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    "carryAnswerField": [
+                        "",
+                        "",
+                        "1",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                }
+            ],
+            "6": [
+                null,
+                [
+                    "hsId0",
+                    "hsId1"
+                ]
+            ],
+            "7": [
+                null,
+                {
+                    "hsId0_hsId4": {
+                        "source": "hsId0",
+                        "target": "hsId4"
+                    },
+                    "hsId1_hsId5": {
+                        "source": "hsId1",
+                        "target": "hsId5"
+                    },
+                    "hsId2_hsId3": {
+                        "source": "hsId2",
+                        "target": "hsId3"
+                    }
+                }
+            ],
+            "8": [
+                null,
+                "5",
+                [
+                    "10",
+                    "33",
+                    "4"
+                ],
+                {
+                    "answerField": [
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    "carryField": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    "midAnswerField": [
+                        "",
+                        "",
+                        "7",
+                        "7"
+                    ]
+                },
+                {
+                    "quotientField": [
+                        "1",
+                        "0"
+                    ],
+                    "firstSetOfStepFields": [
+                        "5",
+                        ""
+                    ],
+                    "remainderFields": [
+                        "",
+                        "0"
+                    ],
+                    "extraStepFields": []
+                },
+                {
+                    "readerAnswer": {
+                        "drag1_drop0": {
+                            "source": "drag1",
+                            "target": "drop0",
+                            "dropInstances": [
+                                {
+                                    "left": 16,
+                                    "top": 83
+                                },
+                                {
+                                    "left": -1,
+                                    "top": 79
+                                }
+                            ]
+                        },
+                        "drag2_drop0": {
+                            "source": "drag2",
+                            "target": "drop0",
+                            "dropInstances": [
+                                {
+                                    "left": 39,
+                                    "top": 96
+                                },
+                                {
+                                    "left": 58,
+                                    "top": 100
+                                }
+                            ]
+                        }
+                    },
+                    "readerAnswerVol": {
+                        "drop0": 10
+                    }
+                },
+                null
+            ]
+        },
+        "resultArr": {
+            "0": [
+                true,
+                true,
+                true
+            ],
+            "1": [
+                true,
+                true
+            ],
+            "2": [
+                true,
+                true
+            ],
+            "3": [
+                true,
+                true
+            ],
+            "4": [
+                true,
+                true
+            ],
+            "5": [
+                true,
+                false,
+                true,
+                true,
+                true,
+                true
+            ],
+            "6": [
+                true,
+                true
+            ],
+            "7": [
+                true,
+                true
+            ],
+            "8": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        },
+        "totalQuestion": 9,
+        "correctAns": 8,
+        "resultPercentage": 88
+    },
+    "1_2": {
+        "ID": 2,
+        "testID": 2,
+        "studentID": 1,
+        "ansArr": {
+            "0": [
+                null,
+                "10 : 10"
+            ],
+            "1": [
+                null,
+                {
+                    "userAnswer": [
+                        "1_3",
+                        "2_2"
+                    ],
+                    "column_container": [
+                        "3",
+                        "2"
+                    ],
+                    "row_container": [
+                        "1",
+                        "2"
+                    ]
+                }
+            ],
+            "2": [
+                null,
+                {
+                    "answerField": [
+                        "",
+                        "",
+                        "5",
+                        "0",
+                        ".",
+                        "5"
+                    ],
+                    "carryField": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                }
+            ],
+            "3": [
+                null,
+                {
+                    "userAnswer": [
+                        "2_2",
+                        "3_1"
+                    ],
+                    "column_container": [
+                        "2",
+                        "1"
+                    ],
+                    "row_container": [
+                        "2",
+                        "3"
+                    ]
+                }
+            ],
+            "4": [
+                null,
+                "10",
+                "6"
+            ]
+        },
+        "resultArr": {
+            "0": [
+                true,
+                true
+            ],
+            "1": [
+                true,
+                false
+            ],
+            "2": [
+                true,
+                false
+            ],
+            "3": [
+                true,
+                false
+            ],
+            "4": [
+                true,
+                true,
+                true
+            ]
+        },
+        "totalQuestion": 5,
+        "correctAns": 2,
+        "resultPercentage": 40
+    },
+    "3_1": {
+        "ID": 3,
+        "testID": 1,
+        "studentID": 3,
+        "ansArr": {
+            "0": [
+                null,
+                "10",
+                "6"
+            ],
+            "1": [
+                null,
+                {
+                    "userAnswer": [
+                        "1_4",
+                        "2_1"
+                    ],
+                    "column_container": [
+                        "4",
+                        "1"
+                    ],
+                    "row_container": [
+                        "1",
+                        "2"
+                    ]
+                }
+            ],
+            "2": [
+                null,
+                {
+                    "userAnswer": [
+                        "3_2",
+                        "4_1"
+                    ],
+                    "column_container": [
+                        "2",
+                        "1"
+                    ],
+                    "row_container": [
+                        "3",
+                        "4"
+                    ]
+                }
+            ],
+            "3": [
+                null,
+                "10 : 10"
+            ],
+            "4": [
+                null,
+                {
+                    "answerField": [
+                        "",
+                        "",
+                        "5",
+                        "0",
+                        ".",
+                        "4"
+                    ],
+                    "carryField": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                }
+            ],
+            "5": [
+                null,
+                {
+                    "ans": 10,
+                    "initNum": 3,
+                    "maxNum": 15,
+                    "minNum": 3,
+                    "tickCount": 10
+                },
+                {
+                    "canvasFD_1432535662920": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAB4CAYAAABIFc8gAAAHMklEQ…AZAoRVJiqFIoAAYekBBBAoQ4CwykSlUAQQICw9gAACZQj8A4Hk1XnraAzqAAAAAElFTkSuQmCC"
+                },
+                null,
+                {
+                    "userAnswer": [
+                        "1_1",
+                        "2_2",
+                        "3_1",
+                        "4_3"
+                    ],
+                    "userAnswerLines": [
+                        [
+                            "1_1",
+                            "2_2"
+                        ],
+                        [
+                            "2_2",
+                            "3_1"
+                        ],
+                        [
+                            "3_1",
+                            "4_3"
+                        ]
+                    ]
+                },
+                {
+                    "answerField": [
+                        "",
+                        "",
+                        "1",
+                        "6",
+                        "4",
+                        ".",
+                        "1",
+                        "5"
+                    ],
+                    "carryField": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ],
+                    "carryAnswerField": [
+                        "",
+                        "",
+                        "1",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                }
+            ]
+        },
+        "resultArr": {
+            "0": [
+                true,
+                true,
+                true
+            ],
+            "1": [
+                true,
+                true
+            ],
+            "2": [
+                true,
+                true
+            ],
+            "3": [
+                true,
+                true
+            ],
+            "4": [
+                true,
+                true
+            ],
+            "5": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        },
+        "totalQuestion": 9,
+        "correctAns": 6,
+        "resultPercentage": 66
+    },
+    "5_3": {
+        "ID": 4,
+        "testID": 3,
+        "studentID": 5,
+        "ansArr": {
+            "0": [
+                null,
+                {
+                    "userAnswer": [
+                        "1_4",
+                        "2_1"
+                    ],
+                    "column_container": [
+                        "4",
+                        "1"
+                    ],
+                    "row_container": [
+                        "1",
+                        "2"
+                    ]
+                }
+            ],
+            "1": [
+                null,
+                "10 : 10"
+            ],
+            "2": [
+                null,
+                "10",
+                "6"
+            ],
+            "3": [
+                null,
+                {
+                    "answerField": [
+                        "",
+                        "",
+                        "5",
+                        "0",
+                        ".",
+                        "4"
+                    ],
+                    "carryField": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                }
+            ],
+            "4": [
+                null,
+                {
+                    "userAnswer": [
+                        "2_2",
+                        "3_1"
+                    ],
+                    "column_container": [
+                        "2",
+                        "1"
+                    ],
+                    "row_container": [
+                        "2",
+                        "3"
+                    ]
+                }
+            ],
+            "5": [
+                null,
+                {
+                    "hsId1_hsId5": {
+                        "source": "hsId1",
+                        "target": "hsId5"
+                    },
+                    "hsId2_hsId3": {
+                        "source": "hsId2",
+                        "target": "hsId3"
+                    },
+                    "hsId0_hsId4": {
+                        "source": "hsId0",
+                        "target": "hsId4"
+                    }
+                }
+            ]
+        },
+        "resultArr": {
+            "0": [
+                true,
+                true
+            ],
+            "1": [
+                true,
+                true
+            ],
+            "2": [
+                true,
+                true,
+                true
+            ],
+            "3": [
+                true,
+                true
+            ],
+            "4": [
+                true,
+                false
+            ],
+            "5": [
+                true,
+                true
+            ]
+        },
+        "totalQuestion": 6,
+        "correctAns": 5,
+        "resultPercentage": 83
+    },
+    "1_3": {
+        "ID": "1_3",
+        "testID": 3,
+        "studentID": "1",
+        "ansArr": {
+            "0": [
+                null,
+                {
+                    "userAnswer": [
+                        "1_4",
+                        "2_1"
+                    ],
+                    "column_container": [
+                        "4",
+                        "1"
+                    ],
+                    "row_container": [
+                        "1",
+                        "2"
+                    ]
+                }
+            ],
+            "1": [
+                null,
+                "10.2 : 20"
+            ],
+            "2": [
+                null,
+                "10",
+                "6"
+            ],
+            "3": [
+                null,
+                {
+                    "answerField": [
+                        "",
+                        "",
+                        "5",
+                        "0",
+                        ".",
+                        "4"
+                    ],
+                    "carryField": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                }
+            ],
+            "4": [
+                null,
+                {
+                    "userAnswer": [
+                        "3_2",
+                        "4_1"
+                    ],
+                    "column_container": [
+                        "2",
+                        "1"
+                    ],
+                    "row_container": [
+                        "3",
+                        "4"
+                    ]
+                }
+            ],
+            "5": [
+                null,
+                {
+                    "hsId1_hsId5": {
+                        "source": "hsId1",
+                        "target": "hsId5"
+                    },
+                    "hsId2_hsId3": {
+                        "source": "hsId2",
+                        "target": "hsId3"
+                    },
+                    "hsId0_hsId4": {
+                        "source": "hsId0",
+                        "target": "hsId4"
+                    }
+                }
+            ]
+        },
+        "resultArr": {
+            "0": [
+                true,
+                true
+            ],
+            "1": [
+                true,
+                false
+            ],
+            "2": [
+                true,
+                true,
+                true
+            ],
+            "3": [
+                true,
+                true
+            ],
+            "4": [
+                true,
+                true
+            ],
+            "5": [
+                true,
+                true
+            ]
+        },
+        "totalQuestion": 6,
+        "correctAns": 5,
+        "resultPercentage": 83
+    },
+    "4_2": {
+        "ID": "4_2",
+        "testID": 2,
+        "studentID": "4",
+        "ansArr": {
+            "0": [
+                null,
+                "10 : 10"
+            ],
+            "1": [
+                null,
+                {
+                    "userAnswer": [
+                        "1_4",
+                        "2_1"
+                    ],
+                    "column_container": [
+                        "4",
+                        "1"
+                    ],
+                    "row_container": [
+                        "1",
+                        "2"
+                    ]
+                }
+            ],
+            "2": [
+                null,
+                {
+                    "answerField": [
+                        "",
+                        "",
+                        "5",
+                        "0",
+                        ".",
+                        "4"
+                    ],
+                    "carryField": [
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    ]
+                }
+            ],
+            "3": [
+                null,
+                {
+                    "userAnswer": [
+                        "2_2",
+                        "3_1"
+                    ],
+                    "column_container": [
+                        "2",
+                        "1"
+                    ],
+                    "row_container": [
+                        "2",
+                        "3"
+                    ]
+                }
+            ],
+            "4": [
+                null,
+                "10",
+                "6"
+            ]
+        },
+        "resultArr": {
+            "0": [
+                true,
+                true
+            ],
+            "1": [
+                true,
+                true
+            ],
+            "2": [
+                true,
+                true
+            ],
+            "3": [
+                true,
+                false
+            ],
+            "4": [
+                true,
+                true,
+                true
+            ]
+        },
+        "totalQuestion": 5,
+        "correctAns": 4,
+        "resultPercentage": 80
+    }
+}

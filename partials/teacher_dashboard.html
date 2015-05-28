@@ -1,5 +1,14 @@
-<div>
-   <a href="#/quiz"><button id="btn-next">Start Quiz</button></a>
+<div class="alert alert-success">
+    <strong><i class="fa fa-check"></i> Hello {{userInfo.first_name}},</strong> you are logged in! Select the user from the list below to check their result.
+</div>
+
+<div class="list-group">
+    <!--<a href="#" class="list-group-item active">Scholastic Test1</a>-->
+    <ul class="quiz-list">
+        <li ng-repeat="student in allStudents">
+            <a ng-href="#/student/{{student.id}}" class="list-group-item" ><i class="fa fa-hand-o-right"></i> {{student.first_name + ' ' + student.last_name}}</a>
+        </li>
+    </ul>
 </div>
 <style>
     #author_content_container{display:none;}

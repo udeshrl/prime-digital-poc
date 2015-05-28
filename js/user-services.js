@@ -7,10 +7,13 @@ var primeDigitalUserServices = angular.module('primeDigitalUserServices', ['ngRe
 primeDigitalUserServices.factory('userServices', ['$http', '$q', userServices]);
 
 function userServices($http, $q) {
-    var getUserInfo = function () {
+    var students = [];
+    var getUserInfo = function (token) {
         var def = $q.defer();
-
-        $http.get("data/user.json")
+        if (token == '') {
+            token = 'STUDENT2001'; // Default token
+        }
+        $http.get("data/mock/" + token + ".json")
                 .success(function (data) {
                     def.resolve(data);
                 })
@@ -19,7 +22,26 @@ function userServices($http, $q) {
                 });
         return def.promise;
     }
+
+    var fetchStudentsData = function () {
+        var def = $q.defer();
+        $http.get("data/students.json")
+                .success(function (data) {
+                    students = data.students;
+                    def.resolve(data);
+                })
+                .error(function () {
+                    def.reject("Failed to get User");
+                });
+        return def.promise;
+    }
+
+    var getAllStudents = function () {
+        return students;
+    };
     return {
-        getUserInfo: getUserInfo
+        getUserInfo: getUserInfo,
+        getAllStudents: getAllStudents,
+        fetchStudentsData: fetchStudentsData
     };
 }

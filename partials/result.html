@@ -1,20 +1,15 @@
-<div class="cntrl-btns clear-fix  result-board">
-    <h3>Congratulations! You have got {{correctAns}} out of {{totalQuestion}}. You score is {{resultPercentage}}% </h3>
+<div class="cntrl-btns clear-fix  board">
+    <h3><i class="icon-result"></i> Congratulations! You have got {{result.correctAns}} out of {{result.totalQuestion}}. You score is {{result.resultPercentage}}% </h3>
     <div id="playerNavigation">
         <div id="authorPagination">
-            <!--                <li ng-repeat="question in questionArr" class="navli">
-                                <a href="#/quiz/question/{{$index}}"><button id="btn-next">{{$index + 1}}</button></a>
-                            </li>-->
-            <li class="navli">
-                <a href="#/quiz/question/0"><button id="btn-next">Restart</button></a>
-            </li>
+           
+                <li class="navli">
+                    <a href="#/"><button id="btn-next">Quit</button></a>
+                </li>
+           
         </div>
 
     </div>
-    <!--        <div id="btnSection">
-                <button class="authorButton" id="btn-submit-generic">Submit</button>
-                <button class="authorButton" id="btn-reset">Reset</button>
-            </div>-->
 </div>
 <style>
     #author_content_container{display:none;}

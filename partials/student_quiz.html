@@ -1,0 +1,16 @@
+<div class="alert alert-success">
+    <strong><i class="fa fa-check"></i> Hello {{userInfo.first_name}},</strong> Check Quiz Status for <strong>{{studentInfo.first_name}}</strong>
+</div>
+
+<div class="list-group">
+    <ul class="quiz-list">
+        <li ng-repeat="quiz in quizData" ng-init="key = studentInfo.id + '_' + quiz.testID">
+            <a ng-href="#/quiz/{{quiz.testID}}/{{studentInfo.id}}" class="list-group-item" ng-if="studentQuizData[key]"><i class="fa fa-hand-o-right"></i> {{quiz.title}} <span class="badge">{{studentQuizData[key].resultPercentage}}%</span> </a>
+            <a ng-href="" class="list-group-item" ng-if="!studentQuizData[key]"><i class="fa fa-hand-o-right"></i> {{quiz.title}} <span class="badge">Not Attempted</span></a>
+        </li>
+    </ul>
+
+</div>
+<style>
+    #author_content_container{display:none;}
+</style>

@@ -125,7 +125,7 @@ var freeDraw = (function (o) {
                     if (mode === "student") {
                         str = '<div class="dwPar readerdwPar" id="' + obj.id + '" style="width:' + obj.width + 'px;height:' + obj.height + 'px;left:' + obj.left + 'px;top:' + obj.top + 'px">' +
                                 '<canvas class="dwid" id="canvas' + obj.id + '" storkeStyle="" type="text" width = "' + (obj.width) + '" height= "' + obj.height + '" style="margin-left: ' + uiSetting.widthDifference + 'px;" ></canvas>' +
-                                '<div class="btn" id="btn' + obj.id + '" style="position:relative;height:26px;width: 162px;top: -34px;float: right;background: transparent;"></div></div>';
+                                '<div class="btnOuter" id="btn' + obj.id + '" style="position:relative;height:26px;width: 162px;top: -34px;float: right;background: transparent;"></div></div>';
                     } else if (mode === "teacher") {
                         str = '<div class="dwPar readerdwPar" id="' + obj.id + '" style="width:' + obj.width + 'px;height:' + obj.height + 'px;left:' + obj.left + 'px;top:' + obj.top + 'px">' +
                                 '<img class="dwid" id="canvas' + obj.id + '" storkeStyle="" type="text" width = "' + (obj.width) + '" height= "' + obj.height + '" style="margin-left: ' + uiSetting.widthDifference + 'px;" /></div>';
@@ -133,7 +133,7 @@ var freeDraw = (function (o) {
 
                 } else {//this is for author part.
                     str = '<div class="dwPar" id="' + obj.id + '" style="width:' + obj.width + 'px;height:' + obj.height + 'px;left:' + obj.left + 'px;top:' + obj.top + 'px">' /* 'px" title="TextBox having ID is ' + obj.id + '">'*/
-                            + '<div class="btn" id="btn' + obj.id + '" style="position:relative;height:26px;width: 162px;top: -36px;float: right;background: transparent;border: 1px solid transparent !important;"><div class="toolbarForFD"><div type="button" title="Pen Tool" class="btnPen error authrTB" value="Pen" onclick=""></div> ' +
+                            + '<div class="btnOuter" id="btn' + obj.id + '" style="position:relative;height:26px;width: 162px;top: -36px;float: right;background: transparent;border: 1px solid transparent !important;"><div class="toolbarForFD"><div type="button" title="Pen Tool" class="btnPen error authrTB" value="Pen" onclick=""></div> ' +
                             '<div type="button" title= "Erase" class="btnEarsor error authrTB" value="Eraser" onclick=""></div> ' +
                             '<div type="button" class="btnClear error authrTB" title="Erase All" value="Clear" onclick=""></div>' +
                             '<div type="button" class="btnColor error authrTB" title="Color" value="Color" onclick=""></div></div></div></div>';

@@ -353,7 +353,7 @@ var hBarGraph = (function (o) {
                     m.colorList.length = 0;
                     m.lockValueList = {};
                     createGraphUI(m, el);
-                    attachEventOnRound(el, m, e.data.rC, e.data.cC);
+                    attachEventOnRound(el, m);
                     popupManager.hide();
                 },
                 hide: function () {
@@ -562,14 +562,14 @@ var hBarGraph = (function (o) {
         return '<div id="' + obj.id + '" class="horizontal_graph_container"></div>';
     }
 
-    function attachEventOnRound(a, data, rC, cC) {
+    function attachEventOnRound(a, data) {
         var roundClickHandler = function (event) {
             var defaultColor = "blue",
                     defaultStrokeColor = "#000000",
                     cSet = event.data.setting,
                     el = event.data.element,
-                    row_container = event.data.row,
-                    column_container = event.data.col,
+                    row_container = cSet.row_container,
+                    column_container = cSet.column_container,
                     dataCol = $(this).attr('data-column'),
                     dataRow = $(this).attr('data-row'),
                     temp,
@@ -600,7 +600,7 @@ var hBarGraph = (function (o) {
                     cSet.userAnswer[temp] = this.id;
                     row_container[r.columnPosition] = dataRow;
                 }
-                drawGraphHorizontal(el, cSet, cC, rC);
+                drawGraphHorizontal(el, cSet, cSet.column_container, cSet.row_container);
             }
         },
                 elList = a.find(".hbar-round"),
@@ -612,7 +612,7 @@ var hBarGraph = (function (o) {
                 elList = elList.not('[data-column="' + key + '"]');
             });
         }
-        elList.css("cursor", "pointer").on("click", {setting: data, element: a, row: rC, col: cC}, roundClickHandler);
+        elList.css("cursor", "pointer").on("click", {setting: data, element: a}, roundClickHandler);
     }
 
     function updateSettings(cSetting, el) {
@@ -630,8 +630,6 @@ var hBarGraph = (function (o) {
     function hBarGraph(options) {
         var _this = this,
                 cSetting = {},
-                column_container = [],
-                row_container = [],
                 el,
                 authParent,
                 defaultSetting = {
@@ -666,6 +664,8 @@ var hBarGraph = (function (o) {
                     isLockEditable: true,
                     showMinorLines: false,
                     numberOfIntervals: 0,
+                    column_container: [],
+                    row_container: [],
                     lockValueList: {}
                     //opacity: 1
                 },
@@ -673,8 +673,8 @@ var hBarGraph = (function (o) {
             popupManager.hide();
             e.find('svg').empty();
             cSetting.userAnswer.length = 0;
-            row_container.length = 0;
-            column_container.length = 0;
+            cSetting.row_container.length = 0;
+            cSetting.column_container.length = 0;
             //e.find('.square-active').removeClass('square-active');
             if (isRoleAuthor) {
                 cSetting.colorList.length = 0;
@@ -694,14 +694,14 @@ var hBarGraph = (function (o) {
             _this.active = true;
             _this.deleted = false;
             createGraphUI(cSetting, el);
-            attachEventOnRound(el, cSetting, row_container, column_container);
+            attachEventOnRound(el, cSetting);
             if (isRoleAuthor) {
                 applyAuthorProperty(el);
-                cSetting.userAnswer = drawHorizontalLine(cSetting.userAnswer, cSetting.graphAnswer, column_container, row_container);
+                cSetting.userAnswer = drawHorizontalLine(cSetting.userAnswer, cSetting.graphAnswer, cSetting.column_container, cSetting.row_container);
                 // drawDots(el, cSetting);
 
                 popupManager.updateStatus('+');
-                el.bind('dblclick', {context: _this, setting: cSetting, rW: row_container, cC: column_container, el: el}, function (e) {
+                el.bind('dblclick', {context: _this, setting: cSetting, rW: cSetting.row_container, cC: cSetting.column_container, el: el}, function (e) {
                     colorSetting.HidePallete();
                     popupManager.show(e.data.context, e.data.setting, e.data.rW, e.data.cC, e.data.el);
                 });
@@ -710,7 +710,7 @@ var hBarGraph = (function (o) {
             else {
                 //  cSetting.userAnswer = [];
                 //  cSetting.userAnswerLines = [];
-                cSetting.userAnswer = drawHorizontalLine(cSetting.userAnswer, cSetting.lockValueList, column_container, row_container);
+                cSetting.userAnswer = drawHorizontalLine(cSetting.userAnswer, cSetting.lockValueList, cSetting.column_container, cSetting.row_container);
                 drawGraphHorizontal(el, cSetting);
             }
         }
@@ -732,7 +732,7 @@ var hBarGraph = (function (o) {
         _this.reset = function () {
             if (!_this.deleted && _this.active) {
                 clearAll(el);
-                cSetting.userAnswer = drawHorizontalLine(cSetting.userAnswer, cSetting.lockValueList, column_container, row_container);
+                cSetting.userAnswer = drawHorizontalLine(cSetting.userAnswer, cSetting.lockValueList, cSetting.column_container, cSetting.row_container);
                 drawGraphHorizontal(el, cSetting);
             }
         };
@@ -759,7 +759,7 @@ var hBarGraph = (function (o) {
                 if (attemptType === "specific") {
                     if (!result) {
                         clearAll(el);
-                        cSetting.userAnswer = drawHorizontalLine(cSetting.userAnswer, cSetting.graphAnswer, column_container, row_container);
+                        cSetting.userAnswer = drawHorizontalLine(cSetting.userAnswer, cSetting.graphAnswer, cSetting.column_container, cSetting.row_container);
                         drawGraphHorizontal(el, cSetting);
                     }
                     _this.deactivate();
@@ -779,14 +779,16 @@ var hBarGraph = (function (o) {
         /*This will bring all the user input as each level of feedback*/
         _this.getUserAnswer = function () {
             if (!_this.deleted) {
-                return cSetting.userAnswer;
+                return {userAnswer: cSetting.userAnswer, column_container: cSetting.column_container, row_container: cSetting.row_container};
             }
             return undefined;
         };
         /*This will set the user answer*/
         _this.setUserAnswer = function (val) {
             if (!_this.deleted) {
-                cSetting.userAnswer = val;
+                cSetting.userAnswer = val.userAnswer;
+                cSetting.column_container = val.column_container;
+                cSetting.row_container = val.row_container;
                 drawGraphHorizontal(el, cSetting);
             }
             return undefined;

@@ -1,19 +1,15 @@
-<div class="cntrl-btns clear-fix">
+<div class="cntrl-btns clear-fix  board">
+    <h3><i class="icon-edit"></i> Easy rules to start the Quiz!</h3>
+    <ul>
+        <li>There will be {{questionArr.length}} questions.</li>
+        <li>Anytime you can skip the question.</li>
+        <li style="background:none;">Ready?</li>
+    </ul>
     <div id="playerNavigation">
         <div id="authorPagination">
-            <!--                <li ng-repeat="question in questionArr" class="navli">
-                                <a href="#/quiz/question/{{$index}}"><button id="btn-next">{{$index + 1}}</button></a>
-                            </li>-->
-            <li class="navli rules-board">
-                <a href="#/quiz/question/0"><button id="btn-next">Next</button></a>
-            </li>
+            <a href="#/question/0"><button id="btn-next">Let's Get Started</button></a>
         </div>
-
     </div>
-    <!--        <div id="btnSection">
-                <button class="authorButton" id="btn-submit-generic">Submit</button>
-                <button class="authorButton" id="btn-reset">Reset</button>
-            </div>-->
 </div>
 
 <style>

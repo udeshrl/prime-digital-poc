@@ -58,6 +58,10 @@ var multipleSelect = /**
 
             this.noOfCorrectAns = 1;
 
+            this.clickedSpots = [];
+
+            this.spotsAns = {};
+
             //console.log(Role)
             this.userType = Role;// variable for usertype
             //initialize function which takes object as parameter
@@ -296,6 +300,7 @@ var multipleSelect = /**
 
                     for (var i = 0; i < parseInt(propObj.noOfHotSpot); i++)
                     {
+
                         //console.log(propObj["hs"+i].id,propObj["hs"+i]._y)
                         var tmpobj = createHotSpot(propObj["hs" + i].id, propObj["hs" + i]._y, propObj["hs" + i]._x, propObj["hs" + i].w, propObj["hs" + i].h, propObj["hs" + i].isCorr, propObj["hs" + i]._t);
                         tmpobj.css({"background-color": "transparent", "left": propObj["hs" + i]._x, "top": propObj["hs" + i]._y, "width": propObj["hs" + i].w, "height": propObj["hs" + i].h});
@@ -334,6 +339,7 @@ var multipleSelect = /**
                     this.grpId = propObj.grpId;
                     for (var i = 0; i < parseInt(propObj.noOfHotSpot); i++)
                     {
+                        this.spotsAns["hsId" + i] = propObj["hs" + i];
                         //console.log(propObj["hs"+i].id,propObj["hs"+i]._y)
                         var tmpobj = createHotSpot(propObj["hs" + i].id, propObj["hs" + i]._y, propObj["hs" + i]._x, propObj["hs" + i].w, propObj["hs" + i].h, propObj["hs" + i].isCorr, propObj["hs" + i]._t);
                         tmpobj.css({"background-color": "transparent", "cursor": "pointer"});
@@ -489,11 +495,32 @@ var multipleSelect = /**
                 }
                 return hs;
             };
+            
+           var setUserAnswer = function (clickedSpots)
+            {
+                 for (var i = 0; i < clickedSpots.length; i++)
+                    {
+                        var ele = clickedSpots[i];
+                        $(_this.parentDiv).find("#" + ele).trigger('click');
+                    }
+                
+            };
+            
             //function to get hotspot click event
             var hsClicked = function (e)
             {		//alert(_this.userType)
                 ele = e.currentTarget;
                 var el = $(_this.parentDiv).find("#" + ele.id);
+
+                if (_this.clickedSpots.contains(ele.id))
+                {
+                    var index = _this.clickedSpots.indexOf(ele.id);
+                    if (index != -1) { // check if notification exist in queue
+                        _this.clickedSpots.splice(index, 1);
+                    }
+                } else {
+                    _this.clickedSpots.push(ele.id);
+                }
 
                 if (_this.userType === "author")
                 {
@@ -689,43 +716,21 @@ var multipleSelect = /**
                 var corrAns = 0;
                 if (this.userType === "student")
                 {
-                    for (var i = 0; i < parseInt(_this.parentDiv.find(".multipleselect_hotSpotCan").length); i++)
+                    for (var i = 0; i < _this.clickedSpots.length; i++)
                     {
-                        var ele = _this.parentDiv.find(".multipleselect_hotSpotCan").eq(i);
-                        if (ele.data("prop").clicked)
+                        var ele = _this.clickedSpots[i];
+                        if (!_this.spotsAns[ele].isCorr)
                         {
-                            if (!ele.data("prop").isCorr)
+                            isFound = false;
+                            if (attCount !== "specific")
                             {
-                                isFound = false;
-                                if (attCount !== "specific")
-                                {
-                                    //ele.css({"border-color":"red"});
-                                }
-                            }
-                            else if (ele.data("prop").isCorr)
-                            {
-                                corrAns++;
-                                //if(attCount !== "final")
-                                //{
-                                //ele.css({"border-color":"green"});
-                                //}
-                                //else
-                                //{
-                                //ele.css({"border-color":"orange"})
-                                //}
+                                //ele.css({"border-color":"red"});
                             }
                         }
-//                        else if (!ele.data("prop").clicked)
-//                        {
-//                            if (ele.data("prop").isCorr)
-//                            {
-//                                isFound = false;
-//                                if (attCount === "specific")
-//                                {
-//                                    //ele.css({"border-color":"orange"});
-//                                }
-//                            }
-//                        }
+                        else
+                        {
+                            corrAns++;
+                        }
                     }
 
                     if (_this.noOfCorrectAns != corrAns) {
@@ -914,12 +919,12 @@ var multipleSelect = /**
 
             this.getUserAnswer = function ()
             {
-                return undefined;
+                return _this.clickedSpots;
             };
 
             /*This will set the user answer*/
-            this.setUserAnswer = function () {
-                return undefined;
+            this.setUserAnswer = function (val) {
+                setUserAnswer(val);
             };
 
             this.initialize(options);

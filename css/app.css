@@ -6,4 +6,5 @@ body {
 
 .quiz-list li{
     list-style: none;
+    margin-bottom: 5px;
 }
