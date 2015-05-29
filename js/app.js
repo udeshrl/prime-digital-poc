@@ -1,19 +1,39 @@
+/**
+ * Created By Udesh Kumar
+ * Configuration File
+ * Date: 05/20/2015
+ */
+
 'use strict';
 
-/* App Module */
+/**
+ * Configure the app with all its modules and dependencies.
+ * @type {{config:function}}
+ */
 
 var primeDigitalApp = angular.module('primeDigitalApp', [
     'ngRoute',
-    'primeDigitalAnimations',
     'primeDigitalControllers',
     'primeDigitalFilters',
     'primeDigitalUserServices',
     'primeDigitalPlayer'
 ]);
 
-primeDigitalApp.constant('appName', 'Scholastic PR1ME Mathematics - POC');
-primeDigitalApp.constant('appURL', 'http://localhost/prime-digital-poc/');
+/**
+ * Define App Constants
+ */
+primeDigitalApp.constant('appConstants', {
+    appName: "Scholastic PR1ME Mathematics - POC",
+    appURL: "http://localhost/prime-digital-poc/",
+    copyright: "&#153; &#174; &#38; &copy; 2015, 2012 Scholastic Inc. All Rights Reserved."
+});
 
+
+/**
+ * Configures the routes for the main views of this single page app. URLs are hash locations (http://example.com/#/home)
+ *
+ * These populate the ng-view section in index.html
+ */
 primeDigitalApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.

@@ -2,7 +2,7 @@
 <html lang="en" ng-app="primeDigitalApp">
     <head>
         <meta charset="utf-8">
-        <title>{{appName}}</title>
+        <title>{{appConstants.appName}}</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/animations.css">
         <link rel="stylesheet" href="css/app.css">
@@ -71,13 +71,11 @@
 
         <!--Reader functionality -->
         <script src="js/common/avatar.js"></script>
-        <!--<script src="js/reader/reader.js"></script>-->
         <script src="js/angular.js"></script>
         <script src="js/angular-animate.js"></script>
         <script src="js/angular-route.js"></script>
         <script src="js/angular-resource.js"></script>
         <script src="js/app.js"></script>
-        <script src="js/animation.js"></script>
         <script src="js/controllers.js"></script>
         <script src="js/filter.js"></script>
         <script src="js/services.js"></script>
@@ -88,7 +86,7 @@
             <div id="header" class="header-bg">
                 <div class="row">
                     <div class="col-sm-6">
-                        <a href="#/" title="{{appName}}"><img class="logo" src="images/logo.png" alt="{{appName}}"></a>
+                        <a href="#/" title="{{appConstants.appName}}"><img class="logo" src="images/logo.png" alt="{{appConstants.appName}}"></a>
                     </div>
                     <div class="col-sm-6 welcome-detail">
                         Welcome {{userInfo.first_name}}
@@ -106,8 +104,8 @@
         <div class="clear-fix"></div>
         <footer>
             <div id="footer" class="footer-bg">
-                <div class="row">
-                    &#153; &#174; &#38; &copy; 2015, 2012 Scholastic Inc. All Rights Reserved.
+                <div class="row" ng-bind-html="appConstants.copyright | renderHTMLCorrectly">
+                 
                 </div>
             </div>
 
