@@ -32,7 +32,7 @@
         <link rel="stylesheet" href="components/multiplicationWidget/css/multiplicationWidget.css" type="text/css" />
         <link rel="stylesheet" href="components/groupBox/css/groupBox.css" type="text/css" />
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        
+
         <script>
             Role = "student";
         </script>
@@ -61,11 +61,11 @@
         <script src="components/multipleSelect/js/multipleSelect.js"></script>
         <script src="components/matchTheLine/js/matchTheLine.js"></script>
         <script src="components/dragDrop/js/dragDrop.js"></script>
-	<script src="components/dragDrop/js/ImageUpload.js"></script>
-	<script src="components/dragDrop/js/labelWidget.js"></script>
-	<script src="components/divisionWidget/js/divisionWidget.js"></script>
-	<script src="components/multiplicationWidget/js/multiplicationWidget.js"></script>
-	<script src="components/groupBox/js/groupBox.js"></script>
+        <script src="components/dragDrop/js/ImageUpload.js"></script>
+        <script src="components/dragDrop/js/labelWidget.js"></script>
+        <script src="components/divisionWidget/js/divisionWidget.js"></script>
+        <script src="components/multiplicationWidget/js/multiplicationWidget.js"></script>
+        <script src="components/groupBox/js/groupBox.js"></script>
         <script src="components/htmlEditor/js/htmlEditor.js"></script>
 
 
@@ -96,6 +96,13 @@
 
         </header>
         <div id="container" class="parent_container">
+            <div class="student-details">
+                <ul>
+                <li><strong>Student:</strong> Nicholas</li>
+                <li><strong>Quiz:</strong> Prime Digital Quiz1</li>
+                <li class="pull-right alert alert-warning"><strong>Attempted:</strong> 8/10</li>
+                </ul>
+            </div>
             <div id="author_content_container" class="author_content_container"></div>
             <div class="view-container">
                 <div ng-view class="view-frame"></div>
@@ -105,7 +112,7 @@
         <footer>
             <div id="footer" class="footer-bg">
                 <div class="row" ng-bind-html="appConstants.copyright | renderHTMLCorrectly">
-                 
+
                 </div>
             </div>
 
