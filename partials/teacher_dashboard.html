@@ -2,11 +2,11 @@
     <strong><i class="fa fa-check"></i> Hello {{userInfo.first_name}},</strong> you are logged in! Select the user from the list below to check their result.
 </div>
 
-<div class="list-group">
+<div>
     <!--<a href="#" class="list-group-item active">Scholastic Test1</a>-->
-    <ul class="quiz-list">
+    <ul class="student-list">
         <li ng-repeat="student in allStudents">
-            <a ng-href="#/student/{{student.id}}" class="list-group-item" ><i class="fa fa-hand-o-right"></i> {{student.first_name + ' ' + student.last_name}}</a>
+            <a ng-href="#/student/{{student.id}}"><i class="fa fa-user icon-user"></i> {{student.first_name + ' ' + student.last_name}}</a>
         </li>
     </ul>
 </div>

@@ -236,3 +236,34 @@ footer{
 .quiz-list {
     font-size: 15px;
 }
+ul {
+    list-style: none;
+}
+.student-list li{
+    line-height: 40px;
+    font-size: 15px;
+}
+
+.student-list li:hover {
+     background: #F5F5F5;
+}
+
+.student-list li a {
+    color: #555;
+}
+
+.student-list li a:hover {
+    text-decoration: none;
+    color: #2D62A1;
+   
+}
+
+.icon-user {
+    padding: 5px 7px;
+    border-radius: 100%;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.alert {
+    font-size: 17px;
+}
