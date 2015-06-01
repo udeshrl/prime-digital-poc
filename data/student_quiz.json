@@ -293,6 +293,17 @@
                 true
             ]
         },
+        "resultQuestionObj": {
+            "0": true,
+            "1": true,
+            "2": true,
+            "3": true,
+            "4": true,
+            "5": false,
+            "6": true,
+            "7": true,
+            "8": true
+        },
         "totalQuestion": 9,
         "correctAns": 8,
         "resultPercentage": 88
@@ -389,6 +400,13 @@
                 true,
                 true
             ]
+        },
+        "resultQuestionObj": {
+            "0": true,
+            "1": false,
+            "2": false,
+            "3": false,
+            "4": true
         },
         "totalQuestion": 5,
         "correctAns": 2,
@@ -563,9 +581,17 @@
                 true
             ]
         },
-        "totalQuestion": 9,
+        "resultQuestionObj": {
+            "0": true,
+            "1": true,
+            "2": true,
+            "3": true,
+            "4": true,
+            "5": false
+        },
+        "totalQuestion": 6,
         "correctAns": 6,
-        "resultPercentage": 66
+        "resultPercentage": 100
     },
     "5_3": {
         "ID": 4,
@@ -680,6 +706,14 @@
                 true,
                 true
             ]
+        },
+        "resultQuestionObj": {
+            "0": true,
+            "1": true,
+            "2": true,
+            "3": true,
+            "4": false,
+            "5": false
         },
         "totalQuestion": 6,
         "correctAns": 5,
@@ -799,6 +833,14 @@
                 true
             ]
         },
+        "resultQuestionObj": {
+            "0": true,
+            "1": false,
+            "2": true,
+            "3": true,
+            "4": true,
+            "5": false
+        },
         "totalQuestion": 6,
         "correctAns": 5,
         "resultPercentage": 83
@@ -895,6 +937,13 @@
                 true,
                 true
             ]
+        },
+        "resultQuestionObj": {
+            "0": true,
+            "1": true,
+            "2": true,
+            "3": false,
+            "4": true
         },
         "totalQuestion": 5,
         "correctAns": 4,

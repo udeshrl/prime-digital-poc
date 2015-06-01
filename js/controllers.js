@@ -119,9 +119,9 @@ function StudentQuizCtrl($rootScope, $routeParams, $scope, $location, playerServ
 
     //Get All Student Quiz Records
     $scope.studentQuizData = playerServices.getAllStudentQuizData();
-    
+
     $scope.accordion = 0;
-    
+
     //Change Accordion collapse
     $scope.collapse = function (testID) {
         $scope.accordion = testID;
@@ -166,6 +166,13 @@ function TeacherDashboardCtrl($rootScope, $scope, $location, userServices) {
  */
 function QuizCtrl($rootScope, $scope, $routeParams, $location, playerServices) {
 
+     var searchParams = $location.search(), q = 0;
+
+    //Check and set if token is passed
+    if (searchParams['q']) {
+        q = searchParams['q'];
+    }
+
     //set Student ID from route Params
     var studentid = $routeParams.sId;
 
@@ -185,7 +192,7 @@ function QuizCtrl($rootScope, $scope, $routeParams, $location, playerServices) {
 
     // if already attempted, redirect to first question page. No need to show welcome page
     if (!$.isEmptyObject($scope.getResultArr)) {
-        $location.path('/question/0');
+        $location.path('/question/'+q);
         return;
     }
 

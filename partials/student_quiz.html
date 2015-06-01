@@ -12,16 +12,13 @@
         
         <div id="collapse{{quiz.testID}}" class="panel-collapse" ng-show="accordion == '{{quiz.testID}}'">
             <div class="panel-body">
-                <div> <p>HTML stands for HyperText Markup Language. HTML is the main markup language for describing the structure of Web pages.</p>
+                <div> <p>Following are the items from the Quiz that this student got it wrong.</p>
                 </div>
 
                 <div class="row center-pagination">
+                    
                     <ul class="pagination">
-                        <li class="navli"><a href="#">1</a></li>
-                        <li class="active navli"><a href="#">2</a></li>
-                        <li class="navli"><a href="#">3</a></li>
-                        <li class="navli"><a href="#">4</a></li>
-                        <li class="navli"><a href="#">5</a></li>
+                        <li class="navli" ng-repeat="result in studentQuizData[key].resultQuestionObj" ng-if="!result" ng-model="qindex = $index+1"><a ng-href="#/quiz/{{quiz.testID}}/{{studentInfo.id}}?q={{$index}}">{{qindex}}</a></li>
                     </ul>
                 </div>
             </div>

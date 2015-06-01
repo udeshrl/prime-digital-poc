@@ -257,7 +257,7 @@ function playerServices($http, $q) {
      */
     var getResult = function (sid) {
         var allQData = quizData.resultArr, qData;
-        var resultData = [], qResult;
+        var resultQuestionObj = {}, qResult;
         var totalQuestion = testJSON.questionArr.length, correctAns = 0, resultPercentage = '';
         
         //Loop all questions
@@ -274,7 +274,7 @@ function playerServices($http, $q) {
             if (qResult) {
                 correctAns++;
             }
-            resultData.push(qResult);
+            resultQuestionObj[qIndex] = qResult;
         });
         
         //calculate percentage
@@ -290,6 +290,7 @@ function playerServices($http, $q) {
         resultObj.studentID = sid;
         resultObj.ansArr = quizData.ansArr;
         resultObj.resultArr = quizData.resultArr;
+        resultObj.resultQuestionObj = quizData.resultQuestionObj;
         resultObj.totalQuestion = totalQuestion;
         resultObj.correctAns = correctAns;
         resultObj.resultPercentage = resultPercentage;
@@ -298,7 +299,7 @@ function playerServices($http, $q) {
         allStudentQuizData[key] = resultObj
 
         console.log(JSON.stringify(resultObj));
-        return {resultData: resultData, totalQuestion: totalQuestion, correctAns: correctAns, resultPercentage: resultPercentage};
+        return {resultQuestionObj: resultQuestionObj, totalQuestion: totalQuestion, correctAns: correctAns, resultPercentage: resultPercentage};
     };
 
 
