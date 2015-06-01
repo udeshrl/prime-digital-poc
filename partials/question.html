@@ -4,9 +4,9 @@
             <a ng-if="prevLink" ng-href="#/question/{{previous}}"><button id="btn-previous">Previous</button></a>
             <button ng-if="!prevLink" id="btn-previous">Previous</button>
         </span>
-         <ul class="pagination pull-left">
+         <ul class="pagination pull-left navli">
        
-        <li ng-repeat="question in questionArr" class="navli" ng-class="($index == current) ?'active':''">
+        <li ng-repeat="question in questionArr" ng-class="($index == current) ?'active':''">
             <a ng-href="#/question/{{$index}}" >{{$index + 1}}</a>
         </li>
         

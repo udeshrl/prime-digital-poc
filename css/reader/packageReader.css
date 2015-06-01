@@ -58,7 +58,7 @@ body {
     width: 70%;
     float:left;
 }
-.navli{
+.navli li, .navli{
     float: left;
     list-style: none;
     margin-right:5px;
@@ -267,15 +267,25 @@ ul {
     text-align: center;
 }
 
+.center-pagination li a {
+    margin: 0 5px 0 0;
+}
+
 .student-details {
     margin:0 0 20px 0;
 }
 
-.student-details p {
-    line-height: 30px;
+.student-details li {
+    padding: 0 50px 0 0;
+    display: inline;
+    font-size: 15px;
 }
 
-.student-details p strong {
+.student-details li strong {
     display: inline-block;
-    width: 10%;
+    
+}
+
+.student-details li.alert {
+    padding: 10px;
 }

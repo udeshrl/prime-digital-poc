@@ -249,6 +249,9 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
 
     // Default value as false
     $scope.quizDeactive = false;
+    
+    // Show Quiz details
+    $rootScope.showQuizDetails = true;
 
     // get All Quesstions
     $scope.questionArr = playerServices.getAllQuestion();

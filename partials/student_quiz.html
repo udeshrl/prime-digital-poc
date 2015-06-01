@@ -18,7 +18,7 @@
                 <div class="row center-pagination">
                     
                     <ul class="pagination">
-                        <li class="navli" ng-repeat="result in studentQuizData[key].resultQuestionObj" ng-if="!result" ng-model="qindex = $index+1"><a ng-href="#/quiz/{{quiz.testID}}/{{studentInfo.id}}?q={{$index}}">{{qindex}}</a></li>
+                        <li ng-repeat="result in studentQuizData[key].resultQuestionObj" ng-if="!result" ng-model="qindex = $index+1"><a ng-href="#/quiz/{{quiz.testID}}/{{studentInfo.id}}?q={{$index}}">{{qindex}}</a></li>
                     </ul>
                 </div>
             </div>
