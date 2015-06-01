@@ -2,14 +2,31 @@
     <strong><i class="fa fa-check"></i> Hello {{userInfo.first_name}},</strong> Check Quiz Status for <strong>{{studentInfo.first_name}}</strong>
 </div>
 
-<div class="list-group">
-    <ul class="quiz-list">
-        <li ng-repeat="quiz in quizData" ng-init="key = studentInfo.id + '_' + quiz.testID">
-            <a ng-href="#/quiz/{{quiz.testID}}/{{studentInfo.id}}" class="list-group-item" ng-if="studentQuizData[key]"><i class="fa fa-hand-o-right"></i> {{quiz.title}} <span class="badge">{{studentQuizData[key].resultPercentage}}%</span> </a>
-            <a ng-href="" class="list-group-item" ng-if="!studentQuizData[key]"><i class="fa fa-hand-o-right"></i> {{quiz.title}} <span class="badge">Not Attempted</span></a>
-        </li>
-    </ul>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default" ng-repeat="quiz in quizData" ng-init="key = studentInfo.id + '_' + quiz.testID">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="" ng-click="collapse(quiz.testID)"><i class="fa fa-hand-o-right"></i> {{quiz.title}} <span class="badge pull-right" ng-if="studentQuizData[key]">{{studentQuizData[key].resultPercentage}}%</span></a>
+            </h4>
+        </div>
+        
+        <div id="collapse{{quiz.testID}}" class="panel-collapse" ng-show="accordion == '{{quiz.testID}}'">
+            <div class="panel-body">
+                <div> <p>HTML stands for HyperText Markup Language. HTML is the main markup language for describing the structure of Web pages.</p>
+                </div>
 
+                <div class="row center" style="margin:20px 0 0 0; text-align: center;">
+                    <ul class="pagination">
+                        <li class="navli"><a href="#">1</a></li>
+                        <li class="active navli"><a href="#">2</a></li>
+                        <li class="navli"><a href="#">3</a></li>
+                        <li class="navli"><a href="#">4</a></li>
+                        <li class="navli"><a href="#">5</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <style>
     #author_content_container{display:none;}

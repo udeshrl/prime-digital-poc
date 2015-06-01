@@ -113,13 +113,19 @@ function StudentQuizCtrl($rootScope, $routeParams, $scope, $location, playerServ
     // get Student ID from route Params
     var sId = $routeParams.sId;
     $scope.studentInfo = $rootScope.allStudents[sId];  //Get Particualr student record
-    
+
     //Get All Quiz Records
     $scope.quizData = playerServices.getAllQuizData();
-    
+
     //Get All Student Quiz Records
     $scope.studentQuizData = playerServices.getAllStudentQuizData();
-        
+    
+    $scope.accordion = 0;
+    
+    //Change Accordion collapse
+    $scope.collapse = function (testID) {
+        $scope.accordion = testID;
+    }
 }
 
 
@@ -159,30 +165,30 @@ function TeacherDashboardCtrl($rootScope, $scope, $location, userServices) {
  *
  */
 function QuizCtrl($rootScope, $scope, $routeParams, $location, playerServices) {
-    
+
     //set Student ID from route Params
     var studentid = $routeParams.sId;
-    
+
     // Set studentid as Logged user id if logged as student
     if ($rootScope.userInfo.role == 'student') {
         studentid = $rootScope.userInfo.id;
     }
-    
+
     //Redirect to Student Dashboard if Wrong Quiz ID else Initialize the quiz as well
     if (!playerServices.setQuiz($routeParams.quizId, studentid)) {
         $location.path('/');
         return;
     }
-    
+
     // Get Result Data in case already attempted
     $scope.getResultArr = playerServices.getResultArr();
-    
+
     // if already attempted, redirect to first question page. No need to show welcome page
     if (!$.isEmptyObject($scope.getResultArr)) {
         $location.path('/question/0');
         return;
     }
-    
+
     // Get all questions
     $scope.questionArr = playerServices.getAllQuestion();
 }
@@ -203,10 +209,10 @@ function ResultCtrl($rootScope, $scope, $location, playerServices) {
         $location.path('/');
         return;
     }
-    
+
     // Submit Questions
     playerServices.submitQuestions();
-    
+
     // Get Result object
     var result = playerServices.getResult($rootScope.userInfo.id);
     $scope.result = result;
@@ -224,49 +230,49 @@ function ResultCtrl($rootScope, $scope, $location, playerServices) {
  *
  */
 function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerServices) {
-    
+
     //set Question ID from route Params
     var qId = parseInt($routeParams.qId);
-    
+
     //Redirect to Student Dashboard if Wrong Questtion ID or quiz is not initialized
     if (!playerServices.checkQuizIniate() || !playerServices.showQuestion(qId)) {
         $location.path('/');
         return;
     }
-    
+
     // Default value as false
     $scope.quizDeactive = false;
-    
+
     // get All Quesstions
     $scope.questionArr = playerServices.getAllQuestion();
-    
+
     // Get Result Data in case already attempted
     $scope.getResultArr = playerServices.getResultArr();
-    
+
     // if already attempted, deactivate the question
     if (!$.isEmptyObject($scope.getResultArr)) {
         $scope.quizDeactive = true;
     }
-    
+
     //set Current Question ID
     $scope.current = qId;
-    
+
     // Total Question Count
     var totalQuestion = $scope.questionArr.length;
-    
+
     // Next Question index
     $scope.next = parseInt(qId) + 1;
     // Default True valuww for next previous links show
     $scope.nextLink = true;
     $scope.prevLink = true;
-    
+
     // Hide Next link if last question
     if ($scope.next > (totalQuestion - 1)) {
         $scope.nextLink = false;
     }
     // Previous Question index
     $scope.previous = parseInt(qId) - 1;
-    
+
     // Hide Previous link if last question
     if ($scope.previous < 0) {
         $scope.prevLink = false;
