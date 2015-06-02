@@ -1,7 +1,7 @@
 {
     "1": {
         "testID": 1,
-        "title": "Prime Diigital Quiz 1",
+        "title": "Prime Digital Quiz 1",
         "questionArr": [
             {
                 "questionId": 7,
@@ -70,7 +70,7 @@
     },
     "2": {
         "testID": 2,
-        "title": "Prime Diigital Quiz 2",
+        "title": "Prime Digital Quiz 2",
         "questionArr": [
             {
                 "questionId": 10,
@@ -111,7 +111,7 @@
     },
     "3": {
         "testID": 3,
-        "title": "Prime Diigital Quiz 3",
+        "title": "Prime Digital Quiz 3",
         "questionArr": [
             {
                 "questionId": 8,
@@ -155,6 +155,16 @@
                 "json": "{\"widgetsData\":{\"0\":{\"0\":{\"widgetType\":\"htmlEditor\",\"left\":0,\"top\":0,\"width\":\"978px\",\"height\":\"480px\",\"id\":\"681_Content_1432534634214\",\"editorShow\":false,\"text\":\"<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>&nbsp;</p>\\n<p>Match the same shapes</p>\"},\"1\":\"htmlEditor\"},\"3\":{\"0\":{\"widgetType\":\"matchTheLine\",\"width\":500,\"height\":397,\"lineColor\":\"#000000\",\"lineWidth\":\"2\",\"lockedLineWidth\":\"4\",\"sourceHotSpot\":{\"hsId0\":{\"hsId\":0,\"left\":0,\"top\":0,\"width\":177,\"height\":85,\"className\":\"source\"},\"hsId1\":{\"hsId\":1,\"left\":0,\"top\":130,\"width\":173,\"height\":100,\"className\":\"source\"},\"hsId2\":{\"hsId\":2,\"left\":4,\"top\":259,\"width\":148,\"height\":129,\"className\":\"source\"}},\"targetHotSpot\":{\"hsId3\":{\"hsId\":3,\"left\":275,\"top\":5,\"width\":219,\"height\":126,\"className\":\"target\"},\"hsId4\":{\"hsId\":4,\"left\":287,\"top\":149,\"width\":189,\"height\":102,\"className\":\"target\"},\"hsId5\":{\"hsId\":5,\"left\":290,\"top\":275,\"width\":191,\"height\":118,\"className\":\"target\"}},\"matchedLines\":{\"hsId0_hsId4\":{\"source\":\"hsId0\",\"target\":\"hsId4\"},\"hsId1_hsId5\":{\"source\":\"hsId1\",\"target\":\"hsId5\"},\"hsId2_hsId3\":{\"source\":\"hsId2\",\"target\":\"hsId3\"}},\"readerLines\":{},\"lockedLines\":{},\"left\":5,\"top\":3,\"hsId\":6,\"id\":\"TM_1432534700079\",\"markLine\":false},\"1\":\"matchTheLine\"}},\"avatarData\":{\"avatarIcon\":\"images/common/avatar/avatar1.png\",\"visiblity\":true,\"message\":\"Default message<br> on author screen.\",\"position\":{\"left\":10,\"top\":410}},\"filePath\":\"/resources/1_14/Question 8.htm\"}",
                 "componentList": "matchTheLine,htmlEditor"
             }
+        ]
+    },
+    "4":{
+        "testID": 4,
+        "title": "Prime Digital Quiz 4",
+        "questionArr":
+        [
+            {"filePath":"html_template/Q1-Join_the_dots_in_order.htm","json":"{\"widgetsData\":{\"0\":{\"0\":{\"widgetType\":\"freeDraw\",\"category\":\"Add_Just_Canvas\",\"width\":246,\"height\":341,\"left\":217,\"top\":90,\"id\":\"FD_1433243357341\",\"options\":[],\"savedDataToRedraw\":\"\"},\"1\":\"freeDraw\"}},\"avatarData\":{\"avatarIcon\":\"images/common/avatar/avatar1.png\",\"visiblity\":true,\"message\":\"Default message\u003cbr\u003e on author screen.\",\"position\":{\"left\":10,\"top\":410}},\"filePath\":\"https://ldlalf-1769672881.us-east-1.elb.amazonaws.com/alfresco/d/d/workspace/SpacesStore/fc7108c1-36ff-43ac-a480-f578f8364e1c/Q1-Join_the_dots_in_order.htm?ticket\u003dTICKET_6f4bd1785ca6c3bc1c64eb9e85fb43b4ddd420e2\"}","componentList":"freeDraw"},
+            {"filePath":"html_template/Q2-Fill_in_the_missing_numbers.htm","json":"{\"widgetsData\":{\"2\":{\"0\":{\"widgetType\":\"groupBox\",\"subViewCollection\":[{\"width\":39,\"height\":30,\"length\":\"5\",\"left\":169,\"top\":147,\"id\":\"GB_95444\",\"type\":\"Numeric\"},{\"width\":41,\"height\":30,\"length\":\"5\",\"left\":518,\"top\":147,\"id\":\"GB_37807\",\"type\":\"Free Text\"},{\"width\":50,\"height\":30,\"length\":5,\"left\":323,\"top\":147,\"id\":\"GB_40432\",\"type\":\"Free Text\"}],\"answer\":\"3|4|6\",\"isMathEditorEnable\":false,\"groupColor\":\"blue\",\"ignoreSpace\":true,\"count\":\"3\",\"GroupId\":\"GB_1433243751496\",\"fontSize\":\"18pt\",\"isValidateGroupWise\":false},\"1\":\"groupBox\"}},\"avatarData\":{\"avatarIcon\":\"images/common/avatar/avatar1.png\",\"visiblity\":true,\"message\":\"Default message\u003cbr\u003e on author screen.\",\"position\":{\"left\":10,\"top\":410}},\"filePath\":\"https://ldlalf-1769672881.us-east-1.elb.amazonaws.com/alfresco/d/d/workspace/SpacesStore/70879210-752c-4725-a791-994591cf0e9a/Q2-Fill_in_the_missing_numbers.htm?ticket\u003dTICKET_6f4bd1785ca6c3bc1c64eb9e85fb43b4ddd420e2\"}","componentList":"groupBox"},
+            {"filePath":"html_template/Q3-Match_the_words_pictures_and_numbers.htm","json":"{\"widgetsData\":{\"1\":{\"0\":{\"widgetType\":\"matchTheLine\",\"width\":779,\"height\":364,\"lineColor\":\"#ff0000\",\"lineWidth\":\"2\",\"lockedLineWidth\":\"4\",\"sourceHotSpot\":{\"hsId0\":{\"hsId\":0,\"left\":73,\"top\":18,\"width\":70,\"height\":36,\"className\":\"source\"},\"hsId1\":{\"hsId\":1,\"left\":183,\"top\":18,\"width\":81,\"height\":35,\"className\":\"source\"},\"hsId2\":{\"hsId\":2,\"left\":318,\"top\":19,\"width\":60,\"height\":35,\"className\":\"source\"},\"hsId4\":{\"hsId\":4,\"left\":550,\"top\":19,\"width\":62,\"height\":35,\"className\":\"source\"},\"hsId5\":{\"hsId\":5,\"left\":664,\"top\":19,\"width\":57,\"height\":34,\"className\":\"source\"},\"hsId6\":{\"hsId\":6,\"left\":670,\"top\":313,\"width\":50,\"height\":38,\"className\":\"source\"},\"hsId7\":{\"hsId\":7,\"left\":561,\"top\":314,\"width\":50,\"height\":37,\"className\":\"source\"},\"hsId8\":{\"hsId\":8,\"left\":444,\"top\":312,\"width\":50,\"height\":39,\"className\":\"source\"},\"hsId9\":{\"hsId\":9,\"left\":329,\"top\":312,\"width\":50,\"height\":40,\"className\":\"source\"},\"hsId10\":{\"hsId\":10,\"left\":195,\"top\":312,\"width\":50,\"height\":39,\"className\":\"source\"},\"hsId11\":{\"hsId\":11,\"left\":59,\"top\":316,\"width\":50,\"height\":35,\"className\":\"source\"}},\"targetHotSpot\":{\"hsId13\":{\"hsId\":13,\"left\":634,\"top\":120,\"width\":141,\"height\":117,\"className\":\"target\"},\"hsId14\":{\"hsId\":14,\"left\":471,\"top\":154,\"width\":144,\"height\":114,\"className\":\"target\"},\"hsId15\":{\"hsId\":15,\"left\":317,\"top\":112,\"width\":142,\"height\":114,\"className\":\"target\"},\"hsId16\":{\"hsId\":16,\"left\":162,\"top\":145,\"width\":142,\"height\":114,\"className\":\"target\"},\"hsId17\":{\"hsId\":17,\"left\":14,\"top\":107,\"width\":138,\"height\":112,\"className\":\"target\"}},\"matchedLines\":{\"hsId0_hsId17\":{\"source\":\"hsId0\",\"target\":\"hsId17\"},\"hsId2_hsId16\":{\"source\":\"hsId2\",\"target\":\"hsId16\"},\"hsId4_hsId14\":{\"source\":\"hsId4\",\"target\":\"hsId14\"},\"hsId11_hsId15\":{\"source\":\"hsId11\",\"target\":\"hsId15\"},\"hsId10_hsId16\":{\"source\":\"hsId10\",\"target\":\"hsId16\"},\"hsId9_hsId17\":{\"source\":\"hsId9\",\"target\":\"hsId17\"},\"hsId8_hsId13\":{\"source\":\"hsId8\",\"target\":\"hsId13\"},\"hsId7_hsId14\":{\"source\":\"hsId7\",\"target\":\"hsId14\"},\"hsId1_hsId15\":{\"source\":\"hsId1\",\"target\":\"hsId15\"}},\"readerLines\":{},\"lockedLines\":{},\"left\":11,\"top\":81,\"hsId\":18,\"id\":\"TM_1433244074588\",\"markLine\":false},\"1\":\"matchTheLine\"}},\"avatarData\":{\"isExist\":false},\"filePath\":\"https://ldlalf-1769672881.us-east-1.elb.amazonaws.com/alfresco/d/d/workspace/SpacesStore/20455741-7615-4465-8c86-17579a8ff96f/Q3-Match_the_words_pictures_and_numbers.htm?ticket\u003dTICKET_6f4bd1785ca6c3bc1c64eb9e85fb43b4ddd420e2\"}","componentList":"matchTheLine"}
         ]
     }
 }

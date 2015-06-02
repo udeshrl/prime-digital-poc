@@ -47,6 +47,7 @@ body {
 
 #author_content_container iframe
 {
+    position: absolute;
     width:100%;
     height:100%;
 }
@@ -90,6 +91,7 @@ button:hover, .active button {
 
 .authorButton {
     float:right;
+    margin-right: 5px;
 }
 
 .avatarButton {
@@ -153,6 +155,30 @@ footer{
     color: #fff;
 }
 
+.pagination > .danger > a, .pagination > .danger > span, .pagination > .danger > a:hover, .pagination > .danger > span:hover, .pagination > .danger > a:focus, .pagination > .danger > span:focus{
+    background-color: #ff0000;
+    border-color: #ff0000;
+    color: #fff;
+}
+
+.pagination > .grey > a, .pagination > .grey > span, .pagination > .grey > a:hover, .pagination > .grey > span:hover, .pagination > .grey > a:focus, .pagination > .grey > span:focus{
+    background-color: #aaa;
+    border-color: #aaa;
+    color: #fff;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #428bca;
+    border-color: #428bca;
+    color: #fff;
+}
+
+.btn-red {
+    background: #ff0000;
+    border: 1px solid #ff0000;
+    color: #fff;
+}
+
 .pagination {
     margin: 0;
 }
@@ -196,7 +222,7 @@ footer{
     position: absolute;
     left: 110px;
     top: 180px;
-    
+
 }
 
 .board ul li {
@@ -206,7 +232,7 @@ footer{
     padding: 0 0 0 35px;
     opacity: .8;
     line-height: 50px;
-    
+
 }
 
 .pagination > li > a, .pagination > li > span {
@@ -239,7 +265,7 @@ ul {
 }
 
 .student-list li:hover {
-     background: #F5F5F5;
+    background: #F5F5F5;
 }
 
 .student-list li a {
@@ -249,7 +275,7 @@ ul {
 .student-list li a:hover {
     text-decoration: none;
     color: #2D62A1;
-   
+
 }
 
 .icon-user {
@@ -283,7 +309,7 @@ ul {
 
 .student-details li strong {
     display: inline-block;
-    
+
 }
 
 .student-details li.alert {

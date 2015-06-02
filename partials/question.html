@@ -5,8 +5,7 @@
             <button ng-if="!prevLink" id="btn-previous">Previous</button>
         </span>
          <ul class="pagination pull-left navli">
-       
-        <li ng-repeat="question in questionArr" ng-class="($index == current) ?'active':''">
+       <li ng-repeat="question in questionArr" ng-class="{'active' : $index == current, 'danger' : !quizDataObj.resultQuestionObj[$index] && userInfo.role == 'teacher', 'grey' : quizDataObj.ansArr[$index] && userInfo.role == 'student' && !quizDeactive}">
             <a ng-href="#/question/{{$index}}" >{{$index + 1}}</a>
         </li>
         
@@ -17,8 +16,9 @@
         </span>
     </div>
     <div id="btnSection" ng-if="userInfo.role == 'student' && quizDeactive === false">
-        <a ng-href="#/result" ><button class="authorButton">Submit</button></a>
-        <!--<a ng-href="#/result"><button class="authorButton">Reset Question</button></a>-->
+        
+        <a href="" ><button class="authorButton" ng-click="submit()">Submit</button></a>
+        <a href="" ><button class="authorButton" ng-click="reset()">Reset Question</button></a>
     </div>
 </div>
 

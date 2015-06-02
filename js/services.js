@@ -23,8 +23,13 @@ function playerServices($http, $q) {
     var allTestsJSON = '', testJSON = '', allStudentQuizData = {};
 
     var quizData = {
+        studentID: '',
         questionArr: {},
-        ansArr: {},
+        ansArr: {}, 
+        resultQuestionObj: {},
+        totalQuestion: 0,
+        correctAns: 0,
+        resultPercentage:0,
         resultArr: {}
 
     }
@@ -116,14 +121,21 @@ function playerServices($http, $q) {
         if (allTestsJSON[qid]) {
             testJSON = allTestsJSON[qid];
             quizData = {
+                studentID: '',
                 questionArr: {},
                 ansArr: {},
                 resultArr: {}
             }
+            quizData.studentID = studentid;
+            quizData.totalQuestion = testJSON.questionArr.length;
             var studentQuizData = getStudentQuizData(studentid, qid);
             if (studentQuizData) {
                 quizData.ansArr = studentQuizData.ansArr;
                 quizData.resultArr = studentQuizData.resultArr;
+                quizData.resultQuestionObj = studentQuizData.resultQuestionObj;
+                quizData.totalQuestion = studentQuizData.totalQuestion;
+                quizData.correctAns = studentQuizData.correctAns;
+                quizData.resultPercentage = studentQuizData.resultPercentage;
             }
 
             return true;
@@ -144,6 +156,34 @@ function playerServices($http, $q) {
      */
     var getAllQuestion = function () {
         return testJSON.questionArr;
+    };
+    
+    /**
+     * @ngdoc function
+     * @name getQuizTitle
+     * @description
+     *
+     * Return Quiz Title
+     * 
+     * @param {string}
+     * 
+     */
+    var getQuizTitle = function () {
+        return testJSON.title;
+    };
+    
+    /**
+     * @ngdoc function
+     * @name getQuizTitle
+     * @description
+     *
+     * Return Student ID
+     * 
+     * @param {string}
+     * 
+     */
+    var getStudentID = function () {
+        return quizData.studentID;
     };
 
 
@@ -175,6 +215,20 @@ function playerServices($http, $q) {
      */
     var getResultArr = function () {
         return quizData.resultArr;
+    };
+    
+     /**
+     * @ngdoc function
+     * @name getQuizData
+     * @description
+     *
+     * Return QuizData
+     * 
+     * @return {object}
+     * 
+     */
+    var getQuizData = function () {
+        return quizData;
     };
 
     /**
@@ -290,10 +344,12 @@ function playerServices($http, $q) {
         resultObj.studentID = sid;
         resultObj.ansArr = quizData.ansArr;
         resultObj.resultArr = quizData.resultArr;
-        resultObj.resultQuestionObj = quizData.resultQuestionObj;
-        resultObj.totalQuestion = totalQuestion;
-        resultObj.correctAns = correctAns;
-        resultObj.resultPercentage = resultPercentage;
+        quizData.resultQuestionObj = resultObj.resultQuestionObj = resultQuestionObj;
+        quizData.totalQuestion = resultObj.totalQuestion = totalQuestion;
+        quizData.correctAns = resultObj.correctAns = correctAns;
+        quizData.resultPercentage = resultObj.resultPercentage = resultPercentage;
+        
+        
 
         // merge student quiz object with all records
         allStudentQuizData[key] = resultObj
@@ -362,6 +418,28 @@ function playerServices($http, $q) {
         _.each(widgetData.widgetList, function (elem, index) {
             elem.deactivate(); // deactivate component
         });
+    };
+    
+    
+    
+    /**
+     * @ngdoc function
+     * @name resetQuestion
+     * @description
+     *
+     * Reset Question
+     * 
+     * @param {string} idx question index
+     * 
+     */
+    var resetQuestion = function (idx) {
+        var widgetData = quizData.questionArr[idx];
+        // Loop All components
+        _.each(widgetData.widgetList, function (elem, index) {
+            elem.reset(); // Reset component
+        });
+        
+        delete quizData.ansArr[idx];
     };
 
 
@@ -491,8 +569,12 @@ function playerServices($http, $q) {
         getAllQuizData: getAllQuizData,
         getQuizDataService: getQuizDataService,
         checkQuizIniate: checkQuizIniate,
+        getQuizData: getQuizData,
+        getQuizTitle: getQuizTitle,
+        getStudentID: getStudentID,
         getAllQuestion: getAllQuestion,
         getQuestionData: getQuestionData,
+        resetQuestion: resetQuestion,
         showQuestion: showQuestion,
         storeUserAnswerData: storeUserAnswerData,
         setUserAnswerData: setUserAnswerData,

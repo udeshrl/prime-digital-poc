@@ -98,9 +98,14 @@
         <div id="container" class="parent_container">
             <div class="student-details" ng-if="showQuizDetails">
                 <ul>
-                <li><strong>Student:</strong> Nicholas</li>
-                <li><strong>Quiz:</strong> Prime Digital Quiz1</li>
-                <li class="pull-right alert alert-warning"><strong>Attempted:</strong> 8/10</li>
+                <li ng-if="studentName != ''"><strong>Student:</strong> {{studentName}}</li>
+                <li><strong>Quiz:</strong> {{quizTitle}}</li>
+                <li class="pull-right alert alert-success" ng-if="quizDeactive">                 
+                    <strong>Score:</strong> {{quizDataObj.resultPercentage}}%
+                </li>
+                <li class="pull-right alert alert-warning" ng-if="!quizDeactive">                 
+                    <strong>Attempted:</strong> {{quizDataObj.ansArr | length}}/{{quizDataObj.totalQuestion}}
+                </li>
                 </ul>
             </div>
             <div id="author_content_container" class="author_content_container"></div>

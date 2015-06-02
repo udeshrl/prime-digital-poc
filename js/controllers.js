@@ -123,8 +123,10 @@ function StudentQuizCtrl($rootScope, $routeParams, $scope, $location, playerServ
     $scope.accordion = 0;
 
     //Change Accordion collapse
-    $scope.collapse = function (testID) {
-        $scope.accordion = testID;
+    $scope.collapse = function (testID, key) {
+        if ($scope.studentQuizData[key]) {
+            $scope.accordion = testID;
+        }
     }
 }
 
@@ -166,7 +168,7 @@ function TeacherDashboardCtrl($rootScope, $scope, $location, userServices) {
  */
 function QuizCtrl($rootScope, $scope, $routeParams, $location, playerServices) {
 
-     var searchParams = $location.search(), q = 0;
+    var searchParams = $location.search(), q = 0;
 
     //Check and set if token is passed
     if (searchParams['q']) {
@@ -188,11 +190,11 @@ function QuizCtrl($rootScope, $scope, $routeParams, $location, playerServices) {
     }
 
     // Get Result Data in case already attempted
-    $scope.getResultArr = playerServices.getResultArr();
+    $scope.quizDataObj = playerServices.getQuizData();
 
     // if already attempted, redirect to first question page. No need to show welcome page
-    if (!$.isEmptyObject($scope.getResultArr)) {
-        $location.path('/question/'+q);
+    if (!$.isEmptyObject($scope.quizDataObj.resultArr)) {
+        $location.path('/question/' + q);
         return;
     }
 
@@ -247,9 +249,12 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
         return;
     }
 
+    // Default value as empty
+    $rootScope.studentName = '';
+
     // Default value as false
-    $scope.quizDeactive = false;
-    
+    $rootScope.quizDeactive = false;
+
     // Show Quiz details
     $rootScope.showQuizDetails = true;
 
@@ -257,12 +262,20 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
     $scope.questionArr = playerServices.getAllQuestion();
 
     // Get Result Data in case already attempted
-    $scope.getResultArr = playerServices.getResultArr();
+    $rootScope.quizDataObj = playerServices.getQuizData();
 
     // if already attempted, deactivate the question
-    if (!$.isEmptyObject($scope.getResultArr)) {
-        $scope.quizDeactive = true;
+    if (!$.isEmptyObject($rootScope.quizDataObj.resultArr)) {
+        $rootScope.quizDeactive = true;
     }
+
+    if ($rootScope.userInfo.role == 'teacher') {
+        var StudentID = playerServices.getStudentID();
+        var studentInfo = $rootScope.allStudents[StudentID];
+        $rootScope.studentName = studentInfo.first_name + ' ' + studentInfo.last_name;
+    }
+
+    $rootScope.quizTitle = playerServices.getQuizTitle();
 
     //set Current Question ID
     $scope.current = qId;
@@ -287,11 +300,23 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
     if ($scope.previous < 0) {
         $scope.prevLink = false;
     }
+    $scope.submit = function () {
+        if (confirm("are you sure?")) {
+            $location.path('/result');
+        }
+    }
+
+    $scope.reset = function () {
+        playerServices.resetQuestion(qId);
+        $rootScope.quizDataObj = playerServices.getQuizData();
+    }
 
     /**
      * On View change
      */
     $scope.$on('$routeChangeStart', function (next, current) {
+        // Show Quiz details
+        $rootScope.showQuizDetails = false;
         // Store the User Answer State
         playerServices.storeUserAnswerData(qId);
     });
