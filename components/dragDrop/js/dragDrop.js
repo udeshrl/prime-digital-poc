@@ -1428,6 +1428,15 @@ var dragDrop = (function (o) {
             }
             return undefined;
         };
+        
+        /*This will reveal the answers*/
+        _this.revealAnswer = function () {
+            if (!collectionView.deleted) {
+                collectionView.revealAnswer();
+                return true;
+            }
+            return undefined;
+        };
 
         /*This will set the user answer*/
         _this.setUserAnswer = function (ans) {

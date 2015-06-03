@@ -307,7 +307,25 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
     }
 
     $scope.reset = function () {
-        playerServices.resetQuestion(qId);
+        if ($rootScope.userInfo.role == 'teacher') {
+            playerServices.activateQuestion(qId);
+        }
+        playerServices.resetQuestion(qId, $rootScope.userInfo.role);
+        if ($rootScope.userInfo.role == 'teacher') {
+            playerServices.deactivateQuestion(qId);
+        }
+        $rootScope.quizDataObj = playerServices.getQuizData();
+    }
+
+    $scope.revealAttempt = function () {
+        playerServices.activateQuestion(qId);
+        playerServices.setUserAnswerData(qId);
+        playerServices.deactivateQuestion(qId);
+        $rootScope.quizDataObj = playerServices.getQuizData();
+    }
+
+    $scope.revealAnswer = function () {
+        playerServices.revealAnswer(qId);
         $rootScope.quizDataObj = playerServices.getQuizData();
     }
 
@@ -318,6 +336,8 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
         // Show Quiz details
         $rootScope.showQuizDetails = false;
         // Store the User Answer State
-        playerServices.storeUserAnswerData(qId);
+        if (!$rootScope.quizDeactive) {
+            playerServices.storeUserAnswerData(qId);
+        }
     });
 }

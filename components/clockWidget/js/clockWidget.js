@@ -594,9 +594,10 @@ var clockWidget = (function (o) {
         };
 
         /* To revile correct answer */
-        this.revileAnswer = function () {
+        this.revealAnswer = function () {
             this.clock_hands.setTime(parseFloat(((cSetting.answer.clock_hour == 0) ? 12 : cSetting.answer.clock_hour / 30)), parseFloat(cSetting.answer.clock_minute_lower / 6));
         };
+        
 
         /* It will give the all data associated with the widget */
         this.getWidgetData = function () {

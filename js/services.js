@@ -25,11 +25,11 @@ function playerServices($http, $q) {
     var quizData = {
         studentID: '',
         questionArr: {},
-        ansArr: {}, 
+        ansArr: {},
         resultQuestionObj: {},
         totalQuestion: 0,
         correctAns: 0,
-        resultPercentage:0,
+        resultPercentage: 0,
         resultArr: {}
 
     }
@@ -157,7 +157,7 @@ function playerServices($http, $q) {
     var getAllQuestion = function () {
         return testJSON.questionArr;
     };
-    
+
     /**
      * @ngdoc function
      * @name getQuizTitle
@@ -171,7 +171,7 @@ function playerServices($http, $q) {
     var getQuizTitle = function () {
         return testJSON.title;
     };
-    
+
     /**
      * @ngdoc function
      * @name getQuizTitle
@@ -216,8 +216,8 @@ function playerServices($http, $q) {
     var getResultArr = function () {
         return quizData.resultArr;
     };
-    
-     /**
+
+    /**
      * @ngdoc function
      * @name getQuizData
      * @description
@@ -264,7 +264,7 @@ function playerServices($http, $q) {
     var submitQuestions = function () {
         var allQData = quizData.questionArr, qData;
         var resultData = [];
-        
+
         //Loop all question
         _.each(allQData, function (qData, qIndex) {
 
@@ -273,7 +273,7 @@ function playerServices($http, $q) {
             _.each(qData.widgetList, function (elem, index) {
                 resultData.push(elem.validate('generic')); // validate user answer for all component and store result in array
             });
-            
+
             quizData.resultArr[qIndex] = resultData;
         });
     };
@@ -313,11 +313,11 @@ function playerServices($http, $q) {
         var allQData = quizData.resultArr, qData;
         var resultQuestionObj = {}, qResult;
         var totalQuestion = testJSON.questionArr.length, correctAns = 0, resultPercentage = '';
-        
+
         //Loop all questions
         _.each(allQData, function (qData, qIndex) {
-            qResult = true; 
-            
+            qResult = true;
+
             // combine components result for question
             for (var j = 0; j < qData.length; j++) {
                 if (!qData[j]) { // set question answer as false if any component's answer is false
@@ -330,13 +330,13 @@ function playerServices($http, $q) {
             }
             resultQuestionObj[qIndex] = qResult;
         });
-        
+
         //calculate percentage
         resultPercentage = parseInt(correctAns / totalQuestion * 100);
-        
+
         // create key based on student and quiz id
         var key = sid + '_' + testJSON.testID;
-        
+
         // Create Student quiz object
         var resultObj = {};
         resultObj.ID = key;
@@ -348,8 +348,8 @@ function playerServices($http, $q) {
         quizData.totalQuestion = resultObj.totalQuestion = totalQuestion;
         quizData.correctAns = resultObj.correctAns = correctAns;
         quizData.resultPercentage = resultObj.resultPercentage = resultPercentage;
-        
-        
+
+
 
         // merge student quiz object with all records
         allStudentQuizData[key] = resultObj
@@ -374,7 +374,7 @@ function playerServices($http, $q) {
         var ansData = [];
         // Loop all components
         _.each(qData.widgetList, function (elem, index) {
-            ansData.push(elem.getUserAnswer()); // get and store user answers
+            ansData.push(jQuery.extend({}, elem.getUserAnswer())); // get and store user answers
         });
         quizData.ansArr[idx] = ansData;
     };
@@ -404,6 +404,25 @@ function playerServices($http, $q) {
 
     /**
      * @ngdoc function
+     * @name revealAnswer
+     * @description
+     *
+     * Reveal Answers
+     * 
+     * @param {string} idx question index
+     * 
+     */
+    var revealAnswer = function (idx) {
+        var widgetData = quizData.questionArr[idx];
+        // Loop All components
+        _.each(widgetData.widgetList, function (elem, index) {
+            elem.deactivate(); // deactivate component
+        });
+    };
+
+
+    /**
+     * @ngdoc function
      * @name deactivateQuestion
      * @description
      *
@@ -419,9 +438,27 @@ function playerServices($http, $q) {
             elem.deactivate(); // deactivate component
         });
     };
-    
-    
-    
+
+    /**
+     * @ngdoc function
+     * @name activateQuestion
+     * @description
+     *
+     * Activate Question
+     * 
+     * @param {string} idx question index
+     * 
+     */
+    var activateQuestion = function (idx) {
+        var widgetData = quizData.questionArr[idx];
+        // Loop All components
+        _.each(widgetData.widgetList, function (elem, index) {
+            elem.activate(); // deactivate component
+        });
+    };
+
+
+
     /**
      * @ngdoc function
      * @name resetQuestion
@@ -432,14 +469,15 @@ function playerServices($http, $q) {
      * @param {string} idx question index
      * 
      */
-    var resetQuestion = function (idx) {
+    var resetQuestion = function (idx, role) {
         var widgetData = quizData.questionArr[idx];
         // Loop All components
         _.each(widgetData.widgetList, function (elem, index) {
             elem.reset(); // Reset component
         });
-        
-        delete quizData.ansArr[idx];
+        if (role == 'student') {
+            delete quizData.ansArr[idx];
+        }
     };
 
 
@@ -579,6 +617,8 @@ function playerServices($http, $q) {
         storeUserAnswerData: storeUserAnswerData,
         setUserAnswerData: setUserAnswerData,
         submitQuestions: submitQuestions,
+        revealAnswer: revealAnswer,
+        activateQuestion: activateQuestion,
         deactivateQuestion: deactivateQuestion,
         getStudentQuizDataService: getStudentQuizDataService,
         getStudentQuizData: getStudentQuizData,

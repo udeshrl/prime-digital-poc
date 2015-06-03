@@ -16,9 +16,13 @@
         </span>
     </div>
     <div id="btnSection" ng-if="userInfo.role == 'student' && quizDeactive === false">
-        
-        <a href="" ><button class="authorButton" ng-click="submit()">Submit</button></a>
-        <a href="" ><button class="authorButton" ng-click="reset()">Reset Question</button></a>
+        <a href=""><button class="authorButton" ng-click="submit()">Submit</button></a>
+        <a href=""><button class="authorButton" ng-click="reset()">Reset Question</button></a>
+    </div>
+    <div id="btnSection" ng-if="userInfo.role == 'teacher'">
+        <a href=""><button class="authorButton" ng-click="reset()">Reveal Question</button></a>
+        <a href=""><button class="authorButton" ng-click="revealAnswer()">Reveal Answer</button></a>
+        <a href=""><button class="authorButton" ng-click="revealAttempt()">Reveal Attempt</button></a>
     </div>
 </div>
 

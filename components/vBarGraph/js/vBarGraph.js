@@ -773,9 +773,9 @@ var vBarGraph = (function (o) {
         /*This will set the user answer*/
         _this.setUserAnswer = function (val) {
             if (!_this.deleted) {
-                cSetting.userAnswer = val.userAnswer;
-                cSetting.column_container = val.column_container;
-                cSetting.row_container = val.row_container;
+                cSetting.userAnswer = $.extend([], val.userAnswer);
+                cSetting.column_container = $.extend([], val.column_container);
+                cSetting.row_container = $.extend([], val.row_container);
                 drawGraphVertical(el, cSetting);
             }
             return undefined;

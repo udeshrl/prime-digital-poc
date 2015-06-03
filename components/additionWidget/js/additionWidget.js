@@ -827,6 +827,16 @@ var additionWidget = (function (o) {
             }
             return undefined;
         };
+        
+        /*This will reveal the answers*/
+        this.revealAnswer = function () {
+            if (!tView.deleted) {
+                tView.revealAnswer();
+                return true;
+            }
+            return undefined;
+        };
+        
         this.getWidgetType = function () {
             return cSetting.widgetType;
         };

@@ -482,9 +482,12 @@ var freeDraw = (function (o) {
             }
             return undefined;
         };
-        this.getWidgetType = function () {
-            return cSetting.widgetType;
+        
+        /*This will reveal the answers*/
+        this.revealAnswer = function () {
+            return undefined;
         };
+        
     }
 
     freeDraw.prototype.deactivate = function () {
