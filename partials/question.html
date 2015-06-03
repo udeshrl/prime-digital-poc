@@ -1,28 +1,31 @@
-<div class="cntrl-btns">
-    <div id="playerNavigation">
-         <span class="navli"  ng-class="!prevLink ?'deactive':''">
-            <a ng-if="prevLink" ng-href="#/question/{{previous}}"><button id="btn-previous">Previous</button></a>
+<div class="cntrl-btns row">
+    <div id="playerNavigation col-sm-6">
+        <span class="navli"  ng-class="!prevLink ?'deactive':''">
+            <a ng-if="prevLink" ng-href="#/question/{{previous}}"><button id="btn-previous" class="btn-pager">Previous</button></a>
             <button ng-if="!prevLink" id="btn-previous">Previous</button>
         </span>
-         <ul class="pagination pull-left navli">
-       <li ng-repeat="question in questionArr" ng-class="{'active' : $index == current, 'danger' : !quizDataObj.resultQuestionObj[$index] && userInfo.role == 'teacher', 'grey' : quizDataObj.ansArr[$index] && userInfo.role == 'student' && !quizDeactive}">
-            <a ng-href="#/question/{{$index}}" >{{$index + 1}}</a>
-        </li>
-        
-         </ul>
+        <ul class="pagination pull-left navli">
+            <li ng-repeat="question in questionArr" ng-class="{'active' : $index == current, 'danger' : !quizDataObj.resultQuestionObj[$index] && userInfo.role == 'teacher', 'grey' : quizDataObj.ansArr[$index] && userInfo.role == 'student' && !quizDeactive}">
+                <a ng-href="#/question/{{$index}}" >{{$index + 1}}</a>
+            </li>
+
+        </ul>
         <span class="navli"  ng-class="!nextLink ?'deactive':''">
-            <a ng-if="nextLink" ng-href="#/question/{{next}}"><button id="btn-next">Next</button></a>
+            <a ng-if="nextLink" ng-href="#/question/{{next}}"><button id="btn-next" class="btn-pager">Next</button></a>
             <button ng-if="!nextLink" id="btn-next">Next</button>
         </span>
     </div>
-    <div id="btnSection" ng-if="userInfo.role == 'student' && quizDeactive === false">
-        <a href=""><button class="authorButton" ng-click="submit()">Submit</button></a>
-        <a href=""><button class="authorButton" ng-click="reset()">Reset Question</button></a>
-    </div>
-    <div id="btnSection" ng-if="userInfo.role == 'teacher'">
-        <a href=""><button class="authorButton" ng-click="reset()">Reveal Question</button></a>
-        <a href=""><button class="authorButton" ng-click="revealAnswer()">Reveal Answer</button></a>
-        <a href=""><button class="authorButton" ng-click="revealAttempt()">Reveal Attempt</button></a>
+    <div class="col-sm-6 pull-right">
+        <div id="btnSection" class="pull-right" ng-if="userInfo.role == 'student' && quizDeactive === false">
+            <a href=""><button class="authorButton" ng-click="reset()">Reset Question</button></a>
+            <a href=""><button class="authorButton" ng-click="submit()">Submit</button></a>
+        </div>
+        <div id="btnSection" class="pull-right" ng-if="userInfo.role == 'teacher'">
+            <a href=""><button class="authorButton" ng-click="reset()">Reveal Question</button></a> 
+            <a href=""><button class="authorButton" ng-click="revealAnswer()">Show Answer</button></a>
+            <a href=""><button class="authorButton" ng-click="revealAttempt()">Reveal Attempt</button></a>
+
+        </div>
     </div>
 </div>
 

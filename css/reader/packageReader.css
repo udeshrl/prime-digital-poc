@@ -52,12 +52,11 @@ body {
     height:100%;
 }
 #btnSection{
-    width: 25%;
-    float:right;
+    
 }
 #playerNavigation{
-    width: 70%;
     float:left;
+    text-align: center;
 }
 .navli li, .navli{
     float: left;
@@ -89,10 +88,19 @@ button:hover, .active button {
     border-color: #ccc;
 }
 
-.authorButton {
-    float:right;
-    margin-right: 5px;
+button.btn-pager {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px #ddd inset;
+    color: #0568ab;
 }
+
+button.btn-pager:hover {
+    background: #0568ab;
+    color: #fff;
+    box-shadow: none;
+}
+
 
 .avatarButton {
     float:right;
@@ -143,11 +151,12 @@ footer{
 
 .deactive button, .deactive button:hover{
     cursor: default;
-    background: #0568AB !important;
+     background: #f9f9f9 !important;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px #ddd inset;
+    color: #222;
     opacity: .5;
-    color: #fff;
-    border: 1px solid #0568ab;
-}
+    }
 
 .btn-grey {
     background: #666;
@@ -156,9 +165,10 @@ footer{
 }
 
 .pagination > .danger > a, .pagination > .danger > span, .pagination > .danger > a:hover, .pagination > .danger > span:hover, .pagination > .danger > a:focus, .pagination > .danger > span:focus{
-    background-color: #ff0000;
-    border-color: #ff0000;
-    color: #fff;
+    background-color: #fddcd7;
+    border-color: #fddcd7;
+    color: #c26868;
+    text-shadow: 0 0 1px #fff;
 }
 
 .pagination > .grey > a, .pagination > .grey > span, .pagination > .grey > a:hover, .pagination > .grey > span:hover, .pagination > .grey > a:focus, .pagination > .grey > span:focus{
@@ -262,6 +272,7 @@ ul {
 .student-list li{
     line-height: 40px;
     font-size: 15px;
+    padding: 0 0 0 10px;
 }
 
 .student-list li:hover {
@@ -314,4 +325,8 @@ ul {
 
 .student-details li.alert {
     padding: 10px;
+}
+
+.col-sm-6 {
+    padding: 0;
 }
