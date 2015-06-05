@@ -13,6 +13,7 @@
 
 var primeDigitalApp = angular.module('primeDigitalApp', [
     'ngRoute',
+    'ui.bootstrap',
     'primeDigitalControllers',
     'primeDigitalFilters',
     'primeDigitalUserServices',

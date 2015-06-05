@@ -780,6 +780,17 @@ var vBarGraph = (function (o) {
             }
             return undefined;
         };
+
+        /*This will reveal the answers*/
+        _this.revealAnswer = function (val) {
+            if (!_this.deleted) {
+                clearAll(el);
+                cSetting.userAnswer = drawVerticalLine(cSetting.userAnswer, cSetting.graphAnswer, cSetting.column_container, cSetting.row_container);
+                drawGraphVertical(el, cSetting);
+            }
+            return undefined;
+        };
+
         _this.deactivate = function () {
             // !this.deleted || el.css({'pointer-events': 'none', 'opacity': '0'});
             if (!this.deleted) {

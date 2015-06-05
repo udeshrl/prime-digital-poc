@@ -793,6 +793,16 @@ var hBarGraph = (function (o) {
             }
             return undefined;
         };
+
+        /*This will reveal the answers*/
+        _this.revealAnswer = function () {
+            if (!_this.deleted) {
+                clearAll(el);
+                cSetting.userAnswer = drawHorizontalLine(cSetting.userAnswer, cSetting.graphAnswer, cSetting.column_container, cSetting.row_container);
+                drawGraphHorizontal(el, cSetting);
+            }
+        };
+
         _this.deactivate = function () {
             if (!this.deleted) {
                 _this.active = false;

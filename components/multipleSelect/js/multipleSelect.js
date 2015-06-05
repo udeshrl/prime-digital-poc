@@ -495,17 +495,41 @@ var multipleSelect = /**
                 }
                 return hs;
             };
-            
-           var setUserAnswer = function (clickedSpots)
+
+            var setUserAnswer = function (clickedSpots)
             {
-                 for (var i = 0; i < clickedSpots.length; i++)
-                    {
-                        var ele = clickedSpots[i];
+                var clickedSpots = $.extend([],_this.clickedSpots);
+                for (var i = 0; i < clickedSpots.length; i++)
+                {
+                    var ele = clickedSpots[i];
+                    $(_this.parentDiv).find("#" + ele).trigger('click');
+                }
+                for (var i = 0; i < clickedSpots.length; i++)
+                {
+                    var ele = clickedSpots[i];
+                    $(_this.parentDiv).find("#" + ele).trigger('click');
+                }
+
+            };
+
+            var revealAnswer = function ()
+            {
+                var clickedSpots = $.extend([],_this.clickedSpots);
+                for (var i = 0; i < clickedSpots.length; i++)
+                {
+                    var ele = clickedSpots[i];
+                    $(_this.parentDiv).find("#" + ele).trigger('click');
+                }
+                _.each(_this.spotsAns, function (ans, key) {
+                    if (ans.isCorr) {
+                        var ele = key;
                         $(_this.parentDiv).find("#" + ele).trigger('click');
                     }
-                
+
+                });
+
             };
-            
+
             //function to get hotspot click event
             var hsClicked = function (e)
             {		//alert(_this.userType)
@@ -823,7 +847,7 @@ var multipleSelect = /**
                 }
                 else if (this.userType === "student")
                 {
-
+                    _this.clickedSpots = [];
                     for (var i = 0; i < parseInt(_this.parentDiv.find(".multipleselect_hotSpotCan").length); i++)
                     {
                         _this.parentDiv.find(".multipleselect_hotSpotCan").eq(i).css({"border-color": "transparent", "cursor": "pointer"}).data("prop").clicked = false;
@@ -925,6 +949,12 @@ var multipleSelect = /**
             /*This will set the user answer*/
             this.setUserAnswer = function (val) {
                 setUserAnswer(val);
+            };
+
+            /*This will reveal the answers*/
+            this.revealAnswer = function () {
+
+                revealAnswer();
             };
 
             this.initialize(options);

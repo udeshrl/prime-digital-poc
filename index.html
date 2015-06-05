@@ -27,7 +27,6 @@
         <link rel="stylesheet" href="components/htmlEditor/css/htmlEditor.css" type="text/css" />
         <link rel="stylesheet" href="components/dragDrop/css/dragDrop.css" type="text/css" />
         <link rel="stylesheet" href="components/dragDrop/css/ImageUpload.css" type="text/css" />
-        <link rel="stylesheet" href="components/dragDrop/css/labelWidget.css" type="text/css" />
         <link rel="stylesheet" href="components/divisionWidget/css/divisionWidget.css" type="text/css" />
         <link rel="stylesheet" href="components/multiplicationWidget/css/multiplicationWidget.css" type="text/css" />
         <link rel="stylesheet" href="components/groupBox/css/groupBox.css" type="text/css" />
@@ -62,7 +61,6 @@
         <script src="components/matchTheLine/js/matchTheLine.js"></script>
         <script src="components/dragDrop/js/dragDrop.js"></script>
         <script src="components/dragDrop/js/ImageUpload.js"></script>
-        <script src="components/dragDrop/js/labelWidget.js"></script>
         <script src="components/divisionWidget/js/divisionWidget.js"></script>
         <script src="components/multiplicationWidget/js/multiplicationWidget.js"></script>
         <script src="components/groupBox/js/groupBox.js"></script>
@@ -72,6 +70,8 @@
         <!--Reader functionality -->
         <script src="js/common/avatar.js"></script>
         <script src="js/angular.js"></script>
+        <script src="js/ui-bootstrap.min.js"></script>
+        <script src="js/ui-bootstrap-tpls.min.js"></script>
         <script src="js/angular-animate.js"></script>
         <script src="js/angular-route.js"></script>
         <script src="js/angular-resource.js"></script>
@@ -98,14 +98,14 @@
         <div id="container" class="parent_container">
             <div class="student-details" ng-if="showQuizDetails">
                 <ul>
-                <li ng-if="studentName != ''"><strong>Student:</strong> {{studentName}}</li>
-                <li><strong>Quiz:</strong> {{quizTitle}}</li>
-                <li class="pull-right alert alert-success" ng-if="quizDeactive">                 
-                    <strong>Score:</strong> {{quizDataObj.resultPercentage}}%
-                </li>
-                <li class="pull-right alert alert-warning" ng-if="!quizDeactive">                 
-                    <strong>Attempted:</strong> {{quizDataObj.ansArr | length}}/{{quizDataObj.totalQuestion}}
-                </li>
+                    <li ng-if="studentName != ''"><strong>Student:</strong> {{studentName}}</li>
+                    <li><strong>Quiz:</strong> {{quizTitle}}</li>
+                    <li class="pull-right alert alert-success" ng-if="quizDeactive">                 
+                        <strong>Score:</strong> {{quizDataObj.resultPercentage}}%
+                    </li>
+                    <li class="pull-right alert alert-warning" ng-if="!quizDeactive">                 
+                        <strong>Attempted:</strong> {{quizDataObj.ansArr| length}}/{{quizDataObj.totalQuestion}}
+                    </li>
                 </ul>
             </div>
             <div id="author_content_container" class="author_content_container"></div>

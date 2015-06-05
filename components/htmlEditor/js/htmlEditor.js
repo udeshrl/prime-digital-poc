@@ -205,6 +205,14 @@ var htmlEditor = (function(o) {
             return undefined;
         };
         
+        /*This will reveal the answers*/
+        this.revealAnswer = function() {
+            if (!_this.deleted) {
+                return true;
+            }
+            return undefined;
+        };
+        
         this.getWidgetType = function() {
             return cSetting.widgetType;
         }

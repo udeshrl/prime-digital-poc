@@ -3,7 +3,7 @@
  * js-jQuery v2.03, underscore v1.6, backbone v1.0, jQueryUI v1.8, ResizeModule.js, DraggableModule.js,Utility.js
  * html-
  * */
-var matchTheLine = (function(o, $, Backbone, _) {
+var matchTheLine = (function (o, $, Backbone, _) {
     "use strict";
     if (o !== window) {
         throw "Please check scope of the Widget";
@@ -43,7 +43,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
 
 
     // Create line between source and target
-    var createMatchedLine = function(source, target, lineColor, lineWidth, lineId, parentEle) {
+    var createMatchedLine = function (source, target, lineColor, lineWidth, lineId, parentEle) {
 
         var x1 = source.left + (source.width / 2);
         var y1 = source.top + (source.height / 2);
@@ -81,7 +81,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
     };
 
     // function to create hotspot
-    var createHotSpot = function(key, val) {
+    var createHotSpot = function (key, val) {
         var str = '<div id="hsId' + val.hsId + '" class="matchLine_hotSpotCan ' + val.className
                 + '" style="position:absolute;left: ' + val.left + 'px; top: '
                 + val.top + 'px; width: ' + val.width + 'px; height: '
@@ -91,7 +91,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
     };
 
     // function to get hotspot click event
-    var hsClicked = function(e) {
+    var hsClicked = function (e) {
 
         var ele = e.currentTarget, view, el, m, markLine, popup, matchedLines, sourceHotspots,
                 activeSource, sourceEle, targetEle, sourceData = {}, targetData = {}, lineId, targetList, sourceList;
@@ -118,10 +118,10 @@ var matchTheLine = (function(o, $, Backbone, _) {
 
             el.find('.matchLine_hotSpotCan').removeClass('active'); // remove active class from all hot spots
             if (!isAuthor) {
-                    el.find('.matchLine_hotSpotCan').css({
-                        "border": "none"
-                    });
-                }
+                el.find('.matchLine_hotSpotCan').css({
+                    "border": "none"
+                });
+            }
 
             if (activeSource.length == 0) {
                 $(ele).addClass('active'); // add active class to element
@@ -198,7 +198,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
     };
 
     // function to delete line on click
-    var lineClicked = function(e) {
+    var lineClicked = function (e) {
         var ele = e.currentTarget, view, el, m, matchedLines, lockedLines, lineIDref, lineID, deleteLine;
         view = e.data.view; // view
         el = view.el; // parent container
@@ -229,7 +229,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
         else
         {
             lineAlreadyClicked = true;
-            lineAlreadyClickedTimeout = setTimeout(function() { // single click code
+            lineAlreadyClickedTimeout = setTimeout(function () { // single click code
 
                 lineAlreadyClicked = false; // reset when it happens
 
@@ -263,7 +263,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
     };
 
     // function to lock/unlock line on double click
-    var lockUnclockLine = function(e) {
+    var lockUnclockLine = function (e) {
         if (lineAlreadyClicked)
         {
             lineAlreadyClicked = false; // reset
@@ -273,7 +273,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
         else
         {
             lineAlreadyClicked = true;
-            lineAlreadyClickedTimeout = setTimeout(function() {
+            lineAlreadyClickedTimeout = setTimeout(function () {
                 lineAlreadyClicked = false; // reset when it happens
                 console.log('single');
                 // do what needs to happen on single click. 
@@ -304,7 +304,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
     };
 
     // function to check validation for popup
-    var checkValidation = function(data) {
+    var checkValidation = function (data) {
         var isValid = true, msg = '';
         return {
             isValid: isValid,
@@ -314,14 +314,14 @@ var matchTheLine = (function(o, $, Backbone, _) {
 
     var model = Backbone.Model.extend({
         "default": {},
-        initialize: function(options) {
+        initialize: function (options) {
             this.initObject = $.extend({}, options);
             this['default'] = options;
         },
-        reset: function() {
+        reset: function () {
             this.set("readerLines", $.extend({}, this.get("lockedLines"))); // empty readerLine object, which contain reference of lines created in reader
         },
-        check: function(val) {
+        check: function (val) {
 
             var corrAns = this.get("matchedLines"), userAns = this.get("readerLines");
             if (_.isEqual(corrAns, userAns)) {
@@ -332,7 +332,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
     });
 
     var view = Backbone.View.extend({
-        initialize: function(options) {
+        initialize: function (options) {
             var o = this;
             o.el = options.el;
             o.active = true;
@@ -340,22 +340,22 @@ var matchTheLine = (function(o, $, Backbone, _) {
             o.model = options.model;
             o.model.on("change:lineColor", o.changeLineColor.bind(o));
         },
-        destroy: function() {
+        destroy: function () {
             delete this.model;
             this.el.remove();
         },
-        changeLineColor: function() {
+        changeLineColor: function () {
             var a = this.el, matchedLines = this.model.get("matchedLines"), lineEl, lineColor = this.model.get("lineColor");
-            $.each(matchedLines, function(key, val) {
+            $.each(matchedLines, function (key, val) {
                 lineEl = a.find("#" + key);
                 lineEl.css("stroke", lineColor);
             });
         },
-        updateModel: function() {
+        updateModel: function () {
             var a = this.el, b, className = 'increaser',
                     hotSpot = [], sourceHotspots = {}, targetHotspots = {}, val, hsId;
 
-            a.find(".matchLine_hotSpotCan").each(function() {
+            a.find(".matchLine_hotSpotCan").each(function () {
                 b = $(this);
                 val = {};
                 hsId = b.attr('id');
@@ -388,34 +388,41 @@ var matchTheLine = (function(o, $, Backbone, _) {
                 silent: true
             });
         },
-        checkAnswer: function() {
+        checkAnswer: function () {
             return this.model.check(this.model.get("readerLines"));
         },
-        reset: function() {
+        reset: function () {
             var a = this.el;
             this.model.reset(); // reset model
             a.find('svg').empty(); // remove all lines
             this.createLockedLines();
 
         },
-        createLockedLines: function() {
+        createLockedLines: function () {
             var view = this, a = view.el, readerLines, sourceHotSpot, targetHotSpot;
             readerLines = view.model.get("readerLines");
             sourceHotSpot = view.model.get("sourceHotSpot");
             targetHotSpot = view.model.get("targetHotSpot");
-            $.each(readerLines, function(key, val) {
+            $.each(readerLines, function (key, val) {
                 createMatchedLine(sourceHotSpot[val.source],
                         targetHotSpot[val.target], view.model.get("lineColor"), view.model.get("lineWidth"), key, a.find('svg'));
             });
 
         },
-        revealAnswer: function() {
-
+        revealAnswer: function () {
+            var view = this, a = view.el, matchedLines, sourceHotSpot, targetHotSpot;
+            matchedLines = view.model.get("matchedLines");
+            sourceHotSpot = view.model.get("sourceHotSpot");
+            targetHotSpot = view.model.get("targetHotSpot");
+            $.each(matchedLines, function (key, val) {
+                createMatchedLine(sourceHotSpot[val.source],
+                        targetHotSpot[val.target], view.model.get("lineColor"), view.model.get("lineWidth"), key, a.find('svg'));
+            });
         },
-        deactivate: function() {
+        deactivate: function () {
             this.active = false;
         },
-        activate: function() {
+        activate: function () {
             this.active = true;
         }
     });
@@ -431,7 +438,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
             ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#4c1130", "rgba(0, 0, 0, 0)"]
         ],
-        createColorWindow: function(el) {
+        createColorWindow: function (el) {
             $(el).find('#lineColor').spectrum({
                 allowEmpty: true,
                 //   color: "#f00",
@@ -446,13 +453,13 @@ var matchTheLine = (function(o, $, Backbone, _) {
                 palette: this.newGmail
             });
         },
-        show: function(el) {
+        show: function (el) {
             el.find('#lineColor').toggle();
         },
-        hide: function(el) {
+        hide: function (el) {
             el.find('#lineColor').toggle();
         },
-        getColor: function(el) {
+        getColor: function (el) {
             var spectrum = $(el).find('#lineColor').spectrum("get");
             if (!spectrum.alpha) {
                 return spectrum.toName();
@@ -461,7 +468,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             }
             //  return $(el).find('#lineColor').spectrum("get").toName();
         },
-        setColor: function(el, color) {
+        setColor: function (el, color) {
             $(el).find('#lineColor').spectrum("set", color);
         }
     };
@@ -469,7 +476,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
     var uiSetting = {
         seperator: "|",
         authorParent: "author_content_container",
-        resizeAndDrag: function(el, resizeSetting, draggableSetting) {
+        resizeAndDrag: function (el, resizeSetting, draggableSetting) {
             typeof resizeModule != "undefined"
                     && resizeModule.makeResize(el, resizeSetting.callback, resizeSetting.callback, resizeSetting.callback,
                             resizeSetting.context);
@@ -477,7 +484,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
                     && draggableModule.makeDraggable(el, draggableSetting.callback, draggableSetting.callback, draggableSetting.callback,
                             draggableSetting.context);
         },
-        changeHeightAndWidth: function(a, view) { // callback function on resize and drag to change line and svg properties
+        changeHeightAndWidth: function (a, view) { // callback function on resize and drag to change line and svg properties
             var hsData = {}, m = view.model, targetHotSpot = m.get("targetHotSpot"),
                     sourceHotSpot = m.get("sourceHotSpot"),
                     matchedLines = m.get("matchedLines"),
@@ -507,7 +514,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
                     svgCont.setAttribute('height', hsData.height);
                 } else {
 
-                    $.each(matchedLines, function(key, val) {
+                    $.each(matchedLines, function (key, val) {
                         if (val[hsType] === hsData.hsId) {
                             x = hsData.left + (hsData.width / 2);
                             y = hsData.top + (hsData.height / 2);
@@ -539,7 +546,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             changeLineEnd($(a));
 
         },
-        getWidgetTemplate: function(obj, mode) { // create widget template
+        getWidgetTemplate: function (obj, mode) { // create widget template
             var str = '', styler = '', temp;
 
             str = '<div id="'
@@ -547,12 +554,12 @@ var matchTheLine = (function(o, $, Backbone, _) {
                     + '" class="matchLine_mainContainer" style="position:absolute;left: '
                     + obj.left + 'px; top: ' + obj.top + 'px; width: '
                     + obj.width + 'px; height: ' + obj.height + 'px;">';
-            $.each(obj.sourceHotSpot, function(key, val) {
+            $.each(obj.sourceHotSpot, function (key, val) {
                 str += createHotSpot(key, val);
 
             });
 
-            $.each(obj.targetHotSpot, function(key, val) {
+            $.each(obj.targetHotSpot, function (key, val) {
                 str += createHotSpot(key, val);
             });
             str += '<div class="lineContainer"><svg class="svgLineContainer"  width="'
@@ -561,15 +568,15 @@ var matchTheLine = (function(o, $, Backbone, _) {
 
             return str;
         },
-        applyAuthorRelatedProperty: function(el, _this, view) {
+        applyAuthorRelatedProperty: function (el, _this, view) {
             uiSetting.resizeAndDrag(el, {
-                callback: function() { // applying resizing and draggable to
+                callback: function () { // applying resizing and draggable to
                     // widget
                     uiSetting.changeHeightAndWidth(arguments[0].target, view);
                 },
                 context: _this
             }, {
-                callback: function() { // applying resizing and draggable to
+                callback: function () { // applying resizing and draggable to
                     // widget
                     uiSetting.changeHeightAndWidth(arguments[0].target, view);
                 },
@@ -639,7 +646,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
                 }]
         },
         count: 0,
-        updateStatus: function(type) {
+        updateStatus: function (type) {
             if (type === "+") {
                 this.count++;
             } else {
@@ -652,13 +659,13 @@ var matchTheLine = (function(o, $, Backbone, _) {
                 this.createPop();
             }
         },
-        removePop: function() {
+        removePop: function () {
             $('#' + this.popupInitialSetting.popId).remove();
         },
-        createPop: function() {
+        createPop: function () {
             getConfigurationWindow(this.popupInitialSetting, $('#' + uiSetting.authorParent));
         },
-        show: function(view, context) {
+        show: function (view, context) {
 
             this.updatePopFields(view);
             $('#matchLine_validation_section .validation-msg').html('');
@@ -737,7 +744,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             }, popupManager.topHs);
 
         },
-        updateWidget: function(e) { // update data model on popup submit
+        updateWidget: function (e) { // update data model on popup submit
             var hash = '#';
             var val, answer = {};
             var m = e.data.view.model, pis = popupManager.popupInitialSetting;
@@ -771,7 +778,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             }
 
         },
-        createSource: function(view) { // update values in popup input fields
+        createSource: function (view) { // update values in popup input fields
             var el = view.data.view.el, val, sourceHotspots, m, hsId, hotspothtml;
 
             m = view.data.view.model;
@@ -791,7 +798,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             m.set("hsId", hsId);
             uiSetting.applyAuthorRelatedProperty(el.find("#hsId" + val.hsId), this, view.data.view);
         },
-        createTarget: function(view) { // create target hotspot
+        createTarget: function (view) { // create target hotspot
             var el = view.data.view.el, val, targetHotSpots, m, hsId, hotspothtml;
             m = view.data.view.model;
 
@@ -813,7 +820,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             m.set("hsId", hsId);
             uiSetting.applyAuthorRelatedProperty(el.find("#hsId" + val.hsId), this, view.data.view);
         },
-        configAnswer: function(e) { // set flag to draw lines
+        configAnswer: function (e) { // set flag to draw lines
             var hash = '#',
                     pis = popupManager.popupInitialSetting,
                     p = $(hash + pis.popId),
@@ -825,13 +832,13 @@ var matchTheLine = (function(o, $, Backbone, _) {
             p.find(hash + "applyAnswer").show();
             p.find("#deleteHs").hide();
         },
-        clearAll: function(e) { // clear all the lines
+        clearAll: function (e) { // clear all the lines
             var el = e.data.view.el, m;
             el.find('svg').html('');
             m = e.data.view.model;
             m.set("matchedLines", {});
         },
-        deleteHs: function(e) { // delete hot spot
+        deleteHs: function (e) { // delete hot spot
             var hash = '#', allHotSpot, hsData = {}, el, pis, p, activeSpot, m, matchedLines, lockedLines, hsType = "";
             el = e.data.view.el;
             pis = popupManager.popupInitialSetting;
@@ -856,7 +863,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
 
             hsData.hsId = activeSpot.attr("id");
 
-            $.each(matchedLines, function(key, val) { // delete respected lines
+            $.each(matchedLines, function (key, val) { // delete respected lines
                 if (val[hsType] === hsData.hsId) {
                     el.find("#" + key).remove();
                     delete matchedLines[key]; // delete reference of matched lines reference
@@ -877,7 +884,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             activeSpot.remove(); // remove hot spot
             p.find("#deleteHs").hide(); // hide delete hotspot button
         },
-        widthHs: function(e) { // update width of selected hotspot
+        widthHs: function (e) { // update width of selected hotspot
             var hash = '#', el, pis, p, activeSpot, val, parent, adjustedVal;
             el = e.data.view.el;
             pis = popupManager.popupInitialSetting;
@@ -890,7 +897,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             p.find("#widthSpot").val(adjustedVal);
             activeSpot.css('width', adjustedVal + "px");
         },
-        heightHs: function(e) { // update height of selected hotspot
+        heightHs: function (e) { // update height of selected hotspot
             var hash = '#', el, pis, p, activeSpot, val, parent, adjustedVal;
             el = e.data.view.el;
             pis = popupManager.popupInitialSetting;
@@ -903,7 +910,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             p.find("#heightSpot").val(adjustedVal);
             activeSpot.css('height', adjustedVal + "px");
         },
-        leftHs: function(e) { // update left of selected hotspot
+        leftHs: function (e) { // update left of selected hotspot
             var hash = '#', el, pis, p, activeSpot, val, parent, adjustedVal;
             el = e.data.view.el;
             pis = popupManager.popupInitialSetting;
@@ -916,7 +923,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             p.find("#leftSpot").val(adjustedVal);
             activeSpot.css('left', adjustedVal + "px");
         },
-        topHs: function(e) { // update top of selected hotspot
+        topHs: function (e) { // update top of selected hotspot
             var hash = '#', el, pis, p, activeSpot, val, parent, adjustedVal;
             el = e.data.view.el;
             pis = popupManager.popupInitialSetting;
@@ -929,7 +936,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             p.find("#topSpot").val(adjustedVal);
             activeSpot.css('top', adjustedVal + "px");
         },
-        applyAnswer: function(e) { // apply matched lines between source and target and remove option to 
+        applyAnswer: function (e) { // apply matched lines between source and target and remove option to 
             var el = e.data.view.el, hash = '#',
                     pis = popupManager.popupInitialSetting, p, m;
             el.find('.matchLine_hotSpotCan').removeClass('active'); // remove active class from all hot spots
@@ -940,7 +947,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             p.find(hash + "configAnswer").show();
             p.find(hash + "applyAnswer").hide();
         },
-        updatePopFields: function(view) { // update values in popup inputfields
+        updatePopFields: function (view) { // update values in popup inputfields
 
             var hash = '#', m = view.model, pis = popupManager.popupInitialSetting, p = $(hash + pis.popId), s = pis.common;
 
@@ -952,7 +959,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             }
             colorSettingLine.setColor(p, m.get('lineColor'));
         },
-        hide: function() { // hide popup
+        hide: function () { // hide popup
             $("#" + popupManager.popupInitialSetting.popId).css("display", "none");
         },
     };
@@ -1027,20 +1034,20 @@ var matchTheLine = (function(o, $, Backbone, _) {
 
             if (isAuthor) { // if author
                 tView.model.set("markLine", false);
-                $.each(cSetting.matchedLines, function(key, val) {
+                $.each(cSetting.matchedLines, function (key, val) {
                     createMatchedLine(cSetting.sourceHotSpot[val.source],
                             cSetting.targetHotSpot[val.target], cSetting.lineColor, cSetting.lineWidth, key, el.find('svg'));
                 });
 
-                $.each(cSetting.lockedLines, function(key, val) {
+                $.each(cSetting.lockedLines, function (key, val) {
                     el.find("#" + key).css('stroke-width', cSetting.lockedLineWidth);
                 });
 
                 uiSetting.applyAuthorRelatedProperty(tView.el, _this, tView);
-                source.each(function(el) {
+                source.each(function (el) {
                     uiSetting.applyAuthorRelatedProperty(this, _this, tView);
                 });
-                target.each(function(el) {
+                target.each(function (el) {
                     uiSetting.applyAuthorRelatedProperty(this, _this, tView);
                 });
 
@@ -1048,7 +1055,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
                 tView.el.bind('dblclick', {
                     view: tView,
                     context: _this
-                }, function(e) {
+                }, function (e) {
                     e.data.view.updateModel();
                     popupManager.show(e.data.view, e.data.context);
                 });
@@ -1089,7 +1096,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
          * Api implementations for widget are here
          */
         /* this will remove the widget from the screen */
-        this.destroy = function() {
+        this.destroy = function () {
             if (!tView.deleted) {
                 tView.deleted = true;
                 tView.destroy();
@@ -1097,27 +1104,27 @@ var matchTheLine = (function(o, $, Backbone, _) {
             }
         };
         /* This will reset the widget to its initial settings */
-        this.reset = function() {
+        this.reset = function () {
             if (!tView.deleted && tView.active) {
                 tView.reset();
             }
         };
         /* This will set the property */
-        this.setProperty = function(x) {
+        this.setProperty = function (x) {
             if (!tView.deleted) {
                 tView.model.set(x);
             }
             return undefined;
         };
         /* This will get the property as per the value provided in the options */
-        this.getProperty = function(x) {
+        this.getProperty = function (x) {
             if (!tView.deleted) {
                 return tView.model.get(x);
             }
             return undefined;
         };
         /* It will validate the widget against the user inputs */
-        this.validate = function(type) {
+        this.validate = function (type) {
             if (!tView.deleted) {
                 var result = tView.checkAnswer();
                 if (type === "specific") {
@@ -1131,7 +1138,7 @@ var matchTheLine = (function(o, $, Backbone, _) {
             return undefined;
         };
         /* It will give the all data associated with the widget */
-        this.getWidgetData = function() {
+        this.getWidgetData = function () {
             if (!tView.deleted) {
                 tView.updateModel();
                 return tView.model.toJSON();
@@ -1139,15 +1146,15 @@ var matchTheLine = (function(o, $, Backbone, _) {
             return undefined;
         };
         /* This will bring all the user input as each level of feedback */
-        this.getUserAnswer = function() {
+        this.getUserAnswer = function () {
             if (!tView.deleted) {
-               return tView.model.get("readerLines");
+                return tView.model.get("readerLines");
 //               return tView.model.get("answer").ans;
             }
             return undefined;
         };
-        
-         /*This will set the user answer*/
+
+        /*This will set the user answer*/
         this.setUserAnswer = function (val) {
             if (!tView.deleted) {
                 tView.model.set("readerLines", val);
@@ -1156,25 +1163,33 @@ var matchTheLine = (function(o, $, Backbone, _) {
             return undefined;
         };
 
+        /*This will reveal the answers*/
+        this.revealAnswer = function (val) {
+            if (!tView.deleted) {
+                tView.revealAnswer();
+            }
+            return undefined;
+        };
+
         // This will return the widget type
-        this.getWidgetType = function() {
+        this.getWidgetType = function () {
             return cSetting.widgetType;
         };
 
         // This will deactivate the component. Component will not work
-        this.deactivate = function() {
+        this.deactivate = function () {
             if (!tView.deleted) {
                 tView.deactivate();
             }
         };
-        this.activate = function() {
+        this.activate = function () {
             if (!tView.deleted) {
                 tView.activate();
             }
         };
     }
 
-    matchTheLine.prototype.toString = function() {
+    matchTheLine.prototype.toString = function () {
         return "This is text box widget type";
     };
     return matchTheLine;

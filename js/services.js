@@ -374,7 +374,7 @@ function playerServices($http, $q) {
         var ansData = [];
         // Loop all components
         _.each(qData.widgetList, function (elem, index) {
-            ansData.push(jQuery.extend({}, elem.getUserAnswer())); // get and store user answers
+            ansData.push(elem.getUserAnswer()); // get and store user answers
         });
         quizData.ansArr[idx] = ansData;
     };
@@ -398,6 +398,9 @@ function playerServices($http, $q) {
             _.each(widgetData.widgetList, function (elem, index) {
                 elem.setUserAnswer(answerData[index]); // set user answer in component
             });
+            return true;
+        }else{
+            return false;
         }
     };
 
@@ -416,7 +419,7 @@ function playerServices($http, $q) {
         var widgetData = quizData.questionArr[idx];
         // Loop All components
         _.each(widgetData.widgetList, function (elem, index) {
-            elem.deactivate(); // deactivate component
+            elem.revealAnswer(); // Reveal Answer
         });
     };
 
@@ -453,7 +456,7 @@ function playerServices($http, $q) {
         var widgetData = quizData.questionArr[idx];
         // Loop All components
         _.each(widgetData.widgetList, function (elem, index) {
-            elem.activate(); // deactivate component
+            elem.activate(); // activate component
         });
     };
 

@@ -301,10 +301,31 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
         $scope.prevLink = false;
     }
     $scope.submit = function () {
-        if (confirm("are you sure?")) {
+        if (confirm("Are you sure?")) {
             $location.path('/result');
         }
     }
+
+    var maxPages = $scope.maxPages = 5;
+    //
+    $scope.previousPages = -1;
+    $scope.nextPages = -1;
+    var currentPage = qId;
+    if (currentPage >= maxPages) {
+        $scope.previousPages = ((parseInt(currentPage / maxPages) - 1) * maxPages) + maxPages - 1;
+    }
+    if (totalQuestion > (parseInt(currentPage / maxPages) + 1) * maxPages) {
+        $scope.nextPages = (parseInt(currentPage / maxPages) + 1) * maxPages;
+    }
+    var arr = [];
+    var firstPage = (parseInt((currentPage) / maxPages)) * maxPages;
+    for (var i = firstPage; i < firstPage + 5; i++) {
+        if (i > totalQuestion - 1) {
+            break;
+        }
+        arr.push(i);
+    }
+    $scope.pageArr = arr;
 
     $scope.reset = function () {
         if ($rootScope.userInfo.role == 'teacher') {
@@ -319,13 +340,17 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
 
     $scope.revealAttempt = function () {
         playerServices.activateQuestion(qId);
-        playerServices.setUserAnswerData(qId);
+        if(!playerServices.setUserAnswerData(qId)){
+            alert("Student didn't attempt this question");
+        }
         playerServices.deactivateQuestion(qId);
         $rootScope.quizDataObj = playerServices.getQuizData();
     }
 
     $scope.revealAnswer = function () {
+        playerServices.activateQuestion(qId);
         playerServices.revealAnswer(qId);
+        playerServices.deactivateQuestion(qId);
         $rootScope.quizDataObj = playerServices.getQuizData();
     }
 

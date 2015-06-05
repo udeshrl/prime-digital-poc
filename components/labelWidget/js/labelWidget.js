@@ -599,6 +599,14 @@ var labelWidget = (function (o) {
             }
             return undefined;
         };
+        
+        /*This will reveal the answers*/
+        _this.revealAnswer = function() {
+            if (!_this.deleted) {
+                return true;
+            }
+            return undefined;
+        };
 
         _this.getWidgetType = function () {
             return cSetting.widgetType;

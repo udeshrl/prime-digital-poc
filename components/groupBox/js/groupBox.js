@@ -294,7 +294,7 @@ var groupBox = (function (o) {
                     var o = this;
                     var ansList = this.model.get("answer");
                     if (!(ansList instanceof Array)) {
-                        ansList = ansList.split(",");
+                        ansList = ansList.split(uiSetting.seperator);
                     }
                     //    o.deactivate();
                     // var result=this.validate();
@@ -737,6 +737,13 @@ var groupBox = (function (o) {
         _this.activate = function () {
             if (!collectionView.deleted) {
                 collectionView.activate();
+            }
+        };
+        
+        /*This will reveal the answers*/
+        _this.revealAnswer = function () {
+            if (!collectionView.deleted) {
+                collectionView.revealAnswer();
             }
         };
     }

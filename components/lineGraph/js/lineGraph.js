@@ -745,20 +745,34 @@ var lineGraph = (function (o) {
         };
         _this.getUserAnswer = function () {
             if (!_this.deleted) {
-                return {'userAnswer':cSetting.userAnswer,'userAnswerLines':cSetting.userAnswerLines};
+                return {'userAnswer': cSetting.userAnswer, 'userAnswerLines': cSetting.userAnswerLines};
             }
             return undefined;
         };
         /*This will set the user answer*/
         _this.setUserAnswer = function (val) {
             if (!_this.deleted) {
-                cSetting.userAnswer = val.userAnswer;
-                cSetting.userAnswerLines = val.userAnswerLines;
+                cSetting.userAnswer = $.extend([], val.userAnswer);
+                cSetting.userAnswerLines = $.extend([], val.userAnswerLines);
                 drawDots(el, cSetting);
                 getSvgLine(el, cSetting);
             }
             return undefined;
         };
+
+        /*This will reveal the answers*/
+        _this.revealAnswer = function (val) {
+            if (!_this.deleted) {
+                clearAll(el);
+                var temp = drawGraphLine(cSetting.graphAnswer, cSetting.graphAnswerLines, column_container, row_container);
+                cSetting.userAnswer = temp.userAnswer;
+                cSetting.userAnswerLines = temp.userAnswerLines;
+                drawDots(el, cSetting);
+                getSvgLine(el, cSetting);
+            }
+            return undefined;
+        };
+
         _this.deactivate = function () {
             // !this.deleted || el.css({'pointer-events': 'none', 'opacity': '0'});
             if (!this.deleted) {
@@ -772,6 +786,7 @@ var lineGraph = (function (o) {
                 $('#' + cSetting.id).css({'pointer-events': 'auto'});
             }
         };
+
         preInitWidget();
     }
 

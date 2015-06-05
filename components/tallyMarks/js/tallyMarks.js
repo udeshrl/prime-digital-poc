@@ -635,6 +635,14 @@ var tallyMarks = (function (o, $, Backbone, _) {
             }
             return undefined;
         };
+        
+         /*This will reveal the answers*/
+        this.revealAnswer = function (val) {
+            if (!tView.deleted) {
+                tView.revealAnswer();
+            }
+            return undefined;
+        };
 
         // This will return the widget type
         this.getWidgetType = function () {

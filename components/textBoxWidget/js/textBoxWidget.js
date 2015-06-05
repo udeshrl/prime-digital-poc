@@ -594,6 +594,14 @@ var textBoxWidget = (function (o, $, Backbone, _) {
             }
             return undefined;
         };
+        
+         /*This will reveal the answers*/
+        this.revealAnswer = function (val) {
+            if (!tView.deleted) {
+                tView.revealAnswer();
+            }
+            return undefined;
+        };
 
         this.getWidgetType = function () {
             return cSetting.widgetType;

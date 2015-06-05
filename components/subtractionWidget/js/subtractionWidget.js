@@ -932,6 +932,14 @@ var subtractionWidget = (function (o) {
             }
             return undefined;
         };
+        
+         /*This will reveal the answers*/
+        this.revealAnswer = function (val) {
+            if (!tView.deleted) {
+                tView.revealAnswer();
+            }
+            return undefined;
+        };
 
         this.getWidgetType = function () {
             return cSetting.widgetType;
