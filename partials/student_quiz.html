@@ -18,7 +18,8 @@
                 <div class="row center-pagination">
                     
                     <ul class="pagination">
-                        <li ng-repeat="result in studentQuizData[key].resultQuestionObj" ng-if="!result"><a ng-href="#/quiz/{{quiz.testID}}/{{studentInfo.id}}?q={{$index}}">{{$index + 1}}</a></li>
+                       
+                        <li ng-repeat="newkey in notSorted(studentQuizData[key].resultQuestionObj)" ng-init="result = studentQuizData[key].resultQuestionObj[newkey]"><span ng-if="!result"><a ng-href="#/quiz/{{quiz.testID}}/{{studentInfo.id}}?q={{$index}}">{{$index + 1}}</a></span></li>
                     </ul>
                 </div>
             </div>

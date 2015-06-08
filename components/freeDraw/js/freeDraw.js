@@ -38,7 +38,7 @@ var freeDraw = (function (o) {
             o.model.on("change:left", o.left.bind(o));
             o.model.on("change:top", o.top.bind(o));
             o.model.on("change:savedDataToRedraw", o.savedDataToRedraw.bind(o));
-            o.savedDataToRedraw();
+            //o.savedDataToRedraw();
         },
         savedDataToRedraw: function () {
             var canvasEle = this.el[0].getElementsByTagName("canvas");

@@ -37,8 +37,8 @@ function userServices($http, $q) {
     var getUserInfo = function (token) {
         var def = $q.defer();
         if (token == '') {
-//            token = 'STUDENT2001'; // Default token
-            token = 'TEACHER1001'; // Default token
+            token = 'STUDENT2001'; // Default token
+//            token = 'TEACHER1001'; // Default token
         }
         $http.get("data/mock/" + token + ".json")
                 .success(function (data) {

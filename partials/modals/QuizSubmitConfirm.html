@@ -1,0 +1,14 @@
+<div class="modal-body">
+    <div ng-if="(quizDataObj.ansArr | length) == quizDataObj.totalQuestion">
+        <p>After submitting the test you will not be able to retake.</p><br>
+        <p>Are you sure you want to submit?</p>
+    </div>
+    <div ng-if="(quizDataObj.ansArr | length) < quizDataObj.totalQuestion">
+        <p>You have attempted {{quizDataObj.ansArr| length}} out of {{quizDataObj.totalQuestion}} questions. After submitting the test you will not be able to retake.</p><br>
+        <p>Are you sure you want to submit?</p>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Submit</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

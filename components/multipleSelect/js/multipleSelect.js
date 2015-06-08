@@ -498,10 +498,10 @@ var multipleSelect = /**
 
             var setUserAnswer = function (clickedSpots)
             {
-                var clickedSpots = $.extend([],_this.clickedSpots);
-                for (var i = 0; i < clickedSpots.length; i++)
+                var oldclickedSpots = $.extend([],_this.clickedSpots);
+                for (var i = 0; i < oldclickedSpots.length; i++)
                 {
-                    var ele = clickedSpots[i];
+                    var ele = oldclickedSpots[i];
                     $(_this.parentDiv).find("#" + ele).trigger('click');
                 }
                 for (var i = 0; i < clickedSpots.length; i++)

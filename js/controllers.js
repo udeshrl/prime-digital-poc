@@ -22,6 +22,7 @@ primeDigitalControllers.controller('TeacherDashboardCtrl', TeacherDashboardCtrl)
 primeDigitalControllers.controller('QuizCtrl', QuizCtrl);
 primeDigitalControllers.controller('ResultCtrl', ResultCtrl);
 primeDigitalControllers.controller('QuestionCtrl', QuestionCtrl);
+primeDigitalControllers.controller('QuizSubmitConfirm', QuizSubmitConfirm);
 
 
 
@@ -73,6 +74,13 @@ function appController($rootScope, $scope, $location, userServices, playerServic
 
     // Set App Constants
     $rootScope.appConstants = appConstants;
+
+    $rootScope.notSorted = function (obj) {
+        if (!obj) {
+            return [];
+        }
+        return Object.keys(obj);
+    }
 
 }
 
@@ -238,7 +246,7 @@ function ResultCtrl($rootScope, $scope, $location, playerServices) {
  * @param $routeParams qId   Question Id
  *
  */
-function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerServices) {
+function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerServices, $modal) {
 
     //set Question ID from route Params
     var qId = parseInt($routeParams.qId);
@@ -301,13 +309,30 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
         $scope.prevLink = false;
     }
     $scope.submit = function () {
-        if (confirm("Are you sure?")) {
+        playerServices.storeUserAnswerData(qId);
+        $rootScope.quizDataObj = playerServices.getQuizData();
+        var modalInstance = $modal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'partials/modals/QuizSubmitConfirm.html',
+            controller: 'QuizSubmitConfirm',
+            size: '',
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
             $location.path('/result');
-        }
+        }, function () {
+            //$log.info('Modal dismissed at: ' + new Date());
+        });
+
     }
 
     var maxPages = $scope.maxPages = 5;
-    //
+//
     $scope.previousPages = -1;
     $scope.nextPages = -1;
     var currentPage = qId;
@@ -340,7 +365,7 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
 
     $scope.revealAttempt = function () {
         playerServices.activateQuestion(qId);
-        if(!playerServices.setUserAnswerData(qId)){
+        if (!playerServices.setUserAnswerData(qId)) {
             alert("Student didn't attempt this question");
         }
         playerServices.deactivateQuestion(qId);
@@ -365,4 +390,24 @@ function QuestionCtrl($rootScope, $scope, $routeParams, $location, playerService
             playerServices.storeUserAnswerData(qId);
         }
     });
+}
+
+
+/**
+ * @ngdoc controller
+ * @name QuizSubmitConfirm
+ * @description
+ *
+ * Modal for confirm before submit quiz
+ * 
+ */
+function QuizSubmitConfirm($scope, $modalInstance) {
+
+    $scope.ok = function () {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
 }
