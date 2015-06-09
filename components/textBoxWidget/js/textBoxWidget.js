@@ -261,7 +261,7 @@ var textBoxWidget = (function (o, $, Backbone, _) {
                             if (obj.type != 'Journal entry') {
                                 borderColor = 'transparent';
                             }
-                            str = '<div id="' + obj.id + '" style="position:absolute;border:2px solid ' + borderColor + ';padding:0px;">'
+                            str = '<div id="' + obj.id + '" class="textBoxWidget" style="position:absolute;border:2px solid ' + borderColor + ';padding:0px;">'
                             //+ '<input class="tbwid" type="text" style="' + styler + '"></div>';
                             if (obj.type != 'Journal entry') {
                                 str += '<input class="tbwid" type="text" style="' + styler + '">';

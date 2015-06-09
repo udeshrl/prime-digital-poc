@@ -4,6 +4,10 @@
     width: 360px;
  }
 
+ .textBoxWidget{
+     z-index: 1;
+ }
+ 
 .wid .graph_button_decorator{
     background-color: #EEEEEE;
     border: medium none;

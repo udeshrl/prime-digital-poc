@@ -478,7 +478,7 @@ var freeDraw = (function (o) {
         /*This will set the user answer*/
         this.setUserAnswer = function (canvasData) {
             if (!_this.deleted) {
-                tView.model.set("savedDataToRedraw", canvasData);
+                tView.model.set("savedDataToRedraw", canvasData );
             }
             return undefined;
         };

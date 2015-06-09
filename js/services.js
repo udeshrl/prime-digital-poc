@@ -65,14 +65,54 @@ function playerServices($http, $q) {
      */
     var getStudentQuizDataService = function () {
         var def = $q.defer();
-        $http.get("data/student_quiz.json")
-                .success(function (data) {
+        $http({
+            method: 'GET', // support GET, POST, PUT, DELETE
+            url: 'data/student_quiz.json',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            timeout: 30000, // timeout abort AJAX
+            cache: false
+        }).
+                success(function (data) {
                     allStudentQuizData = data;
                     def.resolve(data);
-                })
-                .error(function () {
+                }).
+                error(function (data) {
                     def.reject("Failed to get Quiz");
                 });
+
+        return def.promise;
+    }
+
+    /**
+     * @ngdoc function
+     * @name putStudentQuizDataService
+     * @description
+     *
+     * Save Student Quiz answer and result in db
+     * 
+     */
+    var putStudentQuizDataService = function (data) {
+        var def = $q.defer();
+        $http({
+            method: 'PUT', // support GET, POST, PUT, DELETE
+            url: 'data/student_quiz.json',
+            data: data,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            timeout: 30000, // timeout abort AJAX
+            cache: false
+        }).
+                success(function (data) {
+
+                    def.resolve(data);
+                }).
+                error(function (data) {
+                    def.reject("Failed to get Quiz");
+                });
+
         return def.promise;
     }
 
@@ -353,6 +393,7 @@ function playerServices($http, $q) {
 
         // merge student quiz object with all records
         allStudentQuizData[key] = resultObj
+        //this.putStudentQuizDataService(resultObj);
 
         console.log(JSON.stringify(resultObj));
         return {resultQuestionObj: resultQuestionObj, totalQuestion: totalQuestion, correctAns: correctAns, resultPercentage: resultPercentage};
@@ -399,7 +440,7 @@ function playerServices($http, $q) {
                 elem.setUserAnswer(answerData[index]); // set user answer in component
             });
             return true;
-        }else{
+        } else {
             return false;
         }
     };
@@ -609,6 +650,7 @@ function playerServices($http, $q) {
         setQuiz: setQuiz,
         getAllQuizData: getAllQuizData,
         getQuizDataService: getQuizDataService,
+        putStudentQuizDataService: putStudentQuizDataService,
         checkQuizIniate: checkQuizIniate,
         getQuizData: getQuizData,
         getQuizTitle: getQuizTitle,

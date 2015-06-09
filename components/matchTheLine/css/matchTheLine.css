@@ -12,7 +12,7 @@ html,body
 	border:1px solid black;
 	margin : 0 auto;
 	background-color:rgba(0,0,0,0) !important;
-	z-index:10;
+	z-index:0;
 	
 }
 
